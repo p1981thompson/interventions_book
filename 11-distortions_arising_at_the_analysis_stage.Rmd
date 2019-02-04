@@ -1,0 +1,23 @@
+# Yet more bias: distortions arising at the analysis stage
+
+Dangers of too many outcome measures
+Dangers of post-hoc subgroups and covariates
+
+1.	False positives and false negatives: are we missing true effects?
+Sample size, effect size and statistical power
+2.	Limitations of the RCT
+Inefficiency: need for unfeasibly large samples
+Heterogeneity and personalised intervention
+3.	Alternatives to RCT: regression discontinuity
+?mediators and moderators; cluster-based studies (school as unit)
+4.	Alternatives to RCT: within-subject designs
+Single case designs
+When a single case design won't work
+5.	Practical obstacles to the ideal study
+Sample size: need for team science?
+Over-regulation of research: when ethics committees misfire
+Problems in generalising to the real world: efficacy vs efficiency
+6.	Can we believe the literature? Publication bias
+7.	Pre-registration as a means to combat publication bias
+8.	Avoiding waste: the need to start with a systematic review
+9.	A template for a research protocol

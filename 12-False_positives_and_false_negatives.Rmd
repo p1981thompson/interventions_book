@@ -1,0 +1,5 @@
+# False positives and false negatives: are we missing true effects?
+
+sample size, effect size, and power.
+
+We mention sensitivity and specificity earlier in the book, so this might be better put together? I like to display the concepts starting from the grid of "power, type 1, type 2, true Neg".

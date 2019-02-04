@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1549286545801.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2057290205",
+    "id" : "CEEB08C",
+    "lastKnownWriteTime" : 1549290912,
+    "last_content_update" : 1549290914720,
+    "path" : "H:/DVMB/intervention book/index.Rmd",
+    "project_path" : "index.Rmd",
+    "properties" : {
+        "cursorPosition" : "26,23",
+        "scrollLine" : "21"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
