@@ -1,0 +1,7 @@
+# Adaptive Interventions
+
+## Just-in-Time adpative interventions (JITAI)
+
+## Micro-Randomized Trials (MRT)
+
+## Sequential, Multiple Assignment, Randomized Trial (SMART)
