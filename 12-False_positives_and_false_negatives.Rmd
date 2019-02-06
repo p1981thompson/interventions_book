@@ -10,50 +10,7 @@ library(knitr)
 
 # False positives and false negatives: are we missing true effects?
 
-sample size, effect size, and power.
-
-
-```{r densplot,echo=FALSE, message=FALSE, warnings=FALSE}
-#https://stats.stackexchange.com/questions/14140/how-to-best-display-graphically-type-ii-beta-error-power-and-sample-size
-
-#TeachingDemos package in R for inspiration.
-
-library(magrittr)
-library(ggplot2)
-library(ggpubr)
-
-mha <- 1  # mean under the alternative
-es <- 2   # observed effect (deviation from mean under H0)
-
-x <- seq(-6, 6, length=1000)
-dh0 <- dnorm(x, 0, 1)
-dh1 <- dnorm(x, mha, 1)
-mydata<-data.frame(x,dh0,dh1) %>% mutate(area = x >= es)
-
-
-p1<-ggplot(data = mydata, aes(x = x, ymin = 0, ymax = dh0, fill = area)) +
-  geom_ribbon(alpha=0.5) +
-  geom_line(aes(y = dh0)) +
-  geom_vline(xintercept = es, linetype = 'dashed') +
-  annotate(geom = 'text', x = es, y = 0.3, label = 'Observed Effect', hjust = -0.1)+theme_bw()+ylab("") +theme(legend.title = element_blank(),legend.text = element_text(c("Alpha","")))+ scale_fill_manual(labels = c("","Alpha"),values=c("white","red"))+
-  annotate(geom = 'text', x = es, y = 0.1, colour="red", label = 'Type I Error\n (Alpha)', hjust = -0.2)+annotate(geom = 'text', x = -3, y = 0.3, label = 'Mean under\n Null, H0 = 0')+xlab("")+theme(legend.position = "none")+ggtitle("NULL DISTRIBUTION")
-
-p2<-ggplot(data = mydata, aes(x = x, ymin = 0, ymax = dh1, fill = area)) +
-  geom_ribbon(alpha=0.5) +
-  geom_line(aes(y = dh1)) +
-  geom_vline(xintercept = es, linetype = 'dashed') +
-  annotate(geom = 'text', x = es, y = 0.3, label = 'Observed Effect', hjust = -0.1)+theme_bw()+ylab("") +theme(legend.title = element_blank(),legend.text = element_text(c("Power","Type II (Beta)")))+ scale_fill_manual(labels = c("Type II (Beta)","Power"),values=c("Blue","yellow"))+
-  annotate(geom = 'text', x = -0.5, y = 0.05, label = 'Type II \nError (Beta)', hjust = -0.1) +
-  annotate(geom = 'text', x = es, y = 0.05, label = 'Power\n (1-Beta)', hjust = -0.01)+
-  annotate(geom = 'text', x = -3, y = 0.3, label = 'Mean under \nalternative, H1 = 1')+xlab("")+theme(legend.position = "none")+ggtitle("ALTERNATIVE DISTRIBUTION")
-
-ggarrange(p1, p2, ncol = 1, nrow = 2)
-
-
-```
-
-
-## Confusion matrix
+## Statistical power,
 
 ```{r confusion_mat, echo=FALSE, message=FALSE, warnings=FALSE,results='asis'}
 mymat<-matrix(NA,nrow=2,ncol=4)
@@ -71,4 +28,92 @@ kable(mymat, align = "c") %>%
   column_spec(1:2, bold = T) %>%
   column_spec(1:4,width = "9em") %>%
   collapse_rows(columns = 1, valign = "middle")%>%add_header_above(c(" "," ","True" = 2))
+```
+
+
+
+ 
+ 
+
+
+```{r densplot,echo=FALSE, message=FALSE, warnings=FALSE}
+#https://stats.stackexchange.com/questions/14140/how-to-best-display-graphically-type-ii-beta-error-power-and-sample-size
+
+#TeachingDemos package in R for inspiration.
+
+library(magrittr)
+library(ggplot2)
+library(ggpubr)
+
+mha <- 1  # mean under the alternative
+z <- qnorm(1-0.05,0,1/sqrt(1))   
+n <- 1
+x <- seq(-3, 4, length=1000)
+dh0 <- dnorm(x, 0, 1/sqrt(n))
+dh1 <- dnorm(x, mha, 1/sqrt(n))
+mydata<-data.frame(x,dh0,dh1) %>% mutate(area = x >= z)
+
+
+p1<-ggplot(data = mydata, aes(x = x, ymin = 0, ymax = dh0, fill = area)) +
+  geom_ribbon(alpha=0.5) +
+  geom_line(aes(y = dh0)) +
+  geom_vline(xintercept = z, linetype = 'dashed') +
+  theme_bw()+ylab("") +theme(legend.title = element_blank(),legend.text = element_text(c("Alpha","")))+ scale_fill_manual(labels = c("","Alpha"),values=c("white","red"))+
+  annotate(geom = 'text', x = z+0.2, y = 0.15, colour="red", label = 'Type I Error\n (Alpha)', hjust = -0.2)+annotate(geom = 'text', x = -2, y = 0.3, label = 'Mean under\n Null, H0 = 0')+xlab("")+theme(legend.position = "none")+ggtitle("NULL DISTRIBUTION")
+
+p2<-ggplot(data = mydata, aes(x = x, ymin = 0, ymax = dh1, fill = area)) +
+  geom_ribbon(alpha=0.5) +
+  geom_line(aes(y = dh1)) +
+  geom_vline(xintercept = z, linetype = 'dashed') +
+  theme_bw()+ylab("") +theme(legend.title = element_blank(),legend.text = element_text(c("Power","Type II (Beta)")))+ scale_fill_manual(labels = c("Type II (Beta)","Power"),values=c("Blue","yellow"))+
+  annotate(geom = 'text', x = -0.25, y = 0.1, label = 'Type II \nError (Beta)', hjust = -0.1) +
+  annotate(geom = 'text', x = z+0.2, y = 0.1, label = 'Power\n (1-Beta)', hjust = -0.01)+
+  annotate(geom = 'text', x = -2, y = 0.3, label = 'Mean under \nalternative, H1 = 1')+xlab("")+theme(legend.position = "none")+ggtitle("ALTERNATIVE DISTRIBUTION")
+
+ggarrange(p1, p2, ncol = 1, nrow = 2)
+
+
+```
+
+
+A frequent concern in study design refers to sample size and it's related concept of statistical power. We can show the relation between these quantities of interest by   
+
+```{r densplot2,echo=FALSE, message=FALSE, warnings=FALSE}
+#https://stats.stackexchange.com/questions/14140/how-to-best-display-graphically-type-ii-beta-error-power-and-sample-size
+
+#TeachingDemos package in R for inspiration.
+
+library(magrittr)
+library(ggplot2)
+library(ggpubr)
+
+mha <- 1  # mean under the alternative
+n <- 10
+z <- qnorm(1-0.05,0,1/sqrt(n))   
+
+x <- seq(-3, 4, length=1000)
+dh0 <- dnorm(x, 0, 1/sqrt(n))
+dh1 <- dnorm(x, mha, 1/sqrt(n))
+mydata<-data.frame(x,dh0,dh1) %>% mutate(area = x >= z)
+
+
+p1<-ggplot(data = mydata, aes(x = x, ymin = 0, ymax = dh0, fill = area)) +
+  geom_ribbon(alpha=0.5) +
+  geom_line(aes(y = dh0)) +
+  geom_vline(xintercept = z, linetype = 'dashed') +
+  theme_bw()+ylab("") +theme(legend.title = element_blank(),legend.text = element_text(c("Alpha","")))+ scale_fill_manual(labels = c("","Alpha"),values=c("white","red"))+
+  annotate(geom = 'text', x = z+0.2, y = 0.25, colour="red", label = 'Type I Error\n (Alpha)', hjust = -0.2)+annotate(geom = 'text', x = -1, y = 1, label = 'Mean under\n Null, H0 = 0')+xlab("")+theme(legend.position = "none")+ggtitle("NULL DISTRIBUTION")
+
+p2<-ggplot(data = mydata, aes(x = x, ymin = 0, ymax = dh1, fill = area)) +
+  geom_ribbon(alpha=0.5) +
+  geom_line(aes(y = dh1)) +
+  geom_vline(xintercept = z, linetype = 'dashed') +
+  theme_bw()+ylab("") +theme(legend.title = element_blank(),legend.text = element_text(c("Power","Type II (Beta)")))+ scale_fill_manual(labels = c("Type II (Beta)","Power"),values=c("Blue","yellow"))+
+  annotate(geom = 'text', x = -0.5, y = 0.5, label = 'Type II \nError (Beta)', hjust = -0.1) +
+  annotate(geom = 'text', x = z+0.2, y = 0.5, label = 'Power\n (1-Beta)', hjust = -0.01)+
+  annotate(geom = 'text', x = -1, y = 1, label = 'Mean under \nalternative, H1 = 1')+xlab("")+theme(legend.position = "none")+ggtitle("ALTERNATIVE DISTRIBUTION")
+
+ggarrange(p1, p2, ncol = 1, nrow = 2)
+
+
 ```
