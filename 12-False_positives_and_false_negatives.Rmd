@@ -1,5 +1,74 @@
+```{r packages12}
+list_of_packages<-c("tidyverse","kableExtra","knitr")
+new.packages <- list_of_packages[!(list_of_packages %in% installed.packages()[,"Package"])]
+if(length(new.packages))install.packages(new.packages,dependencies = TRUE)
+
+library(tidyverse)
+library(kableExtra)
+library(knitr)
+```
+
 # False positives and false negatives: are we missing true effects?
 
 sample size, effect size, and power.
 
-We mention sensitivity and specificity earlier in the book, so this might be better put together? I like to display the concepts starting from the grid of "power, type 1, type 2, true Neg".
+
+```{r densplot,echo=FALSE, message=FALSE, warnings=FALSE}
+#https://stats.stackexchange.com/questions/14140/how-to-best-display-graphically-type-ii-beta-error-power-and-sample-size
+
+#TeachingDemos package in R for inspiration.
+
+library(magrittr)
+library(ggplot2)
+library(ggpubr)
+
+mha <- 1  # mean under the alternative
+es <- 2   # observed effect (deviation from mean under H0)
+
+x <- seq(-6, 6, length=1000)
+dh0 <- dnorm(x, 0, 1)
+dh1 <- dnorm(x, mha, 1)
+mydata<-data.frame(x,dh0,dh1) %>% mutate(area = x >= es)
+
+
+p1<-ggplot(data = mydata, aes(x = x, ymin = 0, ymax = dh0, fill = area)) +
+  geom_ribbon(alpha=0.5) +
+  geom_line(aes(y = dh0)) +
+  geom_vline(xintercept = es, linetype = 'dashed') +
+  annotate(geom = 'text', x = es, y = 0.3, label = 'Observed Effect', hjust = -0.1)+theme_bw()+ylab("") +theme(legend.title = element_blank(),legend.text = element_text(c("Alpha","")))+ scale_fill_manual(labels = c("","Alpha"),values=c("white","red"))+
+  annotate(geom = 'text', x = es, y = 0.1, colour="red", label = 'Type I Error\n (Alpha)', hjust = -0.2)+annotate(geom = 'text', x = -3, y = 0.3, label = 'Mean under\n Null, H0 = 0')+xlab("")+theme(legend.position = "none")+ggtitle("NULL DISTRIBUTION")
+
+p2<-ggplot(data = mydata, aes(x = x, ymin = 0, ymax = dh1, fill = area)) +
+  geom_ribbon(alpha=0.5) +
+  geom_line(aes(y = dh1)) +
+  geom_vline(xintercept = es, linetype = 'dashed') +
+  annotate(geom = 'text', x = es, y = 0.3, label = 'Observed Effect', hjust = -0.1)+theme_bw()+ylab("") +theme(legend.title = element_blank(),legend.text = element_text(c("Power","Type II (Beta)")))+ scale_fill_manual(labels = c("Type II (Beta)","Power"),values=c("Blue","yellow"))+
+  annotate(geom = 'text', x = -0.5, y = 0.05, label = 'Type II \nError (Beta)', hjust = -0.1) +
+  annotate(geom = 'text', x = es, y = 0.05, label = 'Power\n (1-Beta)', hjust = -0.01)+
+  annotate(geom = 'text', x = -3, y = 0.3, label = 'Mean under \nalternative, H1 = 1')+xlab("")+theme(legend.position = "none")+ggtitle("ALTERNATIVE DISTRIBUTION")
+
+ggarrange(p1, p2, ncol = 1, nrow = 2)
+
+
+```
+
+
+## Confusion matrix
+
+```{r confusion_mat, echo=FALSE, message=FALSE, warnings=FALSE,results='asis'}
+mymat<-matrix(NA,nrow=2,ncol=4)
+
+mymat[,1]<-rep("Predicted",2)
+mymat[,2]<-c("Predicted Positive","Predicted Negative")
+mymat[,3]<-c("True Positive \n POWER","False Negative \n Type II error")
+mymat[,4]<-c("False Positive \n Type I error","True Negative")
+
+mymat<-as.data.frame(mymat)
+names(mymat)<-c("","","Condition positive","Condition negative")
+
+kable(mymat, align = "c") %>%
+  kable_styling(c("striped", "bordered"),full_width = F) %>%
+  column_spec(1:2, bold = T) %>%
+  column_spec(1:4,width = "9em") %>%
+  collapse_rows(columns = 1, valign = "middle")%>%add_header_above(c(" "," ","True" = 2))
+```

@@ -1,3 +1,14 @@
+```{r packages}
+list_of_packages<-c("tidyverse","kableExtra","knitr")
+new.packages <- list_of_packages[!(list_of_packages %in% installed.packages()[,"Package"])]
+if(length(new.packages))install.packages(new.packages,dependencies = TRUE)
+
+library(tidyverse)
+library(kableExtra)
+library(knitr)
+```
+
+
 # Limitations of the pre-post design: biases related to systematic change
 
 At first glance, assessing an intervention seems easy. Having used the information in chapter 2 to select appropriate measures, you administer these to a group of people before starting the intervention, and again after it is completed, and then look to see if there has been meaningful change. This is what I call a pre-post design, and it almost always gives a misleadingly rosy impression of how effective the intervention is. The limitations of such studies have been well-understood in medicine for decades, yet in other fields they persist, perhaps because they typically give results that look good.
@@ -38,7 +49,49 @@ Perhaps the easiest way to get a grasp of what it entails is to suppose we had a
 
 Cognitive test scores are interesting here because they are typically thought of comprising two parts: a 'true' score, which reflects how good you really are at whatever is being measured, and an 'error' score, which reflects random influences. Suppose, for instance, that you test a child's reading ability. In practice, the child is a very good reader, in the top 10% for her age, but the exact number of words she gets right will depend on all sorts of things: the particular words selected for the test (she may know 'catacomb' but not 'pharynx'), the mood she is in on the day, whether she is lucky or unlucky at guessing at words she is uncertain about. All these factors would be implicated in the 'error' score, which is treated just like an additional chance factor or throw of the dice affecting a test score.  A good test is mostly determined by the 'true' score, with only a very small contribution of an 'error' score, and we can identify it by the fact that children will be ranked by the test in a very similar way from one test occasion to the next, i.e. there will be good test-retest reliability.  In other words, the correlation from time 1 to time 2 will be high.
 
-**Possibly find a better figure?!**
+<!--**Possibly find a better figure?!**-->
+
+```{r reg2mean,echo=FALSE}
+set.seed(123)
+mycor <- 0 #correlation between time 1 and time 2.
+test_t1<-rnorm(n = 21, mean = 0, sd = 1) 
+    
+test_t2<-mycor*sd(test_t1)*test_t1+(sqrt(1-mycor^2))*sd(test_t1)*rnorm(length(test_t1))
+
+groups<-rep("low",21)
+for(i in 1:21){
+if(test_t1[i]>=qnorm(.333)){groups[i]<-"medium"}
+if(test_t1[i]>=qnorm(.667)){groups[i]<-"high"}  
+}
+
+kable(table(groups))
+
+mydata<-data.frame(id=1:21,T1_test=test_t1,T2_test=test_t2,Group=groups)
+mydata$id<-as.factor(mydata$id)
+mydata$Group<-as.factor(mydata$Group)
+
+#colMeans(mydata[,c('T1_test','T2_test')])
+
+equal_means<-t.test(mydata$T1_test,mydata$T2_test)
+
+ggplot(data=mydata,aes(y=T1_test,x=T2_test))+geom_point(aes(colour=Group),size=2)+geom_smooth(method='lm',formula=y~x,se=F)+geom_abline(slope=1,intercept=0)+theme_bw()+theme(legend.position = "top")
+
+mytable<-as.data.frame(matrix(NA,nrow=3,ncol=3))
+
+mytable[1,2:3]<-colMeans(mydata[mydata$Group=="low",c('T1_test','T2_test')])
+mytable[2,2:3]<-colMeans(mydata[mydata$Group=="medium",c('T1_test','T2_test')])
+mytable[3,2:3]<-colMeans(mydata[mydata$Group=="high",c('T1_test','T2_test')])
+
+colnames(mytable) <- c("Group", "T1_Mean","T2_Mean")
+mytable[1:3,1] <- c("Low","Medium","High")
+
+knitr::kable(mytable) 
+
+
+T2_group_means<-summary(aov(T2_test~Group, data=mydata))
+
+```
+
 
 *Simulated test scores for 21 children on tests varying in reliability. These figures show simulated scores for a group of 21 children on tests that vary in test-retest reliability.  In each case individuals are colour-coded depending on whether they fall in the bottom (blue), middle (purple) or top (red) third of scores at time 1. The simulations assume no systematic differences between time 1 and 2 - i.e. no intervention effect, maturation or practice.  Scores are simulated as random numbers at time 1, with time 2 scores then set to give a specific correlation between time 1 and 2, with no change in average score for the group as a whole.*
 
