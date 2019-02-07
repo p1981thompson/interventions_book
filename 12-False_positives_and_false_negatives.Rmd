@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 ```{r packages12}
 list_of_packages<-c("tidyverse","kableExtra","knitr")
 new.packages <- list_of_packages[!(list_of_packages %in% installed.packages()[,"Package"])]
@@ -10,7 +15,27 @@ library(knitr)
 
 # False positives and false negatives: are we missing true effects?
 
-## Statistical power,
+The aim of many research studies is to investigate whether there is evidence for a specific hypothesis. We typically want to test this hypothesis in a robust way that gives us a clear indication of evidence for or against. Study design is paramount in ensuring that we can trust our results and have confidence in any inferences drawn. The implications of poor study design are not easily visible as many statistical tests will generate results regardless of whether certain test assumptions are met, or if we are using a small sample. This failure to meet certain assumptions or using an insufficient sample size can lead to an increase in false positives, also known as a Type I errors ($\alpha$), or an increase in false negatives, also known as Type II errors ($\beta$). Some more formal definitions with examples will help us to clarify these concepts.
+
+### Type I error ($\alpha$)
+
+**A false positive occurs when the Null hypothesis is rejected and a true effect is not actually present.** 
+
+For example, Researcher X wants to test the hypothesis that eating carrots improves children's IQ by 2 points. The researcher assigns 6 children to two groups, one group eat carrots and the other group eat their usual snack. The data is collected and a significant finding is found (Null hypothesis that carrots do not cause a 2 point increase in IQ is rejected). The researcher is jubilant that he has discovered an interesting result for publication. 
+
+His sceptical colleague decides to check this result and decides to try to replicate the finding. The colleague re-runs the study with a new sample of children, but does not alter any other details of the study. Unfortunately, the colleague does not replicate the finding. The first result is likely to be a false positive for a number of reasons including sampling variability in small samples, small effect size, or even just poor quality data.    
+
+### Type II error ($\beta$)
+
+**A false negative occurs when the Null hypothesis is accepted and a true effect is actually present.**
+
+Now consider a second example, where the sceptical colleague wants to test a well-established and frequently-replicated result. she wants to confirm whether on average children who read more frequently obtain better exam results when they are tested on vocabulary. Once again, 6 different children are split into two groups, one group reads with a parent each night for a month and the other group continues with their usual routine. The study is run and the Null hypothesis is accepted as the statistical test results in a non-significant p-value (P>=0.05, in this case). 
+
+The sceptical colleague is confused as she cannot replicate a known effect, but there is overwhelming evidence to inidicate that an effect should be present. We look to the study design and oncemore, we see that the sample size was small and sampling variability will have played some role in causing a type II error. 
+
+There are several elements to study design that 
+
+## Confusion matrix
 
 ```{r confusion_mat, echo=FALSE, message=FALSE, warnings=FALSE,results='asis'}
 mymat<-matrix(NA,nrow=2,ncol=4)
@@ -30,11 +55,19 @@ kable(mymat, align = "c") %>%
   collapse_rows(columns = 1, valign = "middle")%>%add_header_above(c(" "," ","True" = 2))
 ```
 
+## Statistical power
 
+As we have seen in our earlier examples, a frequent concern in study design refers to sample size and it's related concept of statistical power. Power can be defined as the probability that some statistical test will reject the Null hypothesis given that an alternative hypothesis of interest is true. 
 
- 
- 
+Consider the following example, we want to investigate whether there is a significant difference in their mean score between the two groups, perhaps an intervention and a control group. The indivduals are randomly assigned to each group and for simplicity we assume that there are no additional differences between the groups. The intervention is administered and we collect data on all individuals before running our statistical analysis. The power is then a function of several quantities:
 
+- Sample size
+- "Significance criterion", also known as the Type 1 error rate (%\alpha$)
+- Size of the effect of interest 
+
+We can show the relation between these quantities of interest visually through an example using the z-test which is a simple one sample location test. The idea of this test is to assess whether a sample of some quantity of interest has the same sample mean as the population of the same quantity. In the figures below we will use a one-sided z test, which indicates that we have a direction specific hypothesis. We could change this to a two sided test which is more common in practice due to the fact that it is more realistic to test for a difference regardless of direction. 
+
+The first figure shows the case for a single individual, n=1. We have set the standard deviation of both Null and Alternative distributions to equal one, and their means to zero and one respectively. When we have a sample size of 1 individual, we see that a small area is defined for power, indicating lower power and higher Type II error.   
 
 ```{r densplot,echo=FALSE, message=FALSE, warnings=FALSE}
 #https://stats.stackexchange.com/questions/14140/how-to-best-display-graphically-type-ii-beta-error-power-and-sample-size
@@ -75,8 +108,20 @@ ggarrange(p1, p2, ncol = 1, nrow = 2)
 
 ```
 
+The second figure presents the same one-sided z test but here the sample size has increased. We should notice that two things have appeared to change. Firstly, we see a greater distinction between the two distributions. Secondly, we see that the $z$ value (vertical dashed line) has changed location. The distributions have not changed their location but the spread of each distribution as shrunk as a result of the sample size as the spread is directly proportional to the sample size. We know this from the formula for the standard error, 
 
-A frequent concern in study design refers to sample size and it's related concept of statistical power. We can show the relation between these quantities of interest by   
+$SE = \frac{SD}{\sqrt(n)}$
+
+where $n$ is the sample size, and $SD$ is the standard deviation.
+
+The $z$ value or score is also proportional to the sample size, so we see that this value changes accordling. The $z$ score is defined as follows,
+
+$z =\frac{M-\mu}{SE}$
+
+where $M$ is the sample mean score, $\mu$ is the population mean, and $SE$ is as defined above.
+
+The shaded areas on the density plots directly relates to the concepts oulined above: power, type I, and type II errors. When the sample size increases, the standard error (SE) and $z$ score both reduce. The only input parameter that has changed between the two figures is that the power has increased. We notice that the type I error rate (area in red) is proportionally the same at 5% and the effect size remains fixed, so we see a change in the only two remaining quantities, power and type II rate. This is because these quantities are linked. The area under the density curve must always remain at 1, so proportionally, we can calculate the power as 1-(type II rate, $\beta$) and vice versa. We can visually see this in both figures by looking at the specified areas for the alternative distribution.  
+  
 
 ```{r densplot2,echo=FALSE, message=FALSE, warnings=FALSE}
 #https://stats.stackexchange.com/questions/14140/how-to-best-display-graphically-type-ii-beta-error-power-and-sample-size
@@ -117,3 +162,6 @@ ggarrange(p1, p2, ncol = 1, nrow = 2)
 
 
 ```
+
+
+
