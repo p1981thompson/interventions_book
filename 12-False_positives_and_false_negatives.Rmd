@@ -177,9 +177,31 @@ There are many different ways to adjust for the multiple testing in practice. We
 
 ### Bonferroni Correction
 
-### Benjamini and Hochberg
+The Bonferroni correction is both the simplest and most popular adjustment for multiple testing to protect the type I error rate. The correction works by dividing the type I error by the number of tests conducted. 
 
-### False Discovery rate 
+For example, say we had some data and wanted to run multiple t-tests between two groups on 10 outcomes which all measure a similar effect of interest. The Bonferroni correction would adjusted the $\alpha$ level to be 0.05/10 = 0.005, which would indicate that the critical $\alpha$ would be $1-(1-\alpha_{adjusted})^{n} = 1-(1-0.005)^{10} = 0.04888987$ which is approximately close to our original $\alpha$ as required, so we have successfully controlled our type I errors at approximately 5%.
+
+Bonferroni is widely used due to its simplicity but it has the consequence that it can be overly conservative. We say that a test is overly conservative if we over correct in some cases which increases our type II errors and reduces our statistical power. This is often the case when we have some dependency between the outcomes
+
+### False Discovery rate (FDR)
+
+The false discovery rate differs from the Bonferroni as the correction controls the expected proportion of false positives rather than all false positives.
+
+$FDR = \frac{False\ positive}{False\ positive\ +\ True\ positive}$
+
+We will present two common techniques for FDR procedure, Benjamini and Hochberg (BH), and Benjamini and Yekutieli (BY). The BH procedure can be summarized into four steps:
+
+1. Sort a set of p-values from a set of multiple comparisons into ascending order.
+2. For each p-value, assign a rank. For example, the first p-value could be 1 and the second would be 2, and so on.
+3. Next we need to calculate a BH critical value for each p-value. We use the formula, $(i/n)Q$, where $i$ is a particular p-value's rank; $n$ is the number of tests; and $Q$ is the false discovery rate (typically, this is specified as a proportion or percentage, but there is not conventional value, it is upto the researhcer to decide on an appropriate level of expected false positives)
+4. Original p-values are now compared against the BH critical values (3), finding the largest p-value that is smaller than the critical value.
+
+We can solidify this procedure by looking at an example. Consider again that we revisit the set of t-tests from our Bonferroni correction. We are sure that the correction is overly conservative as some of the test are moderately correlated with each other. 
+
+```{r BH_example, echo=F,message=F,warning=F,results="asis"}
+
+```
+
 
 ### Permutation methods
 
