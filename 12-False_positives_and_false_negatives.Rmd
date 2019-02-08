@@ -171,7 +171,15 @@ A power calculation will vary sample sizes for a fixed statistical analysis, typ
 
 ## Multiple hypothesis testing
 
-Even when we have a well designed and well powered study, it we collect mulitple outcome variables or if we are applying multiple tests to the same data, then the outcomes are unlikely to be completely independent, so we increase our change of finding a false positive. Returning to the idea that we have a type I error rate for a single test at 5%, then suppose we apply $n$ tests to our data. We increase our false positive rate ddramatically, as the new significance level is given by $1-(1-\alpha)^{n}$. If we assumed that we have performed 10 tests (n=10), we have increased our chance of a obtaining a false postive to approximately 40%.
+Even when we have a well designed and well powered study, it we collect mulitple outcome variables or if we are applying multiple tests to the same data, then the outcomes are unlikely to be completely independent, so we increase our change of finding a false positive. Returning to the idea that we have a type I error rate for a single test at 5%, then suppose we apply $k$ tests to our data. We increase our false positive rate dramatically for the set of tests, officially known as the family-wise error rate (FWER) and the new significance level is given by $1-(1-\alpha)^{k}$ (i.e. the probability of finding at least one false positive). If we assumed that we have performed 10 tests (k=10), we have increased our chance of a obtaining a false postive to approximately 40%.
+
+```{r FWER,echo=F}
+k <- seq(1:20)
+FWE <- (1-(1-0.05)^k)
+fwe_dat<-data.frame(FWE=FWE,k=k)
+ggplot(data=fwe_dat,aes(k,FWE,type="l"))+geom_point()+theme_bw()+geom_segment(aes(x=10,y=0,xend=10,yend=0.4),linetype="dashed")+geom_segment(aes(x=0,y=0.4,xend=10,yend=0.4),linetype="dashed")+xlab("Number of tests, k")+ylab("family-wise Error (FWE)")
+
+```
 
 There are many different ways to adjust for the multiple testing in practice. We shall discuss some of the most commonly applied.
 
@@ -189,19 +197,56 @@ The false discovery rate differs from the Bonferroni as the correction controls 
 
 $FDR = \frac{False\ positive}{False\ positive\ +\ True\ positive}$
 
-We will present two common techniques for FDR procedure, Benjamini and Hochberg (BH), and Benjamini and Yekutieli (BY). The BH procedure can be summarized into four steps:
+We will present two common techniques for FDR procedure, Benjamini-Hochberg (BH), and Benjamini-Yekutieli (BY). The BH procedure can be summarized into four steps:
 
 1. Sort a set of p-values from a set of multiple comparisons into ascending order.
 2. For each p-value, assign a rank. For example, the first p-value could be 1 and the second would be 2, and so on.
-3. Next we need to calculate a BH critical value for each p-value. We use the formula, $(i/n)Q$, where $i$ is a particular p-value's rank; $n$ is the number of tests; and $Q$ is the false discovery rate (typically, this is specified as a proportion or percentage, but there is not conventional value, it is upto the researhcer to decide on an appropriate level of expected false positives)
+3. Next we need to calculate a BH critical value for each p-value. We use the formula, $(i/n)\alpha$, where $i$ is a particular p-value's rank; and $n$ is the number of tests.
 4. Original p-values are now compared against the BH critical values (3), finding the largest p-value that is smaller than the critical value.
 
 We can solidify this procedure by looking at an example. Consider again that we revisit the set of t-tests from our Bonferroni correction. We are sure that the correction is overly conservative as some of the test are moderately correlated with each other. 
 
 ```{r BH_example, echo=F,message=F,warning=F,results="asis"}
+P_val_tab<-data.frame(Variable=paste0("X",1:10),Rank=1:10,alpha=rep(0.05,10),p_value=c(0.002,0.004,0.008,0.012,0.023,0.041,0.054,0.091,0.12,0.2))
+P_val_tab$BH<-(P_val_tab$Rank/10)*P_val_tab$alpha
+P_val_tab %>%
+  mutate(BH = cell_spec(BH, color = "black", 
+                    background = c(rep("#00FF00",4),rep("#FFFFFF",6))),
+         p_value = cell_spec(p_value, color = "black", 
+                    background = c(rep("#3399FF",2),rep("#FFFFFF",8)))) %>%
+kable(escape = F,align = "c") %>%
+  kable_styling(c("striped"),full_width = F)
+  
 
 ```
+Table \ref{BH_example} shows the p values obtained from 10 t-tests on data obtained from the same subjects but different outcome measures. If we considered the p values are sufficiently indpendent, we could conclude that the first six variables(x1-x6) are statistically significant, but on further inspection and deciding to correct using the BH procedure, we find that the we find only X1-X4 are statistically significant under a more robust FWER (green coloured cells). Had we chosen the more conservative Bonferroni correction, we would only find X1 and X2 remain statistically siginficant ($\alpha_{Bonf}=0.05/10=0.005$, blue coloured cells).
 
+The second method that controls the False discovery rate is the Benjamini-Yekutieli (BY), which is a more conservative correction but allows for dependence between the tests (i.e. the tests are correlated; therefore, the p-values will also be correlated). The adjustment resemmbles the BH procedure with an additional constraint,
+
+
+$(i/n)(\frac{\alpha}{\sum_{i=1}^{k} ^1/_i})$
+
+some text
+
+```{r BY_example, echo=F,message=F,warning=F,results="asis"}
+P_val_tab<-data.frame(Variable=paste0("X",1:10),Rank=1:10,alpha=rep(0.05,10),p_value=c(0.002,0.004,0.008,0.012,0.023,0.041,0.054,0.091,0.12,0.2))
+P_val_tab$BH<-(P_val_tab$Rank/10)*P_val_tab$alpha
+P_val_tab$BY<-1:10
+for(i in 1:10)
+{
+P_val_tab$BY[i]<-round((P_val_tab$Rank[i]/10)*(P_val_tab$alpha[i]/sum(1/seq(1:P_val_tab$Rank[i]))),3)
+}
+P_val_tab %>%
+  mutate(BH = cell_spec(BH, color = "black", 
+                    background = c(rep("#00FF00",4),rep("#FFFFFF",6))),
+         p_value = cell_spec(p_value, color = "black", 
+                    background = c(rep("#3399FF",2),rep("#FFFFFF",8))),
+         BY = cell_spec(BY, color = "black", 
+                    background = c(rep("#FF0000",3),rep("#FFFFFF",7)))) %>%
+kable(escape = F,align = "c") %>%
+  kable_styling(c("striped"),full_width = F)
+  
+```
 
 ### Permutation methods
 
