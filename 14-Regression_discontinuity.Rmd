@@ -1,17 +1,26 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 #	Alternatives to RCT: regression discontinuity
+
+The regression discontinuity follows a quasi-experimental design and is typically used to avoid confounding bias (i.e. when another variable is present that distorts the effect of intervention) when assesssing interventions. It is particularly useful when assignment to intervention is based on some pre-specified threshold from a continuous measure. For example, let us assume that we wish to assess a new reading intervention in a school. Students are assigned to the intervention group according to a general language test. Students that score below a certain threshold are assigned to the intervention group, and rather than discrd their peers that scored above the threshold, they forma natural control group. The experimenter is not therefore required to randomly allocate students with poor language scores to the control group when they might benefit from the potential effect of the intervention if it is found to be effective.
 
 Before we delve into the regression discontinuity designs, it may be useful for us to first take a look at general linear models, in particular, ordinary linear regression. Linear models consist of some of the most commonly used methods in applied research including ANOVA, ANCOVA, linear regression, t-tests, F-tests and MANCOVA.
 
 Linear regression purpose is primarily to understand the straight line relationship that exists from some bivariate data. We assume a causal direction  inthe relationship unlike correlation as we specify an outcome (dependent) variable and a predictor (independent) variable. The idea being that as we change the value of predictor we see the effect that this has on the outcome variable, by quantifying the relationship according to some statistical model. Figure \@ref(fig:linreg) (A, left) shows some bivariate data which appears to have an underlying linear relationship 
 
 ```{r linReg, echo=F, message=F, warning=F, fig.width=8,fig.height=4, fig.cap="Linear regression: Plotting residuals, intercept, and slope explainers "}
-list_of_packages<-c("tidyverse","stats","ggpubr","rddapp")
+list_of_packages<-c("tidyverse","stats","ggpubr","rddapp","grid","pBrackets")
 new.packages <- list_of_packages[!(list_of_packages %in% installed.packages()[,"Package"])]
 if(length(new.packages))install.packages(new.packages,dependencies = TRUE)
 
 library(tidyverse)
 library(stats)
 library(ggpubr)
+library(grid)
+library(pBrackets) 
 
 #simulate some data based on a known structure
 set.seed(123)
@@ -45,8 +54,8 @@ g1<-ggplot(data.lm, aes(x = x, y = y)) +
   geom_smooth(method = "lm", se = FALSE, color = "red") +
   geom_point(alpha = 0.25) +  # Alpha mapped to abs(residuals)
   guides(alpha = FALSE) + theme_bw()+xlab("Predictor")+ylab("Outcome")+
-  geom_path(data=res, aes(x, y)) + geom_vline(xintercept=max(res$x), lty=2)+
-  geom_polygon(data=res,alpha=0.1)
+  geom_path(data=residuals, aes(x, y)) + geom_vline(xintercept=max(residuals$x), lty=2)+
+  geom_polygon(data=residuals,alpha=0.1)
 
 
 g2<-ggplot(data.lm, aes(x = x, y = y)) +
@@ -59,6 +68,17 @@ ggarrange(g1,g2,nrow=1,ncol=2,labels = c("A", "B"))
 
 ```
 
+
+$Y_{i} = \beta_{0} +  \beta_{1}X_{i,1} + \beta_{2}X_{i,2} + \beta_{3}(X_{i,1} >= c) $
+
+where 
+
+Statistical issues encountered RDD analysis:
+
+ 1. Incorrect specification of regression form ( regression is non-linear or needs a polynomial form)
+ 2. Misallocation of treatment
+ 3. Inadequate statistical power (sample size too small)
+ 4. Limited generalization of effects
 
 ```{r linRegDis, echo=F, message=F, warning=F, fig.width=6,fig.height=5, fig.cap="Linear regression: Plotting residuals, intercept, and slope explainers "}
 
@@ -84,9 +104,12 @@ mod2 <- lm(y~x,newdat2)
    geom_line(data=newdat2,aes(y=predict(mod2,newdata=newdat2),color=intervention),size = .75)+
    geom_line(data=newdat2,aes(y=predict(mod1,newdata=newdat2),color=rev_intervention),size = .75,linetype="dashed")+
    geom_line(data=newdat1,aes(y=predict(mod2,newdata=newdat1),color=rev_intervention),size = .75,linetype="dashed")+
-   theme_bw()+ theme(legend.position = "none",strip.text=element_text(size=12),axis.text=element_text(size=12),axis.title=element_text(size=12,face="bold"))+geom_segment(aes(x=2,y=tail(sort(fitted.values(mod1)),1),xend =2 , yend = head(sort(fitted.values(mod2)),1)),size=1.2)+ annotate("text",x=2.2,y=9.5,label="Intervention \neffect size")+xlab("Predictor")+ylab("Outcome")
+   theme_bw()+ theme(legend.position = "none",strip.text=element_text(size=12),axis.text=element_text(size=12),axis.title=element_text(size=12,face="bold"))+ annotate("text",x=2.3,y=9,label="Intervention \neffect size")+xlab("Predictor")+ylab("Outcome") +
+   annotate("text",x=1.5,y=14,label="Control") +
+   annotate("text",x=2.5,y=14,label="Intervention")
 
-
+grid.brackets(310, 162, 310, 292, lwd=2, col="black")
+#https://stackoverflow.com/questions/7001799/ggplot2-curly-braces-on-an-axis/33544572
 
 # library(rddapp)  #cite example directly from R package
 # dat <- data.frame(x = runif(1000, -1, 1), cov = rnorm(1000))
