@@ -17,9 +17,9 @@ library(ggpubr)
 set.seed(123)
 b0 = 0.1
 b1=1.2
-err<-rnorm(100,0,1)
+err<-rnorm(30,0,1)
 
-x<-rnorm(100,0,1)
+x<-runif(30,1,5)
 y<-b0+b1*x+err
 
 data.lm <- data.frame(y=y,x=x)
@@ -33,18 +33,17 @@ data.lm$resid <- residuals(mylm1)
 ## Compute densities for residuals.
 
     d <- density(data.lm$resid)
-    res <- data.frame(x=max(data.lm$x)- d$y, y=d$x+mean(data.lm$y))
-    res <- res[order(res$y), ]
-    ## Get some data for normal lines as well
-    xs <- seq(min(data.lm$resid), max(data.lm$resid),length=100)
-    res <- data.frame(y=xs + tail(sort(fitted.values(mylm1)),1), x=max(data.lm$x) - 2*dnorm(xs, 0, sd(data.lm$resid)))
+    residuals <- data.frame(x=max(data.lm$x)- d$y, y=d$x+mean(data.lm$y))
+    residuals <- residuals[order(residuals$y), ]
+    myx <- seq(min(data.lm$resid), max(data.lm$resid),length=100)
+    residuals <- data.frame(y=myx + tail(sort(fitted.values(mylm1)),1), x=max(data.lm$x) - 2*dnorm(myx, 0, sd(data.lm$resid)))
     
 
 g1<-ggplot(data.lm, aes(x = x, y = y)) +
-  geom_segment(aes(x=-2,y=(b0+b1*(-2)),xend = 0, yend = (b0+b1*(-2))),col="blue",linetype="dashed",size=1) +
-  geom_segment(aes(x=0,y=(b0+b1*(-2)),xend = 0, yend = (b0+b1*(0))),col="blue",linetype="dashed",size=1)+
+  geom_segment(aes(x=2,y=(b0+b1*(2)),xend = 3, yend = (b0+b1*(2))),col="blue",linetype="dashed",size=1) +
+  geom_segment(aes(x=3,y=(b0+b1*(2)),xend = 3, yend = (b0+b1*(3))),col="blue",linetype="dashed",size=1)+
   geom_smooth(method = "lm", se = FALSE, color = "red") +
-  geom_point(alpha = 0.2) +  # Alpha mapped to abs(residuals)
+  geom_point(alpha = 0.25) +  # Alpha mapped to abs(residuals)
   guides(alpha = FALSE) + theme_bw()+xlab("Predictor")+ylab("Outcome")+
   geom_path(data=res, aes(x, y)) + geom_vline(xintercept=max(res$x), lty=2)+
   geom_polygon(data=res,alpha=0.1)
@@ -53,7 +52,7 @@ g1<-ggplot(data.lm, aes(x = x, y = y)) +
 g2<-ggplot(data.lm, aes(x = x, y = y)) +
   geom_smooth(method = "lm", se = FALSE, color = "red") +
   geom_segment(aes(xend = x, yend = pred), alpha = .2) +
-  geom_point(aes(alpha = abs(resid))) +  # Alpha mapped to abs(residuals)
+  geom_point(alpha = 0.25) +  
   guides(alpha = FALSE) + theme_bw()+xlab("Predictor")+ylab("Outcome")
 
 ggarrange(g1,g2,nrow=1,ncol=2,labels = c("A", "B"))
