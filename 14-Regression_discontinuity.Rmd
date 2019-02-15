@@ -2,7 +2,9 @@
 
 Before we delve into the regression discontinuity designs, it may be useful for us to first take a look at general linear models, in particular, ordinary linear regression. Linear models consist of some of the most commonly used methods in applied research including ANOVA, ANCOVA, linear regression, t-tests, F-tests and MANCOVA.
 
-```{r linReg, echo=T, message=F, warning=F, fig.width=8,fig.height=4, fig.cap="Linear regression: Plotting residuals, intercept, and slope explainers "}
+Linear regression purpose is primarily to understand the straight line relationship that exists from some bivariate data. We assume a causal direction  inthe relationship unlike correlation as we specify an outcome (dependent) variable and a predictor (independent) variable. The idea being that as we change the value of predictor we see the effect that this has on the outcome variable, by quantifying the relationship according to some statistical model. Figure \@ref(fig:linreg) (A, left) shows some bivariate data which appears to have an underlying linear relationship 
+
+```{r linReg, echo=F, message=F, warning=F, fig.width=8,fig.height=4, fig.cap="Linear regression: Plotting residuals, intercept, and slope explainers "}
 list_of_packages<-c("tidyverse","stats","ggpubr","rddapp")
 new.packages <- list_of_packages[!(list_of_packages %in% installed.packages()[,"Package"])]
 if(length(new.packages))install.packages(new.packages,dependencies = TRUE)
@@ -23,28 +25,43 @@ y<-b0+b1*x+err
 data.lm <- data.frame(y=y,x=x)
 mylm1 <- lm(y ~ x, data = data.lm)
 
+
+## Get the residuals and predicted values
 data.lm$pred <- predict(mylm1)
 data.lm$resid <- residuals(mylm1)
+
+## Compute densities for residuals.
+
+    d <- density(data.lm$resid)
+    res <- data.frame(x=max(data.lm$x)- d$y, y=d$x+mean(data.lm$y))
+    res <- res[order(res$y), ]
+    ## Get some data for normal lines as well
+    xs <- seq(min(data.lm$resid), max(data.lm$resid),length=100)
+    res <- data.frame(y=xs + tail(sort(fitted.values(mylm1)),1), x=max(data.lm$x) - 2*dnorm(xs, 0, sd(data.lm$resid)))
+    
 
 g1<-ggplot(data.lm, aes(x = x, y = y)) +
   geom_segment(aes(x=-2,y=(b0+b1*(-2)),xend = 0, yend = (b0+b1*(-2))),col="blue",linetype="dashed",size=1) +
   geom_segment(aes(x=0,y=(b0+b1*(-2)),xend = 0, yend = (b0+b1*(0))),col="blue",linetype="dashed",size=1)+
   geom_smooth(method = "lm", se = FALSE, color = "red") +
   geom_point(alpha = 0.2) +  # Alpha mapped to abs(residuals)
-  guides(alpha = FALSE) + theme_bw()
+  guides(alpha = FALSE) + theme_bw()+xlab("Predictor")+ylab("Outcome")+
+  geom_path(data=res, aes(x, y)) + geom_vline(xintercept=max(res$x), lty=2)+
+  geom_polygon(data=res,alpha=0.1)
+
 
 g2<-ggplot(data.lm, aes(x = x, y = y)) +
   geom_smooth(method = "lm", se = FALSE, color = "red") +
   geom_segment(aes(xend = x, yend = pred), alpha = .2) +
   geom_point(aes(alpha = abs(resid))) +  # Alpha mapped to abs(residuals)
-  guides(alpha = FALSE) + theme_bw()
+  guides(alpha = FALSE) + theme_bw()+xlab("Predictor")+ylab("Outcome")
 
-ggarrange(g1,g2,nrow=1,ncol=2)
+ggarrange(g1,g2,nrow=1,ncol=2,labels = c("A", "B"))
 
 ```
 
 
-```{r linRegDis, echo=T, message=F, warning=F, fig.width=6,fig.height=5, fig.cap="Linear regression: Plotting residuals, intercept, and slope explainers "}
+```{r linRegDis, echo=F, message=F, warning=F, fig.width=6,fig.height=5, fig.cap="Linear regression: Plotting residuals, intercept, and slope explainers "}
 
 #simulate some data based on a known structure
 set.seed(123)
@@ -68,7 +85,7 @@ mod2 <- lm(y~x,newdat2)
    geom_line(data=newdat2,aes(y=predict(mod2,newdata=newdat2),color=intervention),size = .75)+
    geom_line(data=newdat2,aes(y=predict(mod1,newdata=newdat2),color=rev_intervention),size = .75,linetype="dashed")+
    geom_line(data=newdat1,aes(y=predict(mod2,newdata=newdat1),color=rev_intervention),size = .75,linetype="dashed")+
-   theme_bw()+ theme(legend.position = "top",strip.text=element_text(size=12),axis.text=element_text(size=12),axis.title=element_text(size=12,face="bold"))+geom_segment(aes(x=2,y=tail(sort(fitted.values(mod1)),1),xend =2 , yend = head(sort(fitted.values(mod2)),1)),size=1.2)+ annotate("text",x=2.2,y=9.5,label="Intervention \neffect size")
+   theme_bw()+ theme(legend.position = "none",strip.text=element_text(size=12),axis.text=element_text(size=12),axis.title=element_text(size=12,face="bold"))+geom_segment(aes(x=2,y=tail(sort(fitted.values(mod1)),1),xend =2 , yend = head(sort(fitted.values(mod2)),1)),size=1.2)+ annotate("text",x=2.2,y=9.5,label="Intervention \neffect size")+xlab("Predictor")+ylab("Outcome")
 
 
 
