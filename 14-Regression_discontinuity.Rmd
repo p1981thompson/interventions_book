@@ -12,7 +12,7 @@ Before we delve into the regression discontinuity designs, it may be useful for 
 Linear regression purpose is primarily to understand the straight line relationship that exists from some bivariate data. We assume a causal direction  inthe relationship unlike correlation as we specify an outcome (dependent) variable and a predictor (independent) variable. The idea being that as we change the value of predictor we see the effect that this has on the outcome variable, by quantifying the relationship according to some statistical model. Figure \@ref(fig:linreg) (A, left) shows some bivariate data which appears to have an underlying linear relationship 
 
 ```{r linReg, echo=F, message=F, warning=F, fig.width=8,fig.height=4, fig.cap="Linear regression: Plotting residuals, intercept, and slope explainers "}
-list_of_packages<-c("tidyverse","stats","ggpubr","rddapp","grid","pBrackets")
+list_of_packages<-c("tidyverse","stats","ggpubr","rddapp","grid","pBrackets","diagram")
 new.packages <- list_of_packages[!(list_of_packages %in% installed.packages()[,"Package"])]
 if(length(new.packages))install.packages(new.packages,dependencies = TRUE)
 
@@ -21,6 +21,7 @@ library(stats)
 library(ggpubr)
 library(grid)
 library(pBrackets) 
+library(diagram)
 
 #simulate some data based on a known structure
 set.seed(123)
@@ -121,6 +122,42 @@ grid.brackets(310, 162, 310, 292, lwd=2, col="black")
 
 ## Mediators
 
+```{r mediator,echo=F,warning=F,message=F}
+library(diagram)
+data <- c(0, "' '", 0,
+          0, 0, 0, 
+          "' '", "' '", 0)
+M<- matrix (nrow=3, ncol=3, byrow = TRUE, data=data)
+plot<- plotmat (M, pos=c(1,2), 
+                name= c( "Mediator","Predictor", "Outcome"), 
+                box.type = "rect", box.size = 0.12, box.prop=0.5,  curve=0)
+```
+
+
 ## Moderators
 
+
+```{r moderator,echo=F,warning=F,message=F}
+library(diagram)
+data <- c(0, 0, 0,
+          0, 0, 0, 
+          0, "' '", 0)
+M<- matrix (nrow=3, ncol=3, byrow = TRUE, data=data)
+plot2<- plotmat (M, pos=c(1,2), 
+                name= c( "Moderator","Predictor", "Outcome"), 
+                box.type = "rect", box.size = 0.12, box.prop=0.5,  curve=0,arr.pos = 0.6)
+
+Moderator <- plot2$comp[1,]
+Predictor <- plot2$comp[2,]
+Outcome <- plot2$comp[3,]
+
+m2 <- 0.5*(Predictor+Outcome)
+ m1 <- Moderator
+ m1[2] <- m1[2] - plot2$radii[2,1]
+ mid <- straightarrow (to = m2, from = m1, arr.type = "triangle",
+ arr.pos = 0.5, lwd = 1)
+```
+
 start with diagram as a simplest clear definition
+
+
