@@ -122,7 +122,7 @@ grid.brackets(310, 162, 310, 292, lwd=2, col="black")
 
 ## Mediators
 
-```{r mediator,echo=F,warning=F,message=F}
+```{r mediator,echo=F,warning=F,message=F,fig.cap="Mediator path diagram"}
 library(diagram)
 data <- c(0, "' '", 0,
           0, 0, 0, 
@@ -137,7 +137,7 @@ plot<- plotmat (M, pos=c(1,2),
 ## Moderators
 
 
-```{r moderator,echo=F,warning=F,message=F}
+```{r moderator,echo=F,warning=F,message=F,fig.cap="Moderator path diagram"}
 library(diagram)
 data <- c(0, 0, 0,
           0, 0, 0, 
@@ -158,6 +158,46 @@ m2 <- 0.5*(Predictor+Outcome)
  arr.pos = 0.5, lwd = 1)
 ```
 
-start with diagram as a simplest clear definition
+If we return to our linear regression definition from earlier, we have some predictor variable $X$ that has a linear causal relationship with $Y$, i.e. $X$ causes $Y$. Moderation occurs when a third variable is introduced, say $M$ that changes the strength of causal relationship between $X$ and $Y$, hence moderating the relationship.
+
+Figure \@ref(moderator) shows a disgrammatic representation of the moderator effect. The moderator is added into the statistical framework as an interaction. 
+
+```{r interaction,echo=F,message=F,}
+
+#simulate some data based on a known structure
+set.seed(123)
+b0a = 0.1
+b1a=1.2
+b0b = 4
+b1b=0.2
+err<-rnorm(100,0,1)
+
+x<-runif(100,1,5)
+y[1:50]<-b0a+b1a*x[1:50]+err[1:50]
+y[51:100]<-b0b+b1b*x[51:100]+err[51:100]                 
+
+data.lm <- data.frame(y=y,x=x)
+mylm1 <- lm(y ~ x, data = data.lm)
+
+data.lm$Moderator<-factor(c(rep("A",50),rep("B",50)))
+
+inter1 <- ggplot(data.lm, aes(x = x, y = y,colour=Moderator)) +
+geom_smooth(method = "lm", se = FALSE) +
+geom_point(alpha = 0.35) +  
+guides(alpha = FALSE) + theme_bw()+xlab("Predictor")+ylab("Outcome")+theme(legend.title = element_blank())
+
+data.lm %>% 
+  group_by(Moderator1, Moderator2) %>% 
+  summarise(y_groups = mean(y)) -> data.lm2
+
+
+data.lm2 %>% 
+  ggplot( aes(x = Moderator1, y = y_groups, color = Moderator2) +
+  geom_line(aes(group = Moderator2)) +
+  geom_point(pch=4)
+```
+
+
+$Y_{i} = \beta_{0} +  \beta_{1}X_{i,1} + \beta_{2}X_{i,2} + \beta_{3}(X_{i,1}X_{i,2}) + \beta_{3}(X_{i,1} >= c) $
 
 
