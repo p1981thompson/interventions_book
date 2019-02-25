@@ -4,15 +4,32 @@ The idea of a control group has already come up in chapters 3 and 4, where it ha
 
 ## Is it ethical to include a control group?
 
-The argument against a control group goes something like this: we think our intervention works, but we need to do a study to establish just how well it works. It would be unethical to withhold the intervention from one group of people because they would then be deprived of a potentially helpful treatment. 
+The argument against a control group goes something like this: we think our intervention works, but we need to do a study to establish just how well it works. It would be unethical to withhold the intervention from one group of people because they would then be deprived of a potentially helpful treatment. In fact, clinical trials developed blinding of patients, clinicians, and even the statistical analyst (single, double and triple blind studies) to allocation of treatment and placebo. This avoided the bias in conditions where patients were in an advanced stages of their condition and physicians felt morally obliged to help those most in need. 
 
 This argument has as many holes in it as a Swiss cheese, and here's why. Do you already know if the treatment works? If the answer is Yes, then why are you doing a study? Presumably it is because you think and hope it works, but don't actually have evidence that it does. So you don't know and you need to find out. 
+<!--Paul Comment: I have added some text here that refers to the regression discontinuity paradigm-->
+It is also possible to allocate those to treatment who are likely to get the largest benefit by utilizing the regression discontinuity design. We will discuss this in later chapters, but briefly we must mention the disadvantages of this design over a randomized design. Firstly, we need substantially more observations and/or individuals for robust statistical evidence. Secondly, the relationship between treatment and outcome must be correctly modelled, and lastly, presence of other variables that might confound the result must be controlled.
 
 Unfortunately, the kinds of systematic bias discussed in Chapter 3 often lead practitioners to have an unwavering conviction that their intervention is effective: they see improvement in the clients they work with, and assume it is because of what they have done. The harsh reality is that when properly controlled studies are conducted, it is often found that the intervention is not effective and that the improvement is just as great in controls as in the intervention group. There are numerous examples of this in mainstream medicine, as well as in speech and language therapy. Box x gives some examples. 
+<!--Paul comment: Added a test box here as you mention in text. Needs populating with relevant examples.-->
+
+\sffamily\fboxrule.1em\fboxsep1em
+\fcolorbox{black}{white}{\color{black}
+\begin{minipage}[c][5cm][t]{10cm}
+\begin{itemize}
+\item FFW 
+\item Arrowsmith
+\item Cogmed
+\end{itemize}
+\end{minipage}}
+
 
 ### Possible adverse effects of intervention
 
-Worse still, some interventions do more harm than good. The need to evaluate adverse impacts of intervention is well-recognised in mainstream medicine, where it is easy to see the increased risks of morbidity or mortality, or unpleasant side effects. In speech and language therapy it is typically assumed that interventions won't do any harm – and it is true that types of adverse effect seen in medicine are not likely. Nevertheless, any intervention creates opportunity costs – the time (and sometimes money) that are spent in intervention can't be spent doing other things. I first became sensitive to this issue when trying to persuade head teachers to get involved in a computerised intervention I had devised: they were keen to take part, but then discussed with me what activities children should miss if they were to spend 15 minutes every day on my computerised tasks for a period of six weeks. Should we ask children to forfeit their breaks, or to skip non-academic activities such as swimming? This would hardly be popular with the children, we felt. Or should they take time out of lessons in English or Maths? As discussed in Box 1 (FFW and Arrowsmith and Cogmed) some computerised programmes involve a substantial investment of time. 
+Worse still, some interventions do more harm than good. The need to evaluate adverse impacts of intervention is well-recognised in mainstream medicine, where it is easy to see the increased risks of morbidity or mortality, or unpleasant side effects. In clinical trials, a new treatment or medication will pass through typically five stages or phases of trials. Each stage increases the number of inidividuals, and the early trials are specifically designed to test safety and effcicacy, beginning with very small doses. It should also be noted that prior to human trials, all treatments will undergo substantial lab based evaulation and sometimes animal testing via rodent or primate modelling. 
+
+In speech and language therapy it is typically assumed that interventions won't do any harm – and it is true that types of adverse effect seen in medicine are not likely. Nevertheless, any intervention creates opportunity costs – the time (and sometimes money) that are spent in intervention can't be spent doing other things. I first became sensitive to this issue when trying to persuade head teachers to get involved in a computerised intervention I had devised: they were keen to take part, but then discussed with me what activities children should miss if they were to spend 15 minutes every day on my computerised tasks for a period of six weeks. Should we ask children to forfeit their breaks, or to skip non-academic activities such as swimming? This would hardly be popular with the children, we felt. Or should they take time out of lessons in English or Maths? As discussed in Box 1 (FFW and Arrowsmith and Cogmed) some computerised programmes involve a substantial investment of time. 
+
 When we move to consider interventions outside the school setting, there are still time costs involved: an aphasic adult with poor mobility or a harassed mother with three small children who is reliant on public transport may have considerable difficulty making it to clinic appointments. You may reply that, even if the intervention is ineffective, the clients are glad to have the attention and professional interest of a therapist. But if that is something that is of importance to them, then that needs to be included in your outcome measures – i.e. you need to demonstrate it is so, rather than just assuming this is so. 
 
 For parent training programmes, there is an additional risk of making parents worry that they are inadequate, and that their child's difficulties are all their fault. Clearly, competent professionals will be at pains to counteract that perception, but it is an easy mindset to fall into. (Box on media reaction to Jonathan Green study?). 

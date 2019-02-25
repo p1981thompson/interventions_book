@@ -9,10 +9,10 @@ The regression discontinuity follows a quasi-experimental design and is typicall
 
 Before we delve into the regression discontinuity designs, it may be useful for us to first take a look at general linear models, in particular, ordinary linear regression. Linear models consist of some of the most commonly used methods in applied research including ANOVA, ANCOVA, linear regression, t-tests, F-tests and MANCOVA.
 
-Linear regression purpose is primarily to understand the straight line relationship that exists from some bivariate data. We assume a causal direction  inthe relationship unlike correlation as we specify an outcome (dependent) variable and a predictor (independent) variable. The idea being that as we change the value of predictor we see the effect that this has on the outcome variable, by quantifying the relationship according to some statistical model. Figure \@ref(fig:linreg) (A, left) shows some bivariate data which appears to have an underlying linear relationship 
+Linear regression's purpose is primarily to understand the straight line relationship that exists for some bivariate data. We assume a causal direction  inthe relationship unlike correlation as we specify an outcome (dependent) variable and a predictor (independent) variable. The idea being that as we change the value of predictor we see the effect that this has on the outcome variable, by quantifying the relationship according to some statistical model. Figure \@ref(fig:linReg) (A, left) shows some bivariate data which appears to have an underlying linear relationship 
 
 ```{r linReg, echo=F, message=F, warning=F, fig.width=8,fig.height=4, fig.cap="Linear regression: Plotting residuals, intercept, and slope explainers "}
-list_of_packages<-c("tidyverse","stats","ggpubr","rddapp","grid","pBrackets","diagram","ggpubr")
+list_of_packages<-c("tidyverse","stats","ggpubr","rddapp","grid","pBrackets","diagram")
 new.packages <- list_of_packages[!(list_of_packages %in% installed.packages()[,"Package"])]
 if(length(new.packages))install.packages(new.packages,dependencies = TRUE)
 
@@ -22,7 +22,6 @@ library(ggpubr)
 library(grid)
 library(pBrackets) 
 library(diagram)
-library(ggpubr)
 
 #simulate some data based on a known structure
 set.seed(123)
@@ -71,7 +70,7 @@ ggarrange(g1,g2,nrow=1,ncol=2,labels = c("A", "B"))
 ```
 
 
-$Y_{i} = \beta_{0} +  \beta_{1}X_{i,1} + \beta_{2}X_{i,2} + \beta_{3}(X_{i,1} >= c) $
+$$Y_{i} = \beta_{0} +  \beta_{1}X_{i,1} + \beta_{2}X_{i,2} + \beta_{3}(X_{i,1} >= c) $$
 
 where 
 
@@ -130,7 +129,7 @@ data <- c(0, "' '", 0,
           "' '", "' '", 0)
 M<- matrix (nrow=3, ncol=3, byrow = TRUE, data=data)
 plot<- plotmat (M, pos=c(1,2), 
-                name= c( "Mediator","Predictor", "Outcome"), 
+                name= c( "Mediator (M)","Predictor (X)", "Outcome (Y)"), 
                 box.type = "rect", box.size = 0.12, box.prop=0.5,  curve=0)
 ```
 
@@ -145,7 +144,7 @@ data <- c(0, 0, 0,
           0, "' '", 0)
 M<- matrix (nrow=3, ncol=3, byrow = TRUE, data=data)
 plot2<- plotmat (M, pos=c(1,2), 
-                name= c( "Moderator","Predictor", "Outcome"), 
+                name= c( "Moderator (M)","Predictor (X)", "Outcome(Y)"), 
                 box.type = "rect", box.size = 0.12, box.prop=0.5,  curve=0,arr.pos = 0.6)
 
 Moderator <- plot2$comp[1,]
@@ -161,9 +160,15 @@ m2 <- 0.5*(Predictor+Outcome)
 
 If we return to our linear regression definition from earlier, we have some predictor variable $X$ that has a linear causal relationship with $Y$, i.e. $X$ causes $Y$. Moderation occurs when a third variable is introduced, say $M$ that changes the strength of causal relationship between $X$ and $Y$, hence moderating the relationship.
 
-Figure \@ref(moderator) shows a disgrammatic representation of the moderator effect. The moderator is added into the statistical framework as an interaction. 
+Figure \@ref(fig:moderator) shows a disgrammatic representation of the moderator effect. The moderator is added into the statistical framework as an interaction. The interaction is added into the regression model formula as an extra variable with a new associated parameter estimate. The extra variable is simple the two interacting terms multiplied together. We can give an exmaple of this by returning to the regression equation that we met earlier. The interaction appears as the multiple of $X_{1}$ and $X_{2}$. 
 
-```{r interaction,echo=F,message=F,warning=F}
+
+$$Y_{i} = \beta_{0} +  \beta_{1}X_{i,1} + \beta_{2}X_{i,2} + \beta_{3}(X_{i,1}X_{i,2})$$
+
+
+We can visual the effect of the interaction much more clearly by looking at some simulated data. Plotting the data, for two types of combinations of variables. Figure \@ref(fig:interaction)A (LEFT) shows the relationship between a nominal Moderator and a continuous predictor. Figure \@ref(fig:interaction)B (RIGHT) shows the relationship between a nominal Moderator and a nominal predictor. 
+
+```{r interaction,echo=F,message=F,warning=F,fig.cap="Plotting the interaction effect in regression. (A) shows the relation between a nominal Moderator and continuous predictor; (B) shows the relationship between a nominal Moderator and nominal predictor."}
 
 #simulate some data based on a known structure
 set.seed(123)
@@ -211,7 +216,7 @@ levels(data.lm2$Moderator2) <- c("A","B")
 #########
 
 inter2<-ggplot(data.lm2, aes(x = factor(Moderator1), y = y, color = Moderator2,group=Moderator2)) +
-geom_point(alpha=0.2) + stat_summary(fun.y=mean,geom="point",size=2.5) + stat_summary(fun.y=mean,geom="line") + theme_bw() + theme(legend.title = element_blank(),legend.position="bottom") + xlab("Predictor") + ylab("Outcome")
+geom_point(alpha=0.2) + stat_summary(fun.y=mean,geom="point",size=2.5) + stat_summary(fun.y=mean,geom="line") + theme_bw() + theme(legend.title = element_blank(),legend.position="bottom") + xlab("Predictor") + ylab("Mean of Outcome")
   
 
 ggarrange(inter1,inter2,ncol=2,nrow=1,common.legend = TRUE,labels=c("A","B"),legend="bottom")
@@ -219,6 +224,5 @@ ggarrange(inter1,inter2,ncol=2,nrow=1,common.legend = TRUE,labels=c("A","B"),leg
 ```
 
 
-$Y_{i} = \beta_{0} +  \beta_{1}X_{i,1} + \beta_{2}X_{i,2} + \beta_{3}(X_{i,1}X_{i,2}) + \beta_{3}(X_{i,1} >= c) $
 
 
