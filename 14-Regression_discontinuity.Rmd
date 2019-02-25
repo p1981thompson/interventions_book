@@ -12,7 +12,7 @@ Before we delve into the regression discontinuity designs, it may be useful for 
 Linear regression purpose is primarily to understand the straight line relationship that exists from some bivariate data. We assume a causal direction  inthe relationship unlike correlation as we specify an outcome (dependent) variable and a predictor (independent) variable. The idea being that as we change the value of predictor we see the effect that this has on the outcome variable, by quantifying the relationship according to some statistical model. Figure \@ref(fig:linreg) (A, left) shows some bivariate data which appears to have an underlying linear relationship 
 
 ```{r linReg, echo=F, message=F, warning=F, fig.width=8,fig.height=4, fig.cap="Linear regression: Plotting residuals, intercept, and slope explainers "}
-list_of_packages<-c("tidyverse","stats","ggpubr","rddapp","grid","pBrackets","diagram")
+list_of_packages<-c("tidyverse","stats","ggpubr","rddapp","grid","pBrackets","diagram","ggpubr")
 new.packages <- list_of_packages[!(list_of_packages %in% installed.packages()[,"Package"])]
 if(length(new.packages))install.packages(new.packages,dependencies = TRUE)
 
@@ -22,6 +22,7 @@ library(ggpubr)
 library(grid)
 library(pBrackets) 
 library(diagram)
+library(ggpubr)
 
 #simulate some data based on a known structure
 set.seed(123)
@@ -162,7 +163,7 @@ If we return to our linear regression definition from earlier, we have some pred
 
 Figure \@ref(moderator) shows a disgrammatic representation of the moderator effect. The moderator is added into the statistical framework as an interaction. 
 
-```{r interaction,echo=F,message=F,}
+```{r interaction,echo=F,message=F,warning=F}
 
 #simulate some data based on a known structure
 set.seed(123)
@@ -179,22 +180,42 @@ y[51:100]<-b0b+b1b*x[51:100]+err[51:100]
 data.lm <- data.frame(y=y,x=x)
 mylm1 <- lm(y ~ x, data = data.lm)
 
-data.lm$Moderator<-factor(c(rep("A",50),rep("B",50)))
+data.lm$Moderator2<-factor(c(rep("A",50),rep("B",50)))
 
-inter1 <- ggplot(data.lm, aes(x = x, y = y,colour=Moderator)) +
+inter1 <- ggplot(data.lm, aes(x = x, y = y,colour=Moderator2)) +
 geom_smooth(method = "lm", se = FALSE) +
 geom_point(alpha = 0.35) +  
-guides(alpha = FALSE) + theme_bw()+xlab("Predictor")+ylab("Outcome")+theme(legend.title = element_blank())
+guides(alpha = FALSE) + theme_bw()+xlab("Predictor")+ylab("Outcome")+theme(legend.title = element_blank(),legend.position="bottom")
 
-data.lm %>% 
-  group_by(Moderator1, Moderator2) %>% 
-  summarise(y_groups = mean(y)) -> data.lm2
+####
 
+set.seed(123)
+#
+b0c <- 1.3
+b1c <- 1.6
+b2c <- -0.75
+b3c <- 1.95
+#
+Moderator1 <- sample(c(0,1),100,prob=c(0.5,0.5),replace=T)
+Moderator2 <- sample(c(0,1),100,prob=c(0.5,0.5),replace=T)
+#  
+err<-rnorm(100,0,1)
+#
+y<-b0c+b1c*Moderator1+b2c*Moderator2+b3c*Moderator1*Moderator2+err
+#
 
-data.lm2 %>% 
-  ggplot( aes(x = Moderator1, y = y_groups, color = Moderator2) +
-  geom_line(aes(group = Moderator2)) +
-  geom_point(pch=4)
+#
+data.lm2 <- data.frame(y=y,Moderator1=Moderator1,Moderator2=Moderator2)
+data.lm2$Moderator2<-factor(data.lm2$Moderator2)
+levels(data.lm2$Moderator2) <- c("A","B")
+#########
+
+inter2<-ggplot(data.lm2, aes(x = factor(Moderator1), y = y, color = Moderator2,group=Moderator2)) +
+geom_point(alpha=0.2) + stat_summary(fun.y=mean,geom="point",size=2.5) + stat_summary(fun.y=mean,geom="line") + theme_bw() + theme(legend.title = element_blank(),legend.position="bottom") + xlab("Predictor") + ylab("Outcome")
+  
+
+ggarrange(inter1,inter2,ncol=2,nrow=1,common.legend = TRUE,labels=c("A","B"),legend="bottom")
+    
 ```
 
 
