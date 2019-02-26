@@ -1,12 +1,14 @@
 
 ```{r packages2, echo=F, message=F, warning=F, fig.width=8,fig.height=4, fig.cap="Linear regression: Plotting residuals, intercept, and slope explainers "}
-list_of_packages<-c("tidyverse","MASS","ggpubr")
+list_of_packages<-c("tidyverse","MASS","ggpubr","kableExtra","knitr")
 new.packages <- list_of_packages[!(list_of_packages %in% installed.packages()[,"Package"])]
 if(length(new.packages))install.packages(new.packages,dependencies = TRUE)
 
 library(tidyverse)
 library(ggpubr)
 library(MASS)
+library(kableExtra)
+library(knitr)
 ```
 
 # How to select an outcome measure
@@ -29,7 +31,7 @@ You may be surprised to see reliability at the top of the list. Surely validity 
 
 So what is reliability? This has to do with the issue of random error or 'noise', which can be estimated by seeing how far scores on one testing occasion line up with scores on another occasion close in time (i.e. before we expect any change due to maturation or intervention). Quite simply you want a measure that reflects the child's underlying skill, where there is minimal influence from random, unwanted sources of variation. So if we have two occasions of measurement, they should be closely similar. The similarity can be quantified by a correlation coefficient, demonstrated in Figure x.
 
-```{r correlation, echo=F,message=F,warning=F,fig.width=9,fig.height=9,fig.cacp="Correlation plots"}
+```{r correlation, echo=F,message=F,warning=F,fig.width=9,fig.height=9,fig.cap="Correlation plots"}
 
 set.seed(123)
 plot_cors<-function(r=1)
@@ -43,54 +45,30 @@ R_cors<-c(1,0.8,0.25,0,-0.25,-0.8,-1)
 myC<-paste0("C",1:7)
 for(i in R_cors)
 {
-assign(myC[which(R_cors==i)],plot_cors(i) %>% ggplot(aes(x=x,y=y))+geom_point(alpha=0.25)+geom_smooth(method = "lm", se = FALSE, color = "red") + theme_bw() + xlab("") + ylab(""))
+assign(myC[which(R_cors==i)],plot_cors(i) %>% ggplot(aes(x=x,y=y))+geom_point(alpha=0.25)+geom_smooth(method = "lm", se = FALSE, color = "red") + theme_bw() + xlab("") + ylab("")+ggtitle(paste0("R=",R_cors[which(R_cors==i)])))
 }
 ggarrange(plotlist = mget(paste0("C",1:length(R_cors))),ncol=3,nrow=3)
 ```
 
 **Figure: The correlation coefficient is a statistic that takes the value of zero when there is no relationship between two variables, one whether there is a perfect relationship, and minus one when there is an inverse relationship. If you draw a straight line through the points on the graph, then if all points fall exactly on the line, the correlation is 1, indicating that you can predict perfectly a person's score on Y if you know their score on X.**
 
-
-```{r anscombe_quartet}
+<!-- Paul comment: I wondered whether to mention Anscombe's Quartet here as a limitation of the correlation. It should be under the assumption that the data follow the same pattern to assess reliability.-->
+```{r anscombe_quartet, echo=F,message=F,warning=F,fig.width=9,fig.height=9,fig.cap="Anscombe's Quartet"}
 anscombe$id<-1:11
 
 long_anscombe<- anscombe %>% 
   gather(key, value, -id) %>%
   mutate(plot=as.numeric(str_extract(key, "[0-9]+"))) %>%
   mutate(variable=str_extract(key, "[aA-zZ]+")) %>%
-  select(id,plot,variable,value)%>%
+  dplyr::select(id,plot,variable,value)%>%
   spread(variable, value)
 
 ggplot(long_anscombe,aes(x=x,y=y))+geom_point(alpha=0.25)+geom_smooth(method = "lm", se = FALSE, color = "red")+facet_wrap(~plot)+theme_bw()
+options(kableExtra.html.bsTable = T)
+long_anscombe %>% group_by(plot) %>% dplyr::summarize(cor(x, y)) %>%
+knitr::kable(escape = F,align = "c", booktabs = T,caption = "Different data same correlation") %>%
+  kable_styling(c("striped","condensed"), latex_options = "striped", full_width = F)
 
-require(stats); require(graphics)
-summary(anscombe)
-
-##-- now some "magic" to do the 4 regressions in a loop:
-ff <- y ~ x
-mods <- setNames(as.list(1:4), paste0("lm", 1:4))
-for(i in 1:4) {
-  ff[2:3] <- lapply(paste0(c("y","x"), i), as.name)
-  ## or   ff[[2]] <- as.name(paste0("y", i))
-  ##      ff[[3]] <- as.name(paste0("x", i))
-  mods[[i]] <- lmi <- lm(ff, data = anscombe)
-  print(anova(lmi))
-}
-
-## See how close they are (numerically!)
-sapply(mods, coef)
-lapply(mods, function(fm) coef(summary(fm)))
-
-## Now, do what you should have done in the first place: PLOTS
-op <- par(mfrow = c(2, 2), mar = 0.1+c(4,4,1,1), oma =  c(0, 0, 2, 0))
-for(i in 1:4) {
-  ff[2:3] <- lapply(paste0(c("y","x"), i), as.name)
-  plot(ff, data = anscombe, col = "red", pch = 21, bg = "orange", cex = 1.2,
-       xlim = c(3, 19), ylim = c(3, 13))
-  abline(mods[[i]], col = "blue")
-}
-mtext("Anscombe's 4 Regression data sets", outer = TRUE, cex = 1.5)
-par(op)
 ```
 
 
