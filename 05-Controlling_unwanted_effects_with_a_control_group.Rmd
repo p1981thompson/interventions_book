@@ -88,7 +88,7 @@ Possible outcomes of such a study are shown in Figure x. The pattern seen in pan
 
 ### Cross-over design
 
-The benefit of the crossover design is that a potentially more accurate evaluation of intervention comparison is achieved as we compare individuals to themselves rather than controls that are different inidividuals. A secondary benefit is that crossover designs typically require fewer individuals as a separate control group is not necessary. 
+The benefit of the crossover design is that a potentially more accurate evaluation of intervention comparison is achieved as we compare individuals to themselves rather than controls that are different individuals. A secondary benefit is that crossover designs typically require fewer individuals as a separate control group is not necessary. 
 A crossover deign is split into three phases, an initial phase where two groups are randomized (exactly the same as a parallel group design) to intervention and control. Once the first phase has ellapse, the individuals enter a washout phase, this is important to allow any intervention effect to be removed before the groups are switched and phase two initiates, so that both groups have received intervention. The assessment of the intervention looks at the differences between phases 1 and 3 by group. We hope to see no group difference but a significant phase difference.
 
 ```{r crossovertable,echo=F,message=F,warning=F}
