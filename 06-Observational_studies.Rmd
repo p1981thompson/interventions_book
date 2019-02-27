@@ -31,8 +31,8 @@ Outcome <- plot$comp[3,]
 
 m2 <- Predictor + plot$radii[1,1]
  m1 <- Confounder
- m1[2] <- m1[2] - plot2$radii[2,1]
- m2[1] <- m2[1] - plot2$radii[1,1]
+ m1[2] <- m1[2] - plot$radii[2,1]
+ m2[1] <- m2[1] - plot$radii[1,1]
  mid <- straightarrow (to = m1, from = m2, arr.type = "triangle",
  arr.pos = 0.95, lwd = 2,lty=2)
   mid2 <- straightarrow (to = m2, from = m1, arr.type = "triangle",
@@ -56,8 +56,8 @@ Outcome <- plot$comp[3,]
 
  m2 <- Outcome 
  m1 <- Intervention
- m1[1] <- m1[1] + plot2$radii[1,1]
- m2[1] <- m2[1] - plot2$radii[1,1]
+ m1[1] <- m1[1] + plot$radii[1,1]
+ m2[1] <- m2[1] - plot$radii[1,1]
  mid <- straightarrow (to = m1, from = m2, arr.type = "triangle",
  arr.pos = 0.95, lwd = 2,lty=2)
   mid2 <- straightarrow (to = m2, from = m1, arr.type = "triangle",
