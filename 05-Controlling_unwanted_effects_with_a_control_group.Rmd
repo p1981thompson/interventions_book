@@ -1,13 +1,14 @@
 
 
 ```{r packages5, message=F,warning=F,echo=FALSE}
-list_of_packages<-c("tidyverse","kableExtra","knitr")
+list_of_packages<-c("tidyverse","kableExtra","knitr","ggpubr")
 new.packages <- list_of_packages[!(list_of_packages %in% installed.packages()[,"Package"])]
 if(length(new.packages))install.packages(new.packages,dependencies = TRUE)
 
 library(tidyverse)
 library(kableExtra)
 library(knitr)
+library(ggpubr)
 
 ```
 
@@ -77,12 +78,21 @@ A creative way of dealing with this confound is to ensure that group B does also
 
 The use of a contrasting intervention overcomes another possible concern about untreated controls, which is those in group B may actually do worse because they know they are missing out on an intervention that might be able to help them (see Chapter 4). 
 
-# Wait-list controls and cross-over designs
+## Wait-list controls and cross-over designs
 
 Another popular approach to controls is to have a two-stage study. Stage 1 is a classic controlled study where a treated group A is compared with an untreated group B. After the intervention phase, group B is then offered the intervention. At this point, group A may continue with the intervention, or intervention may be withdrawn.
 
-```{r crossover_table,echo=F,message=F,warning=F}
+Possible outcomes of such a study are shown in Figure x. The pattern seen in panel 1 is unlikely for an intervention that is intended to produce long-lasting effects – in SLT practice, it would not be expected that skills would decline after an effective intervention had been withdrawn. 
+(more needed on this)
 
+
+### Cross-over design
+
+The benefit of the crossover design is that a potentially more accurate evaluation of intervention comparison is achieved as we compare individuals to themselves rather than controls that are different inidividuals. A secondary benefit is that crossover designs typically require fewer individuals as a separate control group is not necessary. 
+A crossover deign is split into three phases, an initial phase where two groups are randomized (exactly the same as a parallel group design) to intervention and control. Once the first phase has ellapse, the individuals enter a washout phase, this is important to allow any intervention effect to be removed before the groups are switched and phase two initiates, so that both groups have received intervention. The assessment of the intervention looks at the differences between phases 1 and 3 by group. We hope to see no group difference but a significant phase difference.
+
+```{r crossovertable,echo=F,message=F,warning=F}
+options(kableExtra.html.bsTable = T)
 #reference: "An introduction to randomized controlled clinical trials" by J.N.S. Matthews.
 
 alloc.mat<-as.data.frame(matrix(c("A","B","B","A"),2,2))
@@ -96,11 +106,10 @@ knitr::kable(alloc.mat,escape = F, align = "c", booktabs = T, caption = 'Treatme
   column_spec(1, bold = T) 
 ```
 
-Possible outcomes of such a study are shown in Figure x. The pattern seen in panel 1 is unlikely for an intervention that is intended to produce long-lasting effects – in SLT practice, it would not be expected that skills would decline after an effective intervention had been withdrawn. 
-(more needed on this)
 
 
-```{r crossover_plot, echo=F, message=F, warning=F, fig.width=6,fig.height=5, fig.cap="plotting showing a crossover design RCT"}
+
+```{r crossoverplot, echo=F, message=F, warning=F, fig.width=8,fig.height=4, fig.cap="plotting showing a crossover design RCT"}
 
 #simulate some data based on a known structure
 set.seed(123)
@@ -123,7 +132,7 @@ mod2 <- lm(y~x,newdat2)
  #plots for lmer
 
 
- ggplot(dat[!dat$intervention==2,], aes(x = x, y = y)) + 
+ cross1<-ggplot(dat[!dat$intervention==2,], aes(x = x, y = y)) + 
    theme_bw()+ theme(legend.position = "top",strip.text=element_text(size=12),axis.text=element_text(size=12),axis.title=element_text(size=12,face="bold"))+ annotate("text",x=2.25,y=8,label="Washout")+xlab("")+ylab("") +
    annotate("text",x=1.5,y=8,label="Period 1") +
    annotate("text",x=3,y=8,label="Period 2")+
@@ -134,8 +143,26 @@ geom_segment(aes(x=2,y=6,xend = 2.5, yend = 4),col="red",linetype="dashed",size=
    geom_segment(aes(x=2,y=4,xend = 2.5, yend = 6),col="blue",linetype="dashed",size=1)+
    geom_segment(aes(x=1,y=4,xend = 2, yend = 4),col="blue",size=1) +
    geom_segment(aes(x=2.5,y=6,xend = 3.5, yend = 6),col="blue",size=1)+ylim(3,8)+
+   geom_segment(aes(x=2.6,y=4,xend = 2.6, yend = 6),col="red",size=1,linetype="dotted")+ylim(3,8)+
+   annotate("text",x=2.75,y=5,label="effect\nsize",color="red") +
    annotate("text",x=1.5,y=6.2,label="Group 1",color="red") +
    annotate("text",x=1.5,y=4.2,label="Group 2",color="blue")+theme(axis.text = element_blank(),axis.ticks = element_blank())
 
-
+ 
+  cross2<-ggplot(dat[!dat$intervention==2,], aes(x = x, y = y)) + 
+   theme_bw()+ theme(legend.position = "top",strip.text=element_text(size=12),axis.text=element_text(size=12),axis.title=element_text(size=12,face="bold"))+ xlab("")+ylab("") +
+   annotate("text",x=1.5,y=8,label="Period 1") +
+   annotate("text",x=3,y=8,label="Period 2")+
+   annotate("rect",xmin=2,xmax=2.5,ymin=-Inf,ymax=Inf, alpha=0.1, fill="black")+
+   geom_segment(aes(x=1,y=6,xend = 2, yend = 6),col="red",size=1) +
+   geom_segment(aes(x=2,y=6,xend = 2.5, yend = 6),col="red",linetype="dashed",size=1) +
+   geom_segment(aes(x=2,y=4,xend = 2.5, yend = 6),col="blue",linetype="dashed",size=1)+
+   geom_segment(aes(x=1,y=4,xend = 2, yend = 4),col="blue",size=1) +
+   geom_segment(aes(x=2.5,y=6,xend = 3.5, yend = 6),col="green",size=1)+ylim(3,8)+
+   geom_segment(aes(x=1.8,y=4,xend = 1.8, yend = 6),col="black",size=1,linetype="dotted")+ylim(3,8)+
+   annotate("text",x=1.65,y=5,label="effect\nsize",color="black") +
+   annotate("text",x=1.3,y=6,label="Intervention\ngroup",color="red") +
+   annotate("text",x=1.3,y=4,label="Control\ngroup",color="blue")+theme(axis.text = element_blank(),axis.ticks = element_blank())+annotate("text",x=3,y=5.5,label="Both groups are\non intervention",color="green")
+ 
+ggarrange(cross2,cross1,ncol=2,nrow=1)
 ```
