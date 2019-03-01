@@ -31,3 +31,18 @@ This method, however, raises new problems, because we now have a confound betwee
 
 Use a literature search for an intervention/disorder of interest with the term 'randomised controlled trial' or RCT, and download the article.
 Is the randomisation process clearly described? Is it adequate?
+
+## Randomization methods
+
+
+
+
+### Simple randomization
+
+### Random permuted blocks
+
+### Unequal randomization
+
+### Stratification
+
+### Minimization

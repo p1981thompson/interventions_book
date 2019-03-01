@@ -1,10 +1,25 @@
 # Observational studies
+```{r packages6, echo=F, message=F, warning=F}
+list_of_packages<-c("tidyverse","diagram","ggpubr","ggalluvial","DiagrammeR","DiagrammeRsvg","rsvg")
+new.packages <- list_of_packages[!(list_of_packages %in% installed.packages()[,"Package"])]
+if(length(new.packages))install.packages(new.packages,dependencies = TRUE)
 
-*Janice, a SLT, has recently started using a parent-based approach with late-talking 2-year-olds in her practice. Parents are encouraged to make video recordings of interactions with their child, which are then analysed with the therapist, who notes ways of making the interaction more contingent on the child's interests and communicative attempts. She wants to evaluate what she is doing. A colleague of hers, Anna, who has a similar caseload,  is sceptical about whether Janice's approach is cost-effective. Anna uses a watchful waiting approach with children this young. Janice and Anna agree to do a study using the same pre- and post-intervention assessments so that they can evaluate the impact of Janice's approach.*
+library(tidyverse)
+library(ggpubr)
+library(ggalluvial)
+library(diagram)
 
-*Stephen notes that some aphasic patients referred to his clinic talk glowingly about a commercially available 'brain-based learning' programme, MyLangBooster. He wants to know whether he should be recommending this programme to other clients, so he carries out a comparison of patients who used MyLangBooster and those who did not.*
+library(DiagrammeR)
+library(DiagrammeRsvg)
+library(magrittr)
+library(rsvg)
+```
 
-*Dorothy, a researcher, had a grant for a study predicting outcomes of 4-year-olds who had poor language skills, some of whom had received intervention with SLT services. She saw the same group of 83 children at ages 4, 4.5 and 5.5 years, and noted that their outcomes were very variable. Some children had caught up with their peer group by the final assessment, whereas others had persistent problems. When she presented the results at a conference, a person in the audience suggested that she should do an analysis to see if the amount of intervention was a factor influencing outcomes.*
+> *Janice, a SLT, has recently started using a parent-based approach with late-talking 2-year-olds in her practice. Parents are encouraged to make video recordings of interactions with their child, which are then analysed with the therapist, who notes ways of making the interaction more contingent on the child's interests and communicative attempts. She wants to evaluate what she is doing. A colleague of hers, Anna, who has a similar caseload,  is sceptical about whether Janice's approach is cost-effective. Anna uses a watchful waiting approach with children this young. Janice and Anna agree to do a study using the same pre- and post-intervention assessments so that they can evaluate the impact of Janice's approach.*
+
+>*Stephen notes that some aphasic patients referred to his clinic talk glowingly about a commercially available 'brain-based learning' programme, MyLangBooster. He wants to know whether he should be recommending this programme to other clients, so he carries out a comparison of patients who used MyLangBooster and those who did not.*
+
+>*Dorothy, a researcher, had a grant for a study predicting outcomes of 4-year-olds who had poor language skills, some of whom had received intervention with SLT services. She saw the same group of 83 children at ages 4, 4.5 and 5.5 years, and noted that their outcomes were very variable. Some children had caught up with their peer group by the final assessment, whereas others had persistent problems. When she presented the results at a conference, a person in the audience suggested that she should do an analysis to see if the amount of intervention was a factor influencing outcomes.*
 
 All of these vignettes illustrate observational studies: ones where we use naturalistic data rather than exerting any experimental control over who gets an intervention. The last one, as you may have guessed, is a true story – my own experience with a longitudinal study by Bishop and Edmundson (1987). This gives a very clear illustration of the perils of observational studies.
 
@@ -15,8 +30,8 @@ Stephen's study is equally problematic. Here we are comparing a self-selected gr
 What about the case of Janice and Anna? This may seem less problematic, since the two therapists have similar caseloads, and the decision about therapy is based on therapist preference rather than child characteristics. Here again, though, the comparison has the potential to mislead. If baseline and post-intervention assessments are done using the same measures, then it is at least possible to check if the children in the two practices are similar at the outset. But there would still be concerns about possible differences between the therapists and their practices that might be influencing results. Maybe Anna rejects parent-based intervention because she knows that most of the parents in her practice have full-time jobs and would not be willing or able to devote time to attending sessions to analyse videos. Maybe Janice is an exceptionally skilled therapist who would obtain good outcomes with children regardless of what she did. Perhaps her enthusiasm for a parent-based approach contrasts with Anna's more downbeat attitude, and this has an influence on parent and/or child. In sum, there is scope for all the non-specific treatment effects discussed in Chapter 4 to exert an impact. If Janice finds better outcomes than Anna, despite doing their best to ensure that the participating children and parents from their practices are similar, then it is reasonable to say that this is useful information that would provide justification doing an experimental study (see Chapter x). But it is not conclusive and cannot substitute for the kind of experimental study discussed in the next chapter.
 
 Things that may affect outcome and that differ between intervention and control groups are known as **confounders**. 
-```{r confounder,echo=F,warning=F,message=F,fig.cap="Confounder path diagram"}
-library(diagram)
+```{r confounder,echo=F,warning=F,message=F,fig.cap="Confounder path diagram",fig.width=5,fig.height=4}
+
 data <- c(0, 0, 0,
           0, 0, 0, 
           "' '", "' '", 0)
@@ -40,8 +55,8 @@ m2 <- Predictor + plot$radii[1,1]
  
 ```
 
-```{r confounder2,echo=F,warning=F,message=F,fig.cap="Confounder path diagram"}
-library(diagram)
+```{r confounder2,echo=F,warning=F,message=F,fig.cap="Confounder path diagram",fig.width=5,fig.height=4}
+
 data <- c(0, 0,0,
           "' '", 0, 0, 
           "' '",0, 0)
@@ -74,5 +89,86 @@ Most reports in the media are based on observational rather than experimental da
 
 Find a newspaper report of a factor that is reported to be a risk or benefit to health. Is it based on an experimental or observational study? Can you identify potential sources of bias?
 
+## Observational study designs
+
+The key difference between observational studies and other types discussed in this book are that the researcher(S) do not intervene at any stage, and simply observe whether a condition develops, and record any risk factors or particular behaviour.(cite: Sedgewick 2012). The difference between the designs discussed below is either the point at which the intervention or outcome are established.
+
+```{r flow, echo=FALSE, include=FALSE,echo=F,message=F,warning=F}
+
+tes1<-DiagrammeR::grViz("
+digraph rmarkdown {
+
+graph [rankdir = LR]
+
+node [shape = oval,
+      fontname = Helvetica,fontsize=8]
+      
+      Exposure[label='Exposure']
+      CASE1 [pos='1.2,-4.5!',label = 'CASE']
+      CONTROL1 [pos='1,-4.5!',label = 'CONTROL']
+      CASE2 [pos='1.2,4.5!',label = 'CASE']
+      CONTROL2 [pos='1,4.5!',label = 'CONTROL']
+
+node [shape = rectangle, fillcolor = LightBlue]
+
+      CaseControl [pos='1.1,0!',label = 'Case-Control']
+
+node [shape = rectangle, fillcolor = Salmon]
+
+      Cohort [pos='2,0!',label = 'Cohort']
+
+node [shape = rectangle, fillcolor = LemonChiffon]
+
+      CrossSection [pos='3,0!',label = 'Cross-sectional']
+
+node [color=White]
+
+Past
+Present 
+Future
 
 
+CASE1 -> CaseControl 
+CONTROL1 -> CaseControl
+CaseControl -> Exposure
+Cohort -> CASE2
+Cohort -> CONTROL2
+Past->Present->Future
+
+CASE1 -> Cohort [color=White]
+CASE1 -> CrossSection[color=White]
+
+}
+", height=200)
+
+tes1 %>%export_svg %>% charToRaw %>% rsvg_png("flow.png")
+
+```
+
+![Figure 6.3: time course of common observational studies](flow.png)
+
+### Cohort studies
+
+A Cohort study follows a group of individuals who do not have the condition or disorder of interest at the time that they enter the study, but they are selected from an at-risk population. The cohort is followed up, observing those that develop the condition or disorder, and those that do not (forming a natural control group, sometimes called an internal control, see Mann, 2003). Within the cohort design, there are different variations, single cohort as above, or two cohort design . For example, a two cohort design would collect data on two cohorts of individuals (both groups do not have the condition at the start of the study). One cohort is assigned to intervention, the other cohort is a control so would be assigned a sham intervention perhaps. Both cohorts would be followed up and the observation of who developed the condition and who did not is recorded for both cohorts.   
+
+### Case-Control studies
+
+Typically, the case-control study looks at retrospective information on a group of individuals, both a control group (those without particular condition or disorder) and cases (those with a known condition or disorder). Individuals are chosen purely on their status of condition or disorder of interest. These individuals are then asked about previous exposure to potential risk factors, for example, if we were looking at a reading disorder in school-aged children, we might want to record information on family history of the condition, or exposure to books in the home environment, or whether the children and their parent or guardian co-read at home at a pre-school age. The choice of controls participants is key as they must form a representative sample of individuals that are within the at-risk group population but do not have the condition or disorder of interest. 
+
+### Cross-Sectional Studies
+
+The cross-sectional study is used when only one time point is recorded and its primary purpose is typically to establish prevalance of conditions or disorders. In this design, we differentiate from the others designs as the intervention and outcome are determined simultaneously (cite: Carlson & Morrrison, 2009). 
+
+
+## STROBE guidelines
+
+The strengthening the reporting of observational studies in epidemiology (STROBE) statement: guidelines for reporting observational studies.....
+
+<!--Do we need to go to this detail? I think this is important. -->
+## Matching
+
+### Propensity score
+
+### distance matrices
+
+### Optimal matching

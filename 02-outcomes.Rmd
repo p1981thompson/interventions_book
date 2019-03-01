@@ -31,7 +31,7 @@ You may be surprised to see reliability at the top of the list. Surely validity 
 
 So what is reliability? This has to do with the issue of random error or 'noise', which can be estimated by seeing how far scores on one testing occasion line up with scores on another occasion close in time (i.e. before we expect any change due to maturation or intervention). Quite simply you want a measure that reflects the child's underlying skill, where there is minimal influence from random, unwanted sources of variation. So if we have two occasions of measurement, they should be closely similar. The similarity can be quantified by a correlation coefficient, demonstrated in Figure x.
 
-```{r correlation, echo=F,message=F,warning=F,fig.width=9,fig.height=9,fig.cap="Correlation plots"}
+```{r correlation, echo=F,message=F,warning=F,fig.width=9,fig.height=9,fig.cap="The correlation coefficient is a statistic that takes the value of zero when there is no relationship between two variables, one whether there is a perfect relationship, and minus one when there is an inverse relationship. If you draw a straight line through the points on the graph, then if all points fall exactly on the line, the correlation is 1, indicating that you can predict perfectly a person's score on Y if you know their score on X."}
 
 set.seed(123)
 plot_cors<-function(r=1)
@@ -50,10 +50,10 @@ assign(myC[which(R_cors==i)],plot_cors(i) %>% ggplot(aes(x=x,y=y))+geom_point(al
 ggarrange(plotlist = mget(paste0("C",1:length(R_cors))),ncol=3,nrow=3)
 ```
 
-**Figure: The correlation coefficient is a statistic that takes the value of zero when there is no relationship between two variables, one whether there is a perfect relationship, and minus one when there is an inverse relationship. If you draw a straight line through the points on the graph, then if all points fall exactly on the line, the correlation is 1, indicating that you can predict perfectly a person's score on Y if you know their score on X.**
 
 <!-- Paul comment: I wondered whether to mention Anscombe's Quartet here as a limitation of the correlation. It should be under the assumption that the data follow the same pattern to assess reliability.-->
-```{r anscombe_quartet, echo=F,message=F,warning=F,fig.width=9,fig.height=9,fig.cap="Anscombe's Quartet"}
+
+```{r anscombequartet, echo=F,message=F,warning=F,fig.width=6,fig.height=6,fig.cap="Anscombe's Quartet"}
 anscombe$id<-1:11
 
 long_anscombe<- anscombe %>% 
@@ -64,6 +64,9 @@ long_anscombe<- anscombe %>%
   spread(variable, value)
 
 ggplot(long_anscombe,aes(x=x,y=y))+geom_point(alpha=0.25)+geom_smooth(method = "lm", se = FALSE, color = "red")+facet_wrap(~plot)+theme_bw()
+```
+
+```{r AQTable, echo=F,message=F,warning=F}
 options(kableExtra.html.bsTable = T)
 long_anscombe %>% group_by(plot) %>% dplyr::summarize(cor(x, y)) %>%
 knitr::kable(escape = F,align = "c", booktabs = T,caption = "Different data same correlation") %>%

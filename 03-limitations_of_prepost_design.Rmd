@@ -1,3 +1,5 @@
+
+# Limitations of the pre-post design: biases related to systematic change
 ```{r packages, echo=F, message=F, warning=F}
 list_of_packages<-c("tidyverse","kableExtra","knitr")
 new.packages <- list_of_packages[!(list_of_packages %in% installed.packages()[,"Package"])]
@@ -7,10 +9,6 @@ library(tidyverse)
 library(kableExtra)
 library(knitr)
 ```
-
-
-# Limitations of the pre-post design: biases related to systematic change
-
 At first glance, assessing an intervention seems easy. Having used the information in chapter 2 to select appropriate measures, you administer these to a group of people before starting the intervention, and again after it is completed, and then look to see if there has been meaningful change. This is what I call a pre-post design, and it almost always gives a misleadingly rosy impression of how effective the intervention is. The limitations of such studies have been well-understood in medicine for decades, yet in other fields they persist, perhaps because they typically give results that look good.
 
 Figure x shows some real data from a study I conducted, in which children were trained in a computerised game that involved listening to sentences and moving objects on a computer screen to match what they heard. The training items assessed understanding of word order, in sentences such as 'the book is above the cup', or 'the girl is being kicked by the boy'. There were two treatment conditions, but the difference between them is not important for the point I want to make, which is that we saw substantial improvement on a language comprehension test administered at baseline and again after the intervention in both groups. If this was the only data available, then we might have been tempted to conclude that the intervention was effective. However, we also had data from a third group who just had 'teaching as usual' in their classroom. They showed just as much improvement as the groups doing the intervention, indicating that whatever was causing the improvement, it wasn't the intervention. 
