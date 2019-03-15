@@ -1,6 +1,6 @@
 # Observational studies
 ```{r packages6, echo=F, message=F, warning=F}
-list_of_packages<-c("tidyverse","diagram","ggpubr","ggalluvial","DiagrammeR","DiagrammeRsvg","rsvg")
+list_of_packages<-c("tidyverse","diagram","ggpubr","ggalluvial","DiagrammeR","DiagrammeRsvg","rsvg", "knitr", "kableExtra")
 new.packages <- list_of_packages[!(list_of_packages %in% installed.packages()[,"Package"])]
 if(length(new.packages))install.packages(new.packages,dependencies = TRUE)
 
@@ -13,6 +13,9 @@ library(DiagrammeR)
 library(DiagrammeRsvg)
 library(magrittr)
 library(rsvg)
+
+library(kableExtra)
+library(knitr)
 ```
 
 > *Janice, a SLT, has recently started using a parent-based approach with late-talking 2-year-olds in her practice. Parents are encouraged to make video recordings of interactions with their child, which are then analysed with the therapist, who notes ways of making the interaction more contingent on the child's interests and communicative attempts. She wants to evaluate what she is doing. A colleague of hers, Anna, who has a similar caseload,  is sceptical about whether Janice's approach is cost-effective. Anna uses a watchful waiting approach with children this young. Janice and Anna agree to do a study using the same pre- and post-intervention assessments so that they can evaluate the impact of Janice's approach.*
@@ -55,14 +58,14 @@ m2 <- Predictor + plot$radii[1,1]
  
 ```
 
-```{r confounder2,echo=F,warning=F,message=F,fig.cap="Confounder path diagram",fig.width=5,fig.height=4}
+```{r confounder2,echo=F,warning=F,message=F,fig.cap="Alternative interpretation of confounder path diagram",fig.width=5,fig.height=4}
 
 data <- c(0, 0,0,
           "' '", 0, 0, 
           "' '",0, 0)
 M<- matrix (nrow=3, ncol=3, byrow = TRUE, data=data)
 plot<- plotmat (M, pos=c(1,2), 
-                name= c( "Confounder","Intervention\n(Exposure)", "Outcome"), 
+                name= c( "Confounder","Intervention\\n(Exposure)", "Outcome"), 
                 box.type = "ellipse", box.size = 0.12, box.prop=0.5,  curve=0)
 
 Confounder <- plot$comp[1,]
@@ -91,7 +94,7 @@ Find a newspaper report of a factor that is reported to be a risk or benefit to 
 
 ## Observational study designs
 
-The key difference between observational studies and other types discussed in this book are that the researcher(S) do not intervene at any stage, and simply observe whether a condition develops, and record any risk factors or particular behaviour.(cite: Sedgewick 2012). The difference between the designs discussed below is either the point at which the intervention or outcome are established.
+The key difference between observational studies and other types discussed in this book are that the researcher(s) do not intervene at any stage, and simply observe whether a condition develops, and record any risk factors or particular behaviour.(cite: Sedgewick 2012). The difference between the designs discussed below is either the point at which the intervention or outcome are established.
 
 ```{r flow, echo=FALSE, include=FALSE,echo=F,message=F,warning=F}
 
@@ -162,10 +165,107 @@ The cross-sectional study is used when only one time point is recorded and its p
 
 ## STROBE guidelines
 
-The strengthening the reporting of observational studies in epidemiology (STROBE) statement: guidelines for reporting observational studies.....
+The strengthening the reporting of observational studies in epidemiology (STROBE) statement: guidelines for reporting observational studies was developed to try to standardize the key details reported in observational studies in epidemiology (with a focus on the medical field). These guidelines have been adopted to counter poor reporting, the authors of those guidlines state the purpose is not to be a rigid template or assessment tool, but 
 
-<!--Do we need to go to this detail? I think this is important. -->
+>issues such as confounding, bias, and generalisability could become more transparent, which might help temper the over-enthusiastic reporting of new findings in the scientific community and popular media, and improve the methodology of studies in the long term. Better reporting may also help to have more informed decisions about when new studies are needed, and what they should address.
+
+- Von Elm et al (2007)
+
+The Strobe guidelines themselves consist of 22 items that are a necessary requirement to report to ensure some degree of transparency to the research, and ensure a good standard of reporting quality. We restate the STROBE guidelines from Von Elm at al. (2007) in \@ref(tab:strobe)
+
+```{r strobe,echo=F,message=F,warning=F}
+options(kableExtra.html.bsTable = T)
+
+
+strobe.mat<-data.frame(A<-c(
+  "TITLE and ABSTRACT", 
+  "Background/rationale",
+  "Objectives",
+  "Study design",
+  "Setting",
+  "Participants",
+  "Variables",
+  "Data sources/ measurement",
+  "Bias",
+  "Study size",
+  "Quantitative variables",
+  "Statistical methods",
+  "Participants",
+  "Descriptive data",
+  "Outcome data",
+  "Main results",
+  "Other analyses",
+  "Key results",
+  "Limitations",
+  "Interpretation",
+  "Generalisability",
+  "Funding"),B<-c(1:22),C<-c("
+(a) Indicate the study’s design with a commonly used term in the title or the abstract
+(b) Provide in the abstract an informative and balanced summary of what was done and what was found",
+  "Explain the scientific background and rationale for the investigation being reported",
+  "State specific objectives, including any prespecified hypotheses",
+  " Present key elements of study design early in the paper",
+  "Describe the setting, locations, and relevant dates, including periods of recruitment, exposure, follow-up, and data collection",
+"
+(a) Cohort study—Give the eligibility criteria, and the sources and methods of selection of participants. Describe methods of follow-up
+Case-control study—Give the eligibility criteria, and the sources and methods of case ascertainment and control selection. Give the rationale for the choice of cases and controls
+Cross-sectional study—Give the eligibility criteria, and the sources and methods of selection of participants
+(b) Cohort study—For matched studies, give matching criteria and number of exposed and unexposed
+Case-control study—For matched studies, give matching criteria and the number of controls per case",
+"Clearly define all outcomes, exposures, predictors, potential confounders, and effect modifiers. Give diagnostic criteria, if applicable",
+"For each variable of interest, give sources of data and details of methods of assessment (measurement).Describe comparability of assessment methods if there is more than one group",
+"Describe any efforts to address potential sources of bias",
+"Explain how the study size was arrived at",
+"Explain how quantitative variables were handled in the analyses. If applicable, describe which groupings were chosen, and why",
+"
+(a) Describe all statistical methods, including those used to control for confounding
+(b) Describe any methods used to examine subgroups and interactions
+(c) Explain how missing data were addressed
+(d) Cohort study—If applicable, explain how loss to follow-up was addressed
+Case-control study—If applicable, explain how matching of cases and controls was addressed
+Cross-sectional study—If applicable, describe analytical methods taking account of sampling strategy
+(e) Describe any sensitivity analyses",
+"
+(a) Report the numbers of individuals at each stage of the study—e.g., numbers potentially eligible, examined for eligibility, confirmed eligible, included in the study, completing follow-up, and analysed
+(b) Give reasons for non-participation at each stage
+(c) Consider use of a flow diagram",
+"
+(a) Give characteristics of study participants (e.g., demographic, clinical, social) and information on exposures and potential confounders
+(b) Indicate the number of participants with missing data for each variable of interest
+(c) Cohort study—Summarise follow-up time (e.g., average and total amount)",
+"Cohort study—Report numbers of outcome events or summary measures over time
+Case-control study—Report numbers in each exposure category, or summary measures of exposure
+Cross-sectional study—Report numbers of outcome events or summary measures",
+"
+(a) Give unadjusted estimates and, if applicable, confounder-adjusted estimates and their precision (e.g., 95% confidence interval).
+Make clear which confounders were adjusted for and why they were included
+(b) Report category boundaries when continuous variables were categorized
+(c) If relevant, consider translating estimates of relative risk into absolute risk for a meaningful time period",
+"Report other analyses done—e.g., analyses of subgroups and interactions, and sensitivity analyses",
+"Summarise key results with reference to study objectives",
+"Discuss limitations of the study, taking into account sources of potential bias or imprecision. Discuss both direction and magnitude
+of any potential bias",
+"Give a cautious overall interpretation of results considering objectives, limitations, multiplicity of analyses, results from similar studies, and other relevant evidence",
+"Discuss the generalisability (external validity) of the study results",
+"Give the source of funding and the role of the funders for the present study and, if applicable, for the original study on which the present article is based"))
+colnames(strobe.mat)<-c(" ", "Item number", "Recommendation")
+
+
+knitr::kable(strobe.mat,escape = F, align = c("l","c","l"), booktabs = T, caption = 'Strobe Statement') %>%
+  kable_styling(c("bordered"), latex_options = "striped", full_width = T) %>%
+  column_spec(1, bold = T)%>%
+  group_rows("INTRODUCTION",2,3, label_row_css = "background-color: #666; color: #fff;")%>%
+  group_rows("METHODS",4,12, label_row_css = "background-color: #666; color: #fff;")%>%
+  group_rows("RESULTS",13,17, label_row_css = "background-color: #666; color: #fff;")%>%
+  group_rows("DISCUSSION",18,21, label_row_css = "background-color: #666; color: #fff;")%>%
+  group_rows("OTHER INFORMATION",22,22, label_row_css = "background-color: #666; color: #fff;")
+```
+
+The guidelines follow the structure of a typical research article, breaking down required elements under subheadings.
+
 ## Matching
+
+
 
 ### Propensity score
 

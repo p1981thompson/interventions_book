@@ -1,5 +1,13 @@
 # Controlling for selection bias: randomised assignment to intervention
+```{r packages7, echo=F, message=F, warning=F}
+list_of_packages<-c("tidyverse","kableExtra","knitr")
+new.packages <- list_of_packages[!(list_of_packages %in% installed.packages()[,"Package"])]
+if(length(new.packages))install.packages(new.packages,dependencies = TRUE)
 
+library(tidyverse)
+library(kableExtra)
+library(knitr)
+```
 In chapter 6, we saw how observational studies could be misleading because they are likely to contain unknown differences between intervention and control groups. Recognition of this limitation led to the development of the randomised controlled trial as a gold standard approach to the evaluation of interventions. The core idea is that once a target population has been identified for study, the experimenter allocates participants to intervention and control groups in a way that avoids any bias.
 
 There is a quite substantial literature on methods of allocation to intervention. The main principle behind modern intervention studies is that allocation should be completely random, i.e. not predictable from any characteristics of participants. There are many approaches to treatment allocation that are designed to avoid bias but which are not random. For the time being we are ignoring the question of who does the randomisation: this will be discussed in Chapter 8. We also defer until later the question of recruitment and what to do about people who do not wish to take part in a trial. We assume we have a population of potential participants and have to decide who will be in the intervention group and who will be in the control group. Consider the following methods of allocation and note your judgement as to whether they are (a) reasonable ways of avoiding bias and (b) random.
@@ -34,15 +42,82 @@ Is the randomisation process clearly described? Is it adequate?
 
 ## Randomization methods
 
-
-
-
 ### Simple randomization
+
+In our earlier examples from the start of this chapter, we saw various examples of simple randomization (A-D). This takes the idea of the "coin toss" but adds in some degree of control of other variables which might affect the result. Typically, a coin is not used as the random nature of the coin toss means that balanced numbers in each group will not be guaranteed. A randomization list is created by an individual who is unrelated to the trial. This list contains an equal number of allocations for a fixed number of participants which will have been pre-specified according to a sample size calculation. Our first issue is that the allocation list does not allow for individuals dropping out before assignment of intervention. This means that we potentially can have unbalanced groups despite following the list. 
+
+Furthermore we saw earlier, simple randomization does not suffciently control unknown variables which may exhert an effect on the outcome, i.e. overrepresentation of a particular feature in one group that influences the outcome. For example, we randomize children with a language difficultly into two groups, but we find that there are more boys than girls in one group. The intervention sees an effect as predicted, but on further inspection we find that the group difference is confounded by gender.
+
+Simple randomization is rarely (if at all) used in practice, so other approaches have been developed to counter the drawbacks encoutered.  
 
 ### Random permuted blocks
 
+The permutated blocks approach tries to overcome the unbalanced problem by allocating individuals into blocks. The idea is that patients are allocated to intervention or control in blocks, so that at certain equally spaced points across the trial, equal numbers are ensured. Let's see how this works using an example: 
+
+Say we have chosen out block size to be 4. So, in each block we have 2 assigned to intervention and 2 to control group. The order of assignment of each block is random, for example, ABAB, AABB, ABBA, BBAA, BAAB, and so on. This means at any point in the trial, the randomization is only ever two individuals unbalanced if the trial stops short or fails to recruit sufficient numbers of inidividuals, so the imbalance is minimal and statistical power is maintained.
+
+However, permuted blocks has an unfortunate downside as it is relatively straighforward for the researcher to see a pattern emerge in the allocation, so the randomization can become predictable. This is problematic, if the next allocation is known to the researcher as control and the next child for allocation is a particularly severe case who could benefit from the intervention. This would rely on the researcher making a difficult moral judgement to continue with correct allocation and not deviate.
+
 ### Unequal randomization
+
+The approach of unequal randomization differs from the convention of 1:1 allocation ratio. A fixed ratio is decided on before allocation of individuals begins, for example, 2:1 intervention vs control allocation. Use of this method should be considered carefully as there are both pros and cons. On the positive side, we may obtain a more accurate estimate of the effects of intervention, but we are prone to a reduction in power. 
+
+> "Unequal allocation also has consequences for statistical power. For example, a 2:1 allocation ratio requires 12% more patients than a trial using 1:1 to detect the same size effect with equivalent power; a 3:1 randomization scheme requires 33% more patients."
+
+Hey, S. P., & Kimmelman, J. (2014). The questionable use of unequal allocation in confirmatory trials. Neurology, 82(1), 77-9.
+
 
 ### Stratification
 
+The previously discussed randomizations have dealt with the unbalanced groups but we are still in need of a way to counter the effect of known or unknown variables on the outcome. Stratification is the first method to permit some control of these variables by splitting the allocation according to those variables. For example, suppose we have an intervention for school aged children and we have a exclusion criteria that they must be between the ages of 5 and 11. We also provide the intervention at three different schools, one inner city school in a low SES area, one public school requiring fees, and a small remote village school. We would anticipate that there might be significant performance differences in age and potentially differences between schools, so we must allow for this when we randomize children to intervention and control groups. The scheme would follow the table below,
+
+```{r strattable,echo=F,message=F,warning=F}
+options(kableExtra.html.bsTable = T)
+
+
+strat.mat<-as.data.frame(matrix(c(23,24,31,31,28,27,
+                                  19,20,25,24,35,35,
+                                  22,27,24,23,31,31),9,2, byrow=T))
+colnames(strat.mat)<-c("Intervention", "Control")
+rownames(strat.mat)<-c("school1, ages 5-7", "school2, ages 8-9", "school3, ages 10-11",
+                       "school1, ages 8-9", "school2, ages 10-11", "school3, ages 5-7",
+                       "school1, ages 10-11", "school2, ages 5-7", "school3, ages 8-9")
+
+
+
+knitr::kable(strat.mat,escape = F, align = "c", booktabs = T, caption = 'Randomized allocation by stratas: Age, School') %>%
+  kable_styling(c("striped", "bordered"), latex_options = "striped", full_width = F) %>%
+  column_spec(1, bold = T) 
+```
+
 ### Minimization
+
+An alternative to stratification called minimization is also very popular in clinical RCTs. Its popularity has grown in recent years as stratifcation becomes weaker when the number of strata increases and is particularly susceptable when used in smaller trials. Minimization was first proposed by Pocock and Simon (ref) and is referred to as a dynamic or adaptive randomization. Each participant's allocation is dependant on the characteristics and allocation of participants already allocated to groups. The idea is to minimise the imbalance by considering a range of factors for each allocation. This prevents the allocation of particular sub groups into one allocation which may happen in any of the aforementioned methods. To demostrate this method, we restate the example from Scott et al. (2002), using table \@ref(tab:minitable):
+
+
+```{r minitable,echo=F,message=F,warning=F}
+options(kableExtra.html.bsTable = T)
+
+
+mini.mat<-as.data.frame(matrix(c("Male","Female","21-30","31-40","41-50","High","Low",3,5,4,2,2,4,4,5,3,4,3,1,5,3),7,3, byrow=F))
+colnames(mini.mat)<-c("Prognostic factor", "Intervention", "Control")
+
+
+
+knitr::kable(mini.mat,escape = F, align = "c", booktabs = T, caption = 'Randomized allocation by minimization') %>%
+  kable_styling(c("striped", "bordered"), latex_options = "striped", full_width = F) %>%
+  column_spec(1, bold = T)%>%
+  group_rows("Sex",1,2)%>%
+  group_rows("Age band",3,5)%>%
+  group_rows("Risk factor",6,7)
+```
+>If we now consider allocation of the 17th participant who has factors: Male, 31-40, and High.
+>**Using the Pocock and Simon's method**
+
+>If allocated to intervention group, total imbalance is $|(3+1)-5|+|(2+1)-3|+|(4+1)-5|=1$.
+>If allocated to control group, total imbalance is $|3-(5+1)|+|2-(3+1)|+|4-(5+1)|=7$. 
+>Patient allocated to the group that would lead to less overall imbalance.
+>Therefore 17th participant allocated to intervention group because $1<7$.
+
+
+
