@@ -12,9 +12,9 @@ Before we delve into the regression discontinuity designs, it may be useful for 
 Linear regression's purpose is primarily to understand the straight line relationship that exists for some bivariate data. We assume a causal direction  inthe relationship unlike correlation as we specify an outcome (dependent) variable and a predictor (independent) variable. The idea being that as we change the value of predictor we see the effect that this has on the outcome variable, by quantifying the relationship according to some statistical model. Figure \@ref(fig:linReg) (A, left) shows some bivariate data which appears to have an underlying linear relationship 
 
 ```{r linReg, echo=F, message=F, warning=F, fig.width=8,fig.height=4, fig.cap="Linear regression: Plotting residuals, intercept, and slope explainers "}
-list_of_packages<-c("tidyverse","stats","ggpubr","rddapp","grid","pBrackets","diagram")
-new.packages <- list_of_packages[!(list_of_packages %in% installed.packages()[,"Package"])]
-if(length(new.packages))install.packages(new.packages,dependencies = TRUE)
+# list_of_packages<-c("tidyverse","stats","ggpubr","rddapp","grid","pBrackets","diagram")
+# new.packages <- list_of_packages[!(list_of_packages %in% installed.packages()[,"Package"])]
+# if(length(new.packages))install.packages(new.packages,dependencies = TRUE)
 
 library(tidyverse)
 library(stats)
@@ -109,7 +109,7 @@ mod2 <- lm(y~x,newdat2)
    annotate("text",x=1.5,y=14,label="Control") +
    annotate("text",x=2.5,y=14,label="Intervention")
 
-grid.brackets(310, 162, 310, 292, lwd=2, col="black")
+grid.brackets(235, 122, 235, 220, lwd=2, col="black")
 #https://stackoverflow.com/questions/7001799/ggplot2-curly-braces-on-an-axis/33544572
 
 # library(rddapp)  #cite example directly from R package

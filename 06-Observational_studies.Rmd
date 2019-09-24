@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # Observational studies
 ```{r packages6, echo=F, message=F, warning=F}
 list_of_packages<-c("tidyverse","diagram","ggpubr","ggalluvial","DiagrammeR","DiagrammeRsvg","rsvg", "knitr", "kableExtra")
@@ -200,47 +205,47 @@ strobe.mat<-data.frame(A<-c(
   "Interpretation",
   "Generalisability",
   "Funding"),B<-c(1:22),C<-c("
-(a) Indicate the study’s design with a commonly used term in the title or the abstract
-(b) Provide in the abstract an informative and balanced summary of what was done and what was found",
+* Indicate the study’s design with a commonly used term in the title or the abstract\n
+* Provide in the abstract an informative and balanced summary of what was done and what was found",
   "Explain the scientific background and rationale for the investigation being reported",
   "State specific objectives, including any prespecified hypotheses",
   " Present key elements of study design early in the paper",
   "Describe the setting, locations, and relevant dates, including periods of recruitment, exposure, follow-up, and data collection",
 "
-(a) Cohort study—Give the eligibility criteria, and the sources and methods of selection of participants. Describe methods of follow-up
+* Cohort study—Give the eligibility criteria, and the sources and methods of selection of participants. Describe methods of follow-up
 Case-control study—Give the eligibility criteria, and the sources and methods of case ascertainment and control selection. Give the rationale for the choice of cases and controls
-Cross-sectional study—Give the eligibility criteria, and the sources and methods of selection of participants
-(b) Cohort study—For matched studies, give matching criteria and number of exposed and unexposed
+Cross-sectional study—Give the eligibility criteria, and the sources and methods of selection of participants\n
+* Cohort study—For matched studies, give matching criteria and number of exposed and unexposed
 Case-control study—For matched studies, give matching criteria and the number of controls per case",
 "Clearly define all outcomes, exposures, predictors, potential confounders, and effect modifiers. Give diagnostic criteria, if applicable",
-"For each variable of interest, give sources of data and details of methods of assessment (measurement).Describe comparability of assessment methods if there is more than one group",
+"For each variable of interest, give sources of data and details of methods of assessment (measurement). Describe comparability of assessment methods if there is more than one group",
 "Describe any efforts to address potential sources of bias",
 "Explain how the study size was arrived at",
 "Explain how quantitative variables were handled in the analyses. If applicable, describe which groupings were chosen, and why",
 "
-(a) Describe all statistical methods, including those used to control for confounding
-(b) Describe any methods used to examine subgroups and interactions
-(c) Explain how missing data were addressed
-(d) Cohort study—If applicable, explain how loss to follow-up was addressed
-Case-control study—If applicable, explain how matching of cases and controls was addressed
-Cross-sectional study—If applicable, describe analytical methods taking account of sampling strategy
-(e) Describe any sensitivity analyses",
+* Describe all statistical methods, including those used to control for confounding\n
+* Describe any methods used to examine subgroups and interactions\n
+* Explain how missing data were addressed\n
+* Cohort study—If applicable, explain how loss to follow-up was addressed
+Case-control study — If applicable, explain how matching of cases and controls was addressed
+Cross-sectional study — If applicable, describe analytical methods taking account of sampling strategy\n
+* Describe any sensitivity analyses",
 "
-(a) Report the numbers of individuals at each stage of the study—e.g., numbers potentially eligible, examined for eligibility, confirmed eligible, included in the study, completing follow-up, and analysed
-(b) Give reasons for non-participation at each stage
-(c) Consider use of a flow diagram",
+* Report the numbers of individuals at each stage of the study—e.g., numbers potentially eligible, examined for eligibility, confirmed eligible, included in the study, completing follow-up, and analysed\n
+* Give reasons for non-participation at each stage\n
+* Consider use of a flow diagram",
 "
-(a) Give characteristics of study participants (e.g., demographic, clinical, social) and information on exposures and potential confounders
-(b) Indicate the number of participants with missing data for each variable of interest
-(c) Cohort study—Summarise follow-up time (e.g., average and total amount)",
+* Give characteristics of study participants (e.g., demographic, clinical, social) and information on exposures and potential confounders\n
+* Indicate the number of participants with missing data for each variable of interest\n
+* Cohort study—Summarise follow-up time (e.g., average and total amount)",
 "Cohort study—Report numbers of outcome events or summary measures over time
 Case-control study—Report numbers in each exposure category, or summary measures of exposure
 Cross-sectional study—Report numbers of outcome events or summary measures",
 "
-(a) Give unadjusted estimates and, if applicable, confounder-adjusted estimates and their precision (e.g., 95% confidence interval).
-Make clear which confounders were adjusted for and why they were included
-(b) Report category boundaries when continuous variables were categorized
-(c) If relevant, consider translating estimates of relative risk into absolute risk for a meaningful time period",
+* Give unadjusted estimates and, if applicable, confounder-adjusted estimates and their precision (e.g., 95% confidence interval).
+Make clear which confounders were adjusted for and why they were included\n
+* Report category boundaries when continuous variables were categorized\n
+* If relevant, consider translating estimates of relative risk into absolute risk for a meaningful time period",
 "Report other analyses done—e.g., analyses of subgroups and interactions, and sensitivity analyses",
 "Summarise key results with reference to study objectives",
 "Discuss limitations of the study, taking into account sources of potential bias or imprecision. Discuss both direction and magnitude
@@ -251,17 +256,22 @@ of any potential bias",
 colnames(strobe.mat)<-c(" ", "Item number", "Recommendation")
 
 
-knitr::kable(strobe.mat,escape = F, align = c("l","c","l"), booktabs = T, caption = 'Strobe Statement') %>%
-  kable_styling(c("bordered"), latex_options = "striped", full_width = T) %>%
-  column_spec(1, bold = T)%>%
-  group_rows("INTRODUCTION",2,3, label_row_css = "background-color: #666; color: #fff;")%>%
-  group_rows("METHODS",4,12, label_row_css = "background-color: #666; color: #fff;")%>%
-  group_rows("RESULTS",13,17, label_row_css = "background-color: #666; color: #fff;")%>%
-  group_rows("DISCUSSION",18,21, label_row_css = "background-color: #666; color: #fff;")%>%
-  group_rows("OTHER INFORMATION",22,22, label_row_css = "background-color: #666; color: #fff;")
+# knitr::kable(strobe.mat,escape = F, align = c("l","c","l"), booktabs = T, caption = 'Strobe Statement') %>%
+#   kable_styling(c("bordered"), latex_options = "striped", full_width = T) %>%
+#   column_spec(1, bold = T, width = "4cm")%>%
+#   column_spec(2, width = "4cm")%>%
+#   column_spec(3, width = "12cm")%>%
+#   group_rows("INTRODUCTION",2,3, label_row_css = "background-color: #666; color: #fff;")%>%
+#   group_rows("METHODS",4,12, label_row_css = "background-color: #666; color: #fff;")%>%
+#   group_rows("RESULTS",13,17, label_row_css = "background-color: #666; color: #fff;")%>%
+#   group_rows("DISCUSSION",18,21, label_row_css = "background-color: #666; color: #fff;")%>%
+#   group_rows("OTHER INFORMATION",22,22, label_row_css = "background-color: #666; color: #fff;")
+
+pander::pander(strobe.mat, keep.line.breaks = TRUE, style = 'grid', justify = 'left')
+
 ```
 
-The guidelines follow the structure of a typical research article, breaking down required elements under subheadings.
+The guidelines follow the structure of a typical research article, breaking down the required elements under subheadings that are compatable to most journals reporting observational research.
 
 ## Matching
 
