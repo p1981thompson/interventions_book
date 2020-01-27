@@ -1,4 +1,0 @@
-#	Alternatives to RCT: within-subject designs
-
-## Single case designs
-When a single case design won't work

@@ -3,7 +3,8 @@ output:
   pdf_document: default
   html_document: default
 ---
-#	Alternatives to RCT: regression discontinuity
+
+#	Regression discontinuity designs
 
 The regression discontinuity follows a quasi-experimental design and is typically used to avoid confounding bias (i.e. when another variable is present that distorts the effect of intervention) when assesssing interventions. It is particularly useful when assignment to intervention is based on some pre-specified threshold from a continuous measure. For example, let us assume that we wish to assess a new reading intervention in a school. Students are assigned to the intervention group according to a general language test. Students that score below a certain threshold are assigned to the intervention group, and rather than discrd their peers that scored above the threshold, they forma natural control group. The experimenter is not therefore required to randomly allocate students with poor language scores to the control group when they might benefit from the potential effect of the intervention if it is found to be effective.
 
