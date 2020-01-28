@@ -27,15 +27,21 @@ It is also possible to allocate those to treatment who are likely to get the lar
 Unfortunately, the kinds of systematic bias discussed in Chapter 3 often lead practitioners to have an unwavering conviction that their intervention is effective: they see improvement in the clients they work with, and assume it is because of what they have done. The harsh reality is that when properly controlled studies are conducted, it is often found that the intervention is not effective and that the improvement is just as great in controls as in the intervention group. There are numerous examples of this in mainstream medicine, as well as in speech and language therapy. Box x gives some examples. 
 <!--Paul comment: Added a test box here as you mention in text. Needs populating with relevant examples.-->
 
-\sffamily\fboxrule.1em\fboxsep1em
-\fcolorbox{black}{white}{\color{black}
-\begin{minipage}[c][5cm][t]{7cm}
-\begin{itemize}
-\item FFW 
-\item Arrowsmith
-\item Cogmed
-\end{itemize}
-\end{minipage}}
+
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+make_list <- function(...) {
+  paste0("<ul>", sprintf('<li>%s</li>', substitute(...())), '</ul>', collapse = '')
+}
+
+library('htmlTable')
+mytable <- matrix(c(make_list('FFW', 'Arrowsmith','Cogmed')), nrow=1,ncol=1,
+                  dimnames = list(NULL, ''))
+
+htmlTable(mytable, align = '|c|')
+```
+
+
 
 
 ### Possible adverse effects of intervention
@@ -64,15 +70,17 @@ There are two things to be concerned about here. First, in the previous chapter 
 
 <!--Paul comment: Added a test box here as you mention in text. Needs populating with relevant examples.-->
 
-\sffamily\fboxrule.1em\fboxsep1em
-\fcolorbox{black}{white}{\color{black}
-\begin{minipage}[c][5cm][t]{10cm}
-\begin{itemize}
-\item social vs language? 
-\item Dental care?
-\item Gillam study?
-\end{itemize}
-\end{minipage}}
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+make_list <- function(...) {
+  paste0("<ul>", sprintf('<li>%s</li>', substitute(...())), '</ul>', collapse = '')
+}
+
+library('htmlTable')
+mytable <- matrix(c(make_list('Social vs Language', 'Dental care','Gillam study')), nrow=1,ncol=1,
+                  dimnames = list(NULL, ''))
+
+htmlTable(mytable, align = '|c|')
+```
 
 A creative way of dealing with this confound is to ensure that group B does also get some kind of intervention, but different from the one that is the focus of the study. For instance, (Snowling study) compared children who had a parent-reading intervention with a group who had a parent-based intervention designed to improve motor skills. Box X shows other examples (social vs language? Dental care? – Gillam study?) It is important to choose a comparison intervention that is not expected to have an impact on the main outcome measure – otherwise you could find yourself in a situation where everyone gets better but groups A and B don't differ, and you are left uncertain whether both interventions worked or neither did.
 
