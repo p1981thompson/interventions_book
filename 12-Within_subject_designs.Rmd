@@ -13,7 +13,9 @@ library(ggpubr)
 ## Single case designs
 When a single case design won't work
 
-## Wait-list controls and cross-over designs
+[@Krasny_2018; ]
+
+## Cross-over designs
 
 We describe the crossover design as a special case of the RCT as we have both a control and treatment group but we have the variation that both control and intervention groups receive both conditions but in reverse orders to each other. Possible outcomes of such a study are shown in Figure x. The pattern seen in panel 1 is unlikely for an intervention that is intended to produce long-lasting effects – in SLT practice, it would not be expected that skills would decline after an effective intervention had been withdrawn. 
 
@@ -32,11 +34,13 @@ knitr::kable(alloc.mat,escape = F, align = "c", booktabs = T, caption = 'Treatme
   column_spec(1, bold = T) 
 ```
 
-### Wait list controls
+### Traditional cross-over design
+
+The benefit of the crossover design is that a potentially more accurate evaluation of intervention comparison is achieved as we compare individuals to themselves rather than controls that are different individuals. A secondary benefit is that crossover designs typically require fewer individuals as a separate control group is not necessary. 
+A crossover design is split into three phases, an initial phase where two groups are randomized (exactly the same as a parallel group design) to intervention and control. Once the first phase has ellapse, the individuals enter a washout phase, this is important to allow any intervention effect to be removed before the groups are switched and phase two initiates, so that both groups have received intervention. The assessment of the intervention looks at the differences between phases 1 and 3 by group. We hope to see no group difference but a significant phase difference.
 
 
-```{r waitlist_plot, echo=F, message=F, warning=F, fig.width=8,fig.height=4, fig.cap="plotting showing a wait list design RCT"}
-
+```{r crossoverplot, echo=F, message=F, warning=F, fig.width=8,fig.height=4, fig.cap="plotting showing a crossover design RCT"}
 #simulate some data based on a known structure
 set.seed(123)
 dat <- data.frame(x = runif(100, 1, 3.5), x2 = rnorm(100,0,0.25))
@@ -55,34 +59,8 @@ newdat3<-dat[dat$intervention==2,]
 
 mod1 <- lm(y~x,newdat1)
 mod2 <- lm(y~x,newdat2)
- #plots for lmer
-
-  ggplot(dat[!dat$intervention==2,], aes(x = x, y = y)) + 
-   theme_bw()+ theme(legend.position = "top",strip.text=element_text(size=12),axis.text=element_text(size=12),axis.title=element_text(size=12,face="bold"))+ xlab("")+ylab("") +
-   annotate("text",x=1.5,y=8,label="Period 1") +
-   annotate("text",x=3,y=8,label="Period 2")+
-   annotate("rect",xmin=2,xmax=2.5,ymin=-Inf,ymax=Inf, alpha=0.1, fill="black")+
-   geom_segment(aes(x=1,y=6,xend = 2, yend = 6),col="red",size=1) +
-   geom_segment(aes(x=2,y=6,xend = 2.5, yend = 6),col="red",linetype="dashed",size=1) +
-   geom_segment(aes(x=2,y=4,xend = 2.5, yend = 6),col="blue",linetype="dashed",size=1)+
-   geom_segment(aes(x=1,y=4,xend = 2, yend = 4),col="blue",size=1) +
-   geom_segment(aes(x=2.5,y=6,xend = 3.5, yend = 6),col="green",size=1)+ylim(3,8)+
-   geom_segment(aes(x=1.8,y=4,xend = 1.8, yend = 6),col="black",size=1,linetype="dotted")+ylim(3,8)+
-   annotate("text",x=1.65,y=5,label="effect\nsize",color="black") +
-   annotate("text",x=1.3,y=6,label="Intervention\ngroup",color="red") +
-   annotate("text",x=1.3,y=4,label="Control\ngroup",color="blue")+theme(axis.text = element_blank(),axis.ticks = element_blank())+annotate("text",x=3,y=5.5,label="Both groups are\non intervention",color="green")
-
-```
+ #plots for lmer 
  
-
-### Cross-over design
-
-The benefit of the crossover design is that a potentially more accurate evaluation of intervention comparison is achieved as we compare individuals to themselves rather than controls that are different individuals. A secondary benefit is that crossover designs typically require fewer individuals as a separate control group is not necessary. 
-A crossover design is split into three phases, an initial phase where two groups are randomized (exactly the same as a parallel group design) to intervention and control. Once the first phase has ellapse, the individuals enter a washout phase, this is important to allow any intervention effect to be removed before the groups are switched and phase two initiates, so that both groups have received intervention. The assessment of the intervention looks at the differences between phases 1 and 3 by group. We hope to see no group difference but a significant phase difference.
-
-
-```{r crossoverplot, echo=F, message=F, warning=F, fig.width=8,fig.height=4, fig.cap="plotting showing a crossover design RCT"}
-
  ggplot(dat[!dat$intervention==2,], aes(x = x, y = y)) + 
    theme_bw()+ theme(legend.position = "top",strip.text=element_text(size=12),axis.text=element_text(size=12),axis.title=element_text(size=12,face="bold"))+ annotate("text",x=2.25,y=8,label="Washout")+xlab("")+ylab("") +
    annotate("text",x=1.5,y=8,label="Period 1") +
@@ -102,3 +80,30 @@ geom_segment(aes(x=2,y=6,xend = 2.5, yend = 4),col="red",linetype="dashed",size=
 #ggarrange(cross2,cross1,ncol=2,nrow=1)
 
 ```
+
+
+### Delayed crossover design (Wait list controls)
+
+The delayed crossover design or wait list control design is another type of within subject design. The control group also receive the intervention but after a pre-specified wait period. This design benefits from an ethical point-of-view as all subjects have access to a potentially beneficial intervention and sevea as their own controls. There is, however, some debate around usefulness of wait-list designs in the psychological and behavioural interventions literature [@Elliott_2002; @Cunningham_2013; @Furukawa_2014]. In particular, @Cunningham_2013 presents results from a study that showed this design can potentially, artificially inflate intervention effect estimates. The design's main issue is the wait period itself. In particular, this is a problem if the controls are made aware that they are the control group. When a participant knows that they have to wait, psychologically this can induce different behaviour.  
+
+```{r waitlist_plot, echo=F, message=F, warning=F, fig.width=8,fig.height=4, fig.cap="plotting showing a wait list design RCT"}
+
+
+
+  ggplot(dat[!dat$intervention==2,], aes(x = x, y = y)) + 
+   theme_bw()+ theme(legend.position = "top",strip.text=element_text(size=12),axis.text=element_text(size=12),axis.title=element_text(size=12,face="bold"))+ xlab("")+ylab("") +
+   annotate("text",x=1.5,y=8,label="Period 1") +
+   annotate("text",x=3,y=8,label="Period 2")+
+   annotate("rect",xmin=2,xmax=2.5,ymin=-Inf,ymax=Inf, alpha=0.1, fill="black")+
+   geom_segment(aes(x=1,y=6,xend = 2, yend = 6),col="red",size=1) +
+   geom_segment(aes(x=2,y=6,xend = 2.5, yend = 6),col="red",linetype="dashed",size=1) +
+   geom_segment(aes(x=2,y=4,xend = 2.5, yend = 6),col="blue",linetype="dashed",size=1)+
+   geom_segment(aes(x=1,y=4,xend = 2, yend = 4),col="blue",size=1) +
+   geom_segment(aes(x=2.5,y=6,xend = 3.5, yend = 6),col="green",size=1)+ylim(3,8)+
+   geom_segment(aes(x=1.8,y=4,xend = 1.8, yend = 6),col="black",size=1,linetype="dotted")+ylim(3,8)+
+   annotate("text",x=1.65,y=5,label="effect\nsize",color="black") +
+   annotate("text",x=1.3,y=6,label="Intervention\ngroup",color="red") +
+   annotate("text",x=1.3,y=4,label="Control\ngroup",color="blue")+theme(axis.text = element_blank(),axis.ticks = element_blank())+annotate("text",x=3,y=5.5,label="Both groups are\non intervention",color="green")
+
+```
+ 
