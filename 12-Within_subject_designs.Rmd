@@ -11,9 +11,33 @@ library(ggpubr)
 
 ```
 ## Single case designs
-When a single case design won't work
 
-[@Krasny_2018; ]
+The single case design, also known as N-of-1 trials, or small N design (minor wording variations are also common), is a commonly used intervention design in clinical psychology. Its origins can be traced back to the late 1940s [@Krasny_2018] and its purpose is to test an intervention using only a small number of individuals (typically, 2-5 individuals). The interventions collect repeated measurements on the individuals and depending on the designs will sequentially introduce and remove an intervention at random to assess it is a useful treatment. Specific methods of data analysis have been developed to allow for the small number of individuals, crucially relying on the number of repeated measures. 
+
+Statistical analysis tends to focus on: i) visual assessment by plot the sequential series of observed data and highlighting on-off periods of intervention; ii) Time series analysis [@Chatfield_2004], or iii) simple and commonly-used inferential statistics tests [@Tate_2016].
+
+```{r SingleCaseDplot, echo=F, message=F, warning=F, fig.width=8,fig.height=4, fig.cap="plot showing a single case design RCT (N=2)"}
+#simulate some data based on a known structure
+library(tidyverse)
+set.seed(1981)
+true_fct = stepfun(c(100, 200, 300), c(200, 250, 200, 250))
+true_fct2 = stepfun(c(100, 200, 300), c(200, 270, 180, 300))
+x = 1:400
+y1 = true_fct(x) + rt(length(x), df=1)
+y2 = true_fct2(x) + rt(length(x), df=1)+50
+
+TSdata <- data.frame(Time=x,y1=y1,y2=y2) %>% gather(.,key = 'Individual',value='Outcome',y1:y2)
+
+ggplot(data=TSdata,aes(Time, Outcome)) + geom_vline(xintercept = c(0,100,200,300,400),alpha=0.8,color='grey',linetype='dashed') + geom_line(aes(colour=Individual),alpha=0.5)+geom_point(size=0.1,alpha=0.7) + ylab('Outcome Measure')+theme_bw() + theme(legend.position='top') + annotate("text",x = c(150,350) , y =c(350,150), label = "Intervention period") 
+
+
+```
+
+
+When a single case design won't work [@Senn_2004]
+
+
+<!--The CENT reporting guidelines [67], [68] are intended for medical N-of-1 trials, the SCRIBE 2016 guidelines [22], [51] are intended for SCEDs in the behavioral sciences --> 
 
 ## Cross-over designs
 
@@ -40,7 +64,7 @@ The benefit of the crossover design is that a potentially more accurate evaluati
 A crossover design is split into three phases, an initial phase where two groups are randomized (exactly the same as a parallel group design) to intervention and control. Once the first phase has ellapse, the individuals enter a washout phase, this is important to allow any intervention effect to be removed before the groups are switched and phase two initiates, so that both groups have received intervention. The assessment of the intervention looks at the differences between phases 1 and 3 by group. We hope to see no group difference but a significant phase difference.
 
 
-```{r crossoverplot, echo=F, message=F, warning=F, fig.width=8,fig.height=4, fig.cap="plotting showing a crossover design RCT"}
+```{r crossoverplot, echo=F, message=F, warning=F, fig.width=8,fig.height=4, fig.cap="Plot showing a crossover design RCT"}
 #simulate some data based on a known structure
 set.seed(123)
 dat <- data.frame(x = runif(100, 1, 3.5), x2 = rnorm(100,0,0.25))
@@ -86,7 +110,7 @@ geom_segment(aes(x=2,y=6,xend = 2.5, yend = 4),col="red",linetype="dashed",size=
 
 The delayed crossover design or wait list control design is another type of within subject design. The control group also receive the intervention but after a pre-specified wait period. This design benefits from an ethical point-of-view as all subjects have access to a potentially beneficial intervention and sevea as their own controls. There is, however, some debate around usefulness of wait-list designs in the psychological and behavioural interventions literature [@Elliott_2002; @Cunningham_2013; @Furukawa_2014]. In particular, @Cunningham_2013 presents results from a study that showed this design can potentially, artificially inflate intervention effect estimates. The design's main issue is the wait period itself. In particular, this is a problem if the controls are made aware that they are the control group. When a participant knows that they have to wait, psychologically this can induce different behaviour.  
 
-```{r waitlist_plot, echo=F, message=F, warning=F, fig.width=8,fig.height=4, fig.cap="plotting showing a wait list design RCT"}
+```{r waitlist_plot, echo=F, message=F, warning=F, fig.width=8,fig.height=4, fig.cap="Plot showing a wait list design RCT"}
 
 
 
