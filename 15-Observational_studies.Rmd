@@ -101,7 +101,7 @@ Find a newspaper report of a factor that is reported to be a risk or benefit to 
 
 ## Observational study designs
 
-The key difference between observational studies and other types discussed in this book are that the researcher(s) do not intervene at any stage, and simply observe whether a condition develops, and record any risk factors or particular behaviour(Sedgewick 2012). The difference between the designs discussed below is either the point at which the intervention or outcome are established.
+The key difference between observational studies and other types discussed in this book are that the researcher(s) do not intervene at any stage, and simply observe whether a condition develops, and record any risk factors or particular behaviour [@Sedgewick_2012]. The difference between the designs discussed below is either the point at which the intervention or outcome are established.
 
 ```{r flow, echo=FALSE, include=FALSE,echo=F,message=F,warning=F}
 
@@ -167,7 +167,7 @@ Typically, the case-control study looks at retrospective information on a group 
 
 ### Cross-Sectional Studies
 
-The cross-sectional study is used when only one time point is recorded and its primary purpose is typically to establish prevalance of conditions or disorders. In this design, we differentiate from the others designs as the intervention and outcome are determined simultaneously (cite: Carlson & Morrrison, 2009). 
+The cross-sectional study is used when only one time point is recorded and its primary purpose is typically to establish prevalance of conditions or disorders. In this design, we differentiate from the others designs as the intervention and outcome are determined simultaneously [@Carlson_2009]. 
 
 
 ## STROBE guidelines
@@ -176,9 +176,9 @@ The strengthening the reporting of observational studies in epidemiology (STROBE
 
 >issues such as confounding, bias, and generalisability could become more transparent, which might help temper the over-enthusiastic reporting of new findings in the scientific community and popular media, and improve the methodology of studies in the long term. Better reporting may also help to have more informed decisions about when new studies are needed, and what they should address.
 
-- Von Elm et al (2007)
+- @von_elm_2007
 
-The Strobe guidelines themselves consist of 22 items that are a necessary requirement to report to ensure some degree of transparency to the research, and ensure a good standard of reporting quality. We restate the STROBE guidelines from Von Elm at al. (2007) in \@ref(tab:strobe)
+The Strobe guidelines themselves consist of 22 items that are a necessary requirement to report to ensure some degree of transparency to the research, and ensure a good standard of reporting quality. We restate the STROBE guidelines from [@von_elm_2007] in \@ref(tab:strobe)
 
 ```{r strobe,echo=F,message=F,warning=F}
 options(kableExtra.html.bsTable = T)

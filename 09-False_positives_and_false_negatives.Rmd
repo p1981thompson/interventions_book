@@ -170,7 +170,7 @@ A power calculation will vary sample sizes for a specific statistical analysis w
 ## Multiple hypothesis testing
 Even when we have a well-designed and adequately powered study, if we collect multiple outcome variables or if we are applying multiple tests to the same data, then the outcomes are unlikely to be completely independent, so we increase our chance of finding a false positive. Returning to the idea that we have a type I error rate for a single test at 5%, then suppose we apply $k$ tests to our data. We increase our false positive rate dramatically for the set of tests, officially known as the family-wise error rate (FWER). The new significance level is given by $1-(1-\alpha)^{k}$ (i.e. the probability of finding at least one false positive). If we assumed that we have performed 10 tests (k=10), we have increased our chance of obtaining a false positive to approximately 40%.
 
-```{r FWER,echo=F, fig.cap="Plot of relationship between familywse error rate and number of statistical tests"}
+```{r familywise,echo=F, fig.cap="Plot of relationship between familywse error rate and number of statistical tests"}
 k <- seq(1:100)
 FWE <- (1-(1-0.05)^k)
 fwe_dat<-data.frame(FWE=FWE,k=k)
@@ -178,7 +178,7 @@ ggplot(data=fwe_dat,aes(k,FWE,type="l"))+geom_line(size=1.2,colour="blue")+theme
 
 ```
 
-Figure \@ref(fig:FWER) shows the relationship between the familywise error rate and the number of tests administered to the data. Clearly, the more tests applied leads to significant increase in the chance of at least one false positive result. There are many different ways to adjust for the multiple testing in practice. We shall discuss some of the most commonly applied.
+Figure \@ref(fig:familywise) shows the relationship between the familywise error rate and the number of tests administered to the data. Clearly, the more tests applied leads to significant increase in the chance of at least one false positive result. There are many different ways to adjust for the multiple testing in practice. We shall discuss some of the most commonly applied.
 
 ### Bonferroni Correction
 The Bonferroni correction is both the simplest and most popular adjustment for multiple testing to protect the type I error rate. The correction works by dividing the type I error by the number of tests conducted. 
@@ -240,7 +240,7 @@ Resampling techniques offer a new perspective on correcting for multiple testing
 
 The same statistical test is used according to the original design, but this test is fitted multiple times. The permutations randomly sample values from each group, as the observations from each group are considered as exchangeable. The assumption in the independent groups test is that the level of significance is not dependent on particular pairings of observations from each group.
 
-```{r permutations_test,echo=F,message=F,warning=F,fig.width=5,fig.cap="Permutation distributions for individual tests"}
+```{r permutationstest,echo=F,message=F,warning=F,fig.width=5,fig.cap="Permutation distributions for individual tests"}
 
 set.seed(123)
 
@@ -292,4 +292,4 @@ geom_point(data=myp, aes(y=x,x=pvalue), size=4,shape=4)+theme_bw()
 
 ```
 
-Suppose we have two groups of individuals and have measured language performance using three different instruments. We choose to use the Student's two independent samples t-test sequentially to test for differences between the two groups of individuals on each of the three measures. We have chosen not to use a correction that adjusts the p-values, instead we decide that a permutation approach will be more robust. Figure \@ref(fig:permutations_test) shows the result of our analysis using the permutation corrected t-tests. The cross points are the actual p-values of the t-tests on the original data. The 95% confidence intervals are constructed from the permuted distributions.
+Suppose we have two groups of individuals and have measured language performance using three different instruments. We choose to use the Student's two independent samples t-test sequentially to test for differences between the two groups of individuals on each of the three measures. We have chosen not to use a correction that adjusts the p-values, instead we decide that a permutation approach will be more robust. Figure \@ref(fig:permutationstest) shows the result of our analysis using the permutation corrected t-tests. The cross points are the actual p-values of the t-tests on the original data. The 95% confidence intervals are constructed from the permuted distributions.

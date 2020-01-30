@@ -12,7 +12,7 @@ For someone starting out planning a trial, it is worth reading the CONSORT Expla
 
 ## Statistical analysis of a RCT
 
-Many of those who train as SLTs or other allied health professions get little or no statistical training. This is unfortunate, as a grasp of basic statistics is essential to understand the research literature on interventions. In some cases, SLTs may have access to expert advice from statisticians, but I suspect that is rarely the case. We have, therefore, a serious dilemma: those who have to administer interventions do not have the skills to evaluate their effectiveness.
+Many of those who train as SLTs or other allied health professions get little or no statistical training. This is unfortunate, as a grasp of basic statistics is essential to understand the research literature on interventions. In some cases, SLTs may have access to expert advice from statisticians, but we suspect that is rarely the case. We have, therefore, a serious dilemma: those who have to administer interventions do not have the skills to evaluate their effectiveness.
 
 We do not propose to turn readers of this book into expert statisticians, but we hope to instil a basic understanding of some key principles that will make it easier to read and interpret the research literature.
 
