@@ -48,7 +48,7 @@ data <- c(0, 0, 0,
 M<- matrix (nrow=3, ncol=3, byrow = TRUE, data=data)
 plot<- plotmat (M, pos=c(1,2), 
                 name= c( "Confounder (B)","Predictor (A)", "Outcome (C)"), 
-                box.type = "rect", box.size = 0.12, box.prop=0.5,  curve=0)
+                box.type = "rect", box.size = 0.15, box.prop=0.5,  curve=0)
 
 Confounder <- plot$comp[1,]
 Predictor <- plot$comp[2,]
@@ -72,8 +72,8 @@ data <- c(0, 0,0,
           "' '",0, 0)
 M<- matrix (nrow=3, ncol=3, byrow = TRUE, data=data)
 plot<- plotmat (M, pos=c(1,2), 
-                name= c( "Confounder","Intervention\\n(Exposure)", "Outcome"), 
-                box.type = "ellipse", box.size = 0.12, box.prop=0.5,  curve=0)
+                name= c( "Confounder","Intervention\n(Exposure)", "Outcome"), 
+                box.type = "ellipse", box.size = 0.16, box.prop=0.5,  curve=0)
 
 Confounder <- plot$comp[1,]
 Intervention <- plot$comp[2,]

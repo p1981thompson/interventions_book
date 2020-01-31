@@ -90,9 +90,18 @@ knitr::kable(strat.mat,escape = F, align = "c", booktabs = T, caption = 'Randomi
   column_spec(1, bold = T) 
 ```
 
+### Adaptive randomisation 
+
+An alternative to stratification, adaptive randomisation continually changes or adapts during recruitment. Its popularity has grown in recent years as stratifcation becomes weaker when the number of strata increases and is particularly susceptable when used in smaller trials. For each new individual, the allocation to treatment ratio changes to ensure that the balance of allocation to groups remains balanced both overall and with any relevant stratisfying variables or covariates, for example, gender or age. The change in the allocation ratio is based on a few factors [@Hoare_2013]: 
+
+- the number of individuals already assigned to each treatment arm.
+- the number of individuals in each stratification levels.
+- the number of individuals in the stratum.
+
+
 ### Minimization
 
-An alternative to stratification called minimization is also very popular in clinical RCTs. Its popularity has grown in recent years as stratifcation becomes weaker when the number of strata increases and is particularly susceptable when used in smaller trials. Minimization was first proposed by Pocock and Simon (ref) and is referred to as a dynamic or adaptive randomization. Each participant's allocation is dependant on the characteristics and allocation of participants already allocated to groups. The idea is to minimise the imbalance by considering a range of factors for each allocation. This prevents the allocation of particular sub groups into one allocation which may happen in any of the aforementioned methods. To demostrate this method, we restate the example from Scott et al. (2002), using table \@ref(tab:minitable):
+A specialised type of adaptive  called minimization is also very popular in clinical RCTs. Minimization was first proposed by Pocock and Simon (ref) and is referred to as a dynamic or adaptive randomization. Each participant's allocation is dependant on the characteristics and allocation of participants already allocated to groups. The idea is to minimise the imbalance by considering a range of factors for each allocation. This prevents the allocation of particular sub groups into one allocation which may happen in any of the aforementioned methods. To demostrate this method, we restate the example from Scott et al. (2002), using table \@ref(tab:minitable):
 
 
 ```{r minitable,echo=F,message=F,warning=F}
@@ -119,5 +128,8 @@ knitr::kable(mini.mat,escape = F, align = "c", booktabs = T, caption = 'Randomiz
 >Patient allocated to the group that would lead to less overall imbalance.
 >Therefore 17th participant allocated to intervention group because $$1<7$$.
 
-### Adaptive randomisation 
+
+
+
+
 
