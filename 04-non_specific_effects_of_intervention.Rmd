@@ -14,7 +14,7 @@ Study participants themselves may also be influenced by general positive impact 
 
 ## Identifying specific intervention effects by measures of mechanism
 
-There are two approaches that can be taken to disentangle nonspecific effects from specific impact of a particular intervention. First, we can include an active control group who get an equivalent amount of therapeutic attention, but directed towards different goals.  I will discuss this further in Chapter 5, which focuses on different approaches to control groups. The second is to include specially selected measures designed to clarify and highlight the active ingredients of the intervention. I will refer to these as 'mechanism' measures, to distinguish them from outcome measures.
+There are two approaches that can be taken to disentangle nonspecific effects from specific impact of a particular intervention. First, we can include an active control group who get an equivalent amount of therapeutic attention, but directed towards different goals.  We will discuss this further in Chapter 5, which focuses on different approaches to control groups. The second is to include specially selected measures designed to clarify and highlight the active ingredients of the intervention. We will refer to these as 'mechanism' measures, to distinguish them from outcome measures.
 
 Let's take the example of parent-based intervention with a late-talking toddler. In extended milieu therapy, the therapist encourages the parent to change their style of communication in naturalistic contexts in specific ways (see table x).  The ultimate goal of the intervention is to enhance the child's language, but the mechanism is via changes in the parent's communicative style. If we were to find that the child's language improved relative to an untreated control group but there was no change in parental communication (our mechanism measure), then this would suggest we were seeing some general impact of the therapeutic contact, rather than the intended effect of the intervention.
 (Jonathan Green e.g.)
@@ -26,4 +26,7 @@ Note that in both these cases it is possible that we might see changes in our me
 The most compelling result, however, is when there is a clear difference between an intervention and a treated control group in both the mechanism measure and the outcome measure, with the two being positively related within the group. This would look like good evidence for a specific intervention effect that was not just due to placebo.
 
 It is not always easy to identify a 'mechanism' measure – this will depend on the nature of the intervention and how specific its goals are. For some highly specific therapies – e.g. a phonological therapy aimed at changing a specific phonological process, or a grammatical intervention that trains production of particular morphological forms, the 'mechanism' measure might be similar to the kind of 'near transfer' outcome measure that was discussed in chapter 2 – i.e., a measure of change in performance on the particular skill that is targeted. As noted above, we might want to use a broader assessment for our main outcome measure, to indicate how far there is generalisation beyond the specific skills that have been targeted.
+
+#Classroom exercise
+
  

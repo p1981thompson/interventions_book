@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 7 Observational studies | Evaluating and conducting intervention studies: a guide for speech and language therapists</title>
-  <meta name="description" content="Introduction to methods for evaluating effectiveness of interventions in medical related fields">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 15 Observational studies | Evaluating and conducting intervention studies: a guide for speech and language therapists</title>
+  <meta name="description" content="Introduction to methods for evaluating effectiveness of interventions in medical related fields" />
+  <meta name="generator" content="bookdown 0.10 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 7 Observational studies | Evaluating and conducting intervention studies: a guide for speech and language therapists />
+  <meta property="og:title" content="Chapter 15 Observational studies | Evaluating and conducting intervention studies: a guide for speech and language therapists" />
   <meta property="og:type" content="book" />
   
   
@@ -17,26 +16,25 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 7 Observational studies | Evaluating and conducting intervention studies: a guide for speech and language therapists />
+  <meta name="twitter:title" content="Chapter 15 Observational studies | Evaluating and conducting intervention studies: a guide for speech and language therapists" />
   
   <meta name="twitter:description" content="Introduction to methods for evaluating effectiveness of interventions in medical related fields" />
   
 
-<meta name="author" content="Dorothy V.M. Bishop and Paul A. Thompson">
+<meta name="author" content="Dorothy V.M. Bishop and Paul A. Thompson" />
 
 
-<meta name="date" content="2019-02-04">
+<meta name="date" content="2020-01-31" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="wait-list-controls-and-cross-over-designs.html">
-<link rel="next" href="controlling-for-selection-bias-randomised-assignment-to-intervention.html">
+<link rel="prev" href="cluster-randomised-control-trials.html">
+<link rel="next" href="regression-discontinuity-designs.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -48,8 +46,73 @@
 
 
 
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
 
 
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -68,10 +131,11 @@
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-did-i-write-this-book"><i class="fa fa-check"></i>Why did I write this book?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-did-we-write-this-book"><i class="fa fa-check"></i>Why did we write this book?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#who-is-this-book-for"><i class="fa fa-check"></i>Who is this book for?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-is-covered"><i class="fa fa-check"></i>What is covered?</a></li>
 </ul></li>
+<li class="part"><span><b>I General Principles and Foundations</b></span></li>
 <li class="chapter" data-level="1" data-path="how-can-we-know-if-weve-made-a-difference.html"><a href="how-can-we-know-if-weve-made-a-difference.html"><i class="fa fa-check"></i><b>1</b> How can we know if we’ve made a difference?</a><ul>
 <li class="chapter" data-level="1.1" data-path="how-can-we-know-if-weve-made-a-difference.html"><a href="how-can-we-know-if-weve-made-a-difference.html#the-randomness-of-everything"><i class="fa fa-check"></i><b>1.1</b> The randomness of everything</a></li>
 <li class="chapter" data-level="1.2" data-path="how-can-we-know-if-weve-made-a-difference.html"><a href="how-can-we-know-if-weve-made-a-difference.html#systematic-error"><i class="fa fa-check"></i><b>1.2</b> Systematic error</a></li>
@@ -102,46 +166,100 @@
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="controlling-unwanted-effects-with-a-control-group.html"><a href="controlling-unwanted-effects-with-a-control-group.html#treated-vs-untreated-controls"><i class="fa fa-check"></i><b>5.2</b> Treated vs untreated controls</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="wait-list-controls-and-cross-over-designs.html"><a href="wait-list-controls-and-cross-over-designs.html"><i class="fa fa-check"></i><b>6</b> Wait-list controls and cross-over designs</a></li>
-<li class="chapter" data-level="7" data-path="observational-studies.html"><a href="observational-studies.html"><i class="fa fa-check"></i><b>7</b> Observational studies</a><ul>
-<li class="chapter" data-level="7.1" data-path="observational-studies.html"><a href="observational-studies.html#class-exercise-2"><i class="fa fa-check"></i><b>7.1</b> Class exercise</a></li>
+<li class="chapter" data-level="6" data-path="controlling-for-selection-bias-randomised-assignment-to-intervention.html"><a href="controlling-for-selection-bias-randomised-assignment-to-intervention.html"><i class="fa fa-check"></i><b>6</b> Controlling for selection bias: randomised assignment to intervention</a><ul>
+<li class="chapter" data-level="6.1" data-path="controlling-for-selection-bias-randomised-assignment-to-intervention.html"><a href="controlling-for-selection-bias-randomised-assignment-to-intervention.html#units-of-analysis-individuals-vs-clusters"><i class="fa fa-check"></i><b>6.1</b> Units of analysis: Individuals vs clusters</a></li>
+<li class="chapter" data-level="6.2" data-path="controlling-for-selection-bias-randomised-assignment-to-intervention.html"><a href="controlling-for-selection-bias-randomised-assignment-to-intervention.html#class-exercise-2"><i class="fa fa-check"></i><b>6.2</b> Class exercise</a></li>
+<li class="chapter" data-level="6.3" data-path="controlling-for-selection-bias-randomised-assignment-to-intervention.html"><a href="controlling-for-selection-bias-randomised-assignment-to-intervention.html#randomization-methods"><i class="fa fa-check"></i><b>6.3</b> Randomization methods</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="controlling-for-selection-bias-randomised-assignment-to-intervention.html"><a href="controlling-for-selection-bias-randomised-assignment-to-intervention.html#simple-randomization"><i class="fa fa-check"></i><b>6.3.1</b> Simple randomization</a></li>
+<li class="chapter" data-level="6.3.2" data-path="controlling-for-selection-bias-randomised-assignment-to-intervention.html"><a href="controlling-for-selection-bias-randomised-assignment-to-intervention.html#random-permuted-blocks"><i class="fa fa-check"></i><b>6.3.2</b> Random permuted blocks</a></li>
+<li class="chapter" data-level="6.3.3" data-path="controlling-for-selection-bias-randomised-assignment-to-intervention.html"><a href="controlling-for-selection-bias-randomised-assignment-to-intervention.html#unequal-randomization"><i class="fa fa-check"></i><b>6.3.3</b> Unequal randomization</a></li>
+<li class="chapter" data-level="6.3.4" data-path="controlling-for-selection-bias-randomised-assignment-to-intervention.html"><a href="controlling-for-selection-bias-randomised-assignment-to-intervention.html#stratification"><i class="fa fa-check"></i><b>6.3.4</b> Stratification</a></li>
+<li class="chapter" data-level="6.3.5" data-path="controlling-for-selection-bias-randomised-assignment-to-intervention.html"><a href="controlling-for-selection-bias-randomised-assignment-to-intervention.html#adaptive-randomisation"><i class="fa fa-check"></i><b>6.3.5</b> Adaptive randomisation</a></li>
+<li class="chapter" data-level="6.3.6" data-path="controlling-for-selection-bias-randomised-assignment-to-intervention.html"><a href="controlling-for-selection-bias-randomised-assignment-to-intervention.html#minimization"><i class="fa fa-check"></i><b>6.3.6</b> Minimization</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="controlling-for-selection-bias-randomised-assignment-to-intervention.html"><a href="controlling-for-selection-bias-randomised-assignment-to-intervention.html"><i class="fa fa-check"></i><b>8</b> Controlling for selection bias: randomised assignment to intervention</a><ul>
-<li class="chapter" data-level="8.1" data-path="controlling-for-selection-bias-randomised-assignment-to-intervention.html"><a href="controlling-for-selection-bias-randomised-assignment-to-intervention.html#units-of-analysis-individuals-vs-clusters"><i class="fa fa-check"></i><b>8.1</b> Units of analysis: Individuals vs clusters</a></li>
-<li class="chapter" data-level="8.2" data-path="controlling-for-selection-bias-randomised-assignment-to-intervention.html"><a href="controlling-for-selection-bias-randomised-assignment-to-intervention.html#class-exercise-3"><i class="fa fa-check"></i><b>8.2</b> Class exercise</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="the-experimenter-as-a-source-of-bias.html"><a href="the-experimenter-as-a-source-of-bias.html"><i class="fa fa-check"></i><b>9</b> The experimenter as a source of bias</a><ul>
-<li class="chapter" data-level="9.1" data-path="the-experimenter-as-a-source-of-bias.html"><a href="the-experimenter-as-a-source-of-bias.html#allocation-concealment"><i class="fa fa-check"></i><b>9.1</b> Allocation concealment</a></li>
-<li class="chapter" data-level="9.2" data-path="the-experimenter-as-a-source-of-bias.html"><a href="the-experimenter-as-a-source-of-bias.html#the-importance-of-masking-for-assessments"><i class="fa fa-check"></i><b>9.2</b> The importance of masking for assessments</a></li>
-<li class="chapter" data-level="9.3" data-path="the-experimenter-as-a-source-of-bias.html"><a href="the-experimenter-as-a-source-of-bias.html#conflict-of-interest"><i class="fa fa-check"></i><b>9.3</b> Conflict of interest</a></li>
-<li class="chapter" data-level="9.4" data-path="the-experimenter-as-a-source-of-bias.html"><a href="the-experimenter-as-a-source-of-bias.html#class-exercise-4"><i class="fa fa-check"></i><b>9.4</b> Class exercise</a></li>
+<li class="chapter" data-level="7" data-path="the-experimenter-as-a-source-of-bias.html"><a href="the-experimenter-as-a-source-of-bias.html"><i class="fa fa-check"></i><b>7</b> The experimenter as a source of bias</a><ul>
+<li class="chapter" data-level="7.1" data-path="the-experimenter-as-a-source-of-bias.html"><a href="the-experimenter-as-a-source-of-bias.html#allocation-concealment"><i class="fa fa-check"></i><b>7.1</b> Allocation concealment</a></li>
+<li class="chapter" data-level="7.2" data-path="the-experimenter-as-a-source-of-bias.html"><a href="the-experimenter-as-a-source-of-bias.html#the-importance-of-masking-for-assessments"><i class="fa fa-check"></i><b>7.2</b> The importance of masking for assessments</a></li>
+<li class="chapter" data-level="7.3" data-path="the-experimenter-as-a-source-of-bias.html"><a href="the-experimenter-as-a-source-of-bias.html#conflict-of-interest"><i class="fa fa-check"></i><b>7.3</b> Conflict of interest</a></li>
+<li class="chapter" data-level="7.4" data-path="the-experimenter-as-a-source-of-bias.html"><a href="the-experimenter-as-a-source-of-bias.html#class-exercise-3"><i class="fa fa-check"></i><b>7.4</b> Class exercise</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="further-potential-for-bias-who-drops-out-and-who-volunteers.html"><a href="further-potential-for-bias-who-drops-out-and-who-volunteers.html"><i class="fa fa-check"></i><b>10</b> Further potential for bias: who drops out and who volunteers?</a><ul>
-<li class="chapter" data-level="10.1" data-path="further-potential-for-bias-who-drops-out-and-who-volunteers.html"><a href="further-potential-for-bias-who-drops-out-and-who-volunteers.html#dealing-with-dropouts-intention-to-treat-analysis"><i class="fa fa-check"></i><b>10.1</b> Dealing with dropouts: Intention to treat analysis</a></li>
-<li class="chapter" data-level="10.2" data-path="further-potential-for-bias-who-drops-out-and-who-volunteers.html"><a href="further-potential-for-bias-who-drops-out-and-who-volunteers.html#who-volunteers-for-research"><i class="fa fa-check"></i><b>10.2</b> Who volunteers for research?</a></li>
-<li class="chapter" data-level="10.3" data-path="further-potential-for-bias-who-drops-out-and-who-volunteers.html"><a href="further-potential-for-bias-who-drops-out-and-who-volunteers.html#class-exercise-5"><i class="fa fa-check"></i><b>10.3</b> Class exercise</a></li>
+<li class="chapter" data-level="8" data-path="further-potential-for-bias-who-drops-out-and-who-volunteers.html"><a href="further-potential-for-bias-who-drops-out-and-who-volunteers.html"><i class="fa fa-check"></i><b>8</b> Further potential for bias: who drops out and who volunteers?</a><ul>
+<li class="chapter" data-level="8.1" data-path="further-potential-for-bias-who-drops-out-and-who-volunteers.html"><a href="further-potential-for-bias-who-drops-out-and-who-volunteers.html#dealing-with-dropouts-intention-to-treat-analysis"><i class="fa fa-check"></i><b>8.1</b> Dealing with dropouts: Intention to treat analysis</a></li>
+<li class="chapter" data-level="8.2" data-path="further-potential-for-bias-who-drops-out-and-who-volunteers.html"><a href="further-potential-for-bias-who-drops-out-and-who-volunteers.html#who-volunteers-for-research"><i class="fa fa-check"></i><b>8.2</b> Who volunteers for research?</a></li>
+<li class="chapter" data-level="8.3" data-path="further-potential-for-bias-who-drops-out-and-who-volunteers.html"><a href="further-potential-for-bias-who-drops-out-and-who-volunteers.html#class-exercise-4"><i class="fa fa-check"></i><b>8.3</b> Class exercise</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="putting-it-all-together-the-randomised-controlled-trial.html"><a href="putting-it-all-together-the-randomised-controlled-trial.html"><i class="fa fa-check"></i><b>11</b> Putting it all together: the randomised controlled trial</a><ul>
-<li class="chapter" data-level="11.1" data-path="putting-it-all-together-the-randomised-controlled-trial.html"><a href="putting-it-all-together-the-randomised-controlled-trial.html#statistical-analysis-of-a-rct"><i class="fa fa-check"></i><b>11.1</b> Statistical analysis of a RCT</a></li>
-<li class="chapter" data-level="11.2" data-path="putting-it-all-together-the-randomised-controlled-trial.html"><a href="putting-it-all-together-the-randomised-controlled-trial.html#obfuscation-and-omission-in-the-reporting-of-results"><i class="fa fa-check"></i><b>11.2</b> Obfuscation and omission in the reporting of results</a></li>
+<li class="chapter" data-level="9" data-path="false-positives-and-false-negatives-are-we-missing-true-effects.html"><a href="false-positives-and-false-negatives-are-we-missing-true-effects.html"><i class="fa fa-check"></i><b>9</b> False positives and false negatives: are we missing true effects?</a><ul>
+<li class="chapter" data-level="9.0.1" data-path="false-positives-and-false-negatives-are-we-missing-true-effects.html"><a href="false-positives-and-false-negatives-are-we-missing-true-effects.html#type-i-error-alpha"><i class="fa fa-check"></i><b>9.0.1</b> Type I error (<span class="math inline">\(\alpha\)</span>)</a></li>
+<li class="chapter" data-level="9.0.2" data-path="false-positives-and-false-negatives-are-we-missing-true-effects.html"><a href="false-positives-and-false-negatives-are-we-missing-true-effects.html#type-ii-error-beta"><i class="fa fa-check"></i><b>9.0.2</b> Type II error (<span class="math inline">\(\beta\)</span>)</a></li>
+<li class="chapter" data-level="9.1" data-path="false-positives-and-false-negatives-are-we-missing-true-effects.html"><a href="false-positives-and-false-negatives-are-we-missing-true-effects.html#statistical-power"><i class="fa fa-check"></i><b>9.1</b> Statistical power</a></li>
+<li class="chapter" data-level="9.2" data-path="false-positives-and-false-negatives-are-we-missing-true-effects.html"><a href="false-positives-and-false-negatives-are-we-missing-true-effects.html#multiple-hypothesis-testing"><i class="fa fa-check"></i><b>9.2</b> Multiple hypothesis testing</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="false-positives-and-false-negatives-are-we-missing-true-effects.html"><a href="false-positives-and-false-negatives-are-we-missing-true-effects.html#bonferroni-correction"><i class="fa fa-check"></i><b>9.2.1</b> Bonferroni Correction</a></li>
+<li class="chapter" data-level="9.2.2" data-path="false-positives-and-false-negatives-are-we-missing-true-effects.html"><a href="false-positives-and-false-negatives-are-we-missing-true-effects.html#false-discovery-rate-fdr"><i class="fa fa-check"></i><b>9.2.2</b> False Discovery rate (FDR)</a></li>
+<li class="chapter" data-level="9.2.3" data-path="false-positives-and-false-negatives-are-we-missing-true-effects.html"><a href="false-positives-and-false-negatives-are-we-missing-true-effects.html#permutation-methods"><i class="fa fa-check"></i><b>9.2.3</b> Permutation methods</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="yet-more-bias-distortions-arising-at-the-analysis-stage.html"><a href="yet-more-bias-distortions-arising-at-the-analysis-stage.html"><i class="fa fa-check"></i><b>12</b> Yet more bias: distortions arising at the analysis stage</a></li>
-<li class="chapter" data-level="13" data-path="false-positives-and-false-negatives-are-we-missing-true-effects.html"><a href="false-positives-and-false-negatives-are-we-missing-true-effects.html"><i class="fa fa-check"></i><b>13</b> False positives and false negatives: are we missing true effects?</a></li>
-<li class="chapter" data-level="14" data-path="drawbacks-of-the-rct.html"><a href="drawbacks-of-the-rct.html"><i class="fa fa-check"></i><b>14</b> Drawbacks of the RCT</a></li>
-<li class="chapter" data-level="15" data-path="alternatives-to-rct-regression-discontinuity.html"><a href="alternatives-to-rct-regression-discontinuity.html"><i class="fa fa-check"></i><b>15</b> Alternatives to RCT: regression discontinuity</a><ul>
-<li class="chapter" data-level="15.1" data-path="alternatives-to-rct-regression-discontinuity.html"><a href="alternatives-to-rct-regression-discontinuity.html#mediators"><i class="fa fa-check"></i><b>15.1</b> Mediators</a></li>
-<li class="chapter" data-level="15.2" data-path="alternatives-to-rct-regression-discontinuity.html"><a href="alternatives-to-rct-regression-discontinuity.html#moderators"><i class="fa fa-check"></i><b>15.2</b> Moderators</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="alternatives-to-rct-within-subject-designs.html"><a href="alternatives-to-rct-within-subject-designs.html"><i class="fa fa-check"></i><b>16</b> Alternatives to RCT: within-subject designs</a><ul>
-<li class="chapter" data-level="16.1" data-path="alternatives-to-rct-within-subject-designs.html"><a href="alternatives-to-rct-within-subject-designs.html#single-case-designs"><i class="fa fa-check"></i><b>16.1</b> Single case designs</a></li>
+<li class="part"><span><b>II Experimental Studies</b></span></li>
+<li class="chapter" data-level="10" data-path="putting-it-all-together-the-randomised-controlled-trial.html"><a href="putting-it-all-together-the-randomised-controlled-trial.html"><i class="fa fa-check"></i><b>10</b> Putting it all together: the randomised controlled trial</a><ul>
+<li class="chapter" data-level="10.1" data-path="putting-it-all-together-the-randomised-controlled-trial.html"><a href="putting-it-all-together-the-randomised-controlled-trial.html#statistical-analysis-of-a-rct"><i class="fa fa-check"></i><b>10.1</b> Statistical analysis of a RCT</a></li>
+<li class="chapter" data-level="10.2" data-path="putting-it-all-together-the-randomised-controlled-trial.html"><a href="putting-it-all-together-the-randomised-controlled-trial.html#obfuscation-and-omission-in-the-reporting-of-results"><i class="fa fa-check"></i><b>10.2</b> Obfuscation and omission in the reporting of results</a></li>
 </ul></li>
+<li class="chapter" data-level="11" data-path="drawbacks-of-the-rct.html"><a href="drawbacks-of-the-rct.html"><i class="fa fa-check"></i><b>11</b> Drawbacks of the RCT</a><ul>
+<li class="chapter" data-level="11.1" data-path="drawbacks-of-the-rct.html"><a href="drawbacks-of-the-rct.html#yet-more-bias-distortions-arising-at-the-analysis-stage"><i class="fa fa-check"></i><b>11.1</b> Yet more bias: distortions arising at the analysis stage</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="special-cases-of-the-rct-within-subject-designs.html"><a href="special-cases-of-the-rct-within-subject-designs.html"><i class="fa fa-check"></i><b>12</b> Special cases of the RCT: within-subject designs</a><ul>
+<li class="chapter" data-level="12.1" data-path="special-cases-of-the-rct-within-subject-designs.html"><a href="special-cases-of-the-rct-within-subject-designs.html#single-case-designs"><i class="fa fa-check"></i><b>12.1</b> Single case designs</a></li>
+<li class="chapter" data-level="12.2" data-path="special-cases-of-the-rct-within-subject-designs.html"><a href="special-cases-of-the-rct-within-subject-designs.html#cross-over-designs"><i class="fa fa-check"></i><b>12.2</b> Cross-over designs</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="special-cases-of-the-rct-within-subject-designs.html"><a href="special-cases-of-the-rct-within-subject-designs.html#traditional-cross-over-design"><i class="fa fa-check"></i><b>12.2.1</b> Traditional cross-over design</a></li>
+<li class="chapter" data-level="12.2.2" data-path="special-cases-of-the-rct-within-subject-designs.html"><a href="special-cases-of-the-rct-within-subject-designs.html#delayed-crossover-design-wait-list-controls"><i class="fa fa-check"></i><b>12.2.2</b> Delayed crossover design (Wait list controls)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="adaptive-interventions.html"><a href="adaptive-interventions.html"><i class="fa fa-check"></i><b>13</b> Adaptive Interventions</a><ul>
+<li class="chapter" data-level="13.1" data-path="adaptive-interventions.html"><a href="adaptive-interventions.html#more-niche-trial-designs"><i class="fa fa-check"></i><b>13.1</b> More niche trial designs</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="adaptive-interventions.html"><a href="adaptive-interventions.html#just-in-time-adaptive-interventions-jitai"><i class="fa fa-check"></i><b>13.1.1</b> Just-in-Time adaptive interventions (JITAI)</a></li>
+<li class="chapter" data-level="13.1.2" data-path="adaptive-interventions.html"><a href="adaptive-interventions.html#micro-randomized-trials-mrt"><i class="fa fa-check"></i><b>13.1.2</b> Micro-Randomized Trials (MRT)</a></li>
+<li class="chapter" data-level="13.1.3" data-path="adaptive-interventions.html"><a href="adaptive-interventions.html#sequential-multiple-assignment-randomized-trial-smart"><i class="fa fa-check"></i><b>13.1.3</b> Sequential, Multiple Assignment, Randomized Trial (SMART)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="cluster-randomised-control-trials.html"><a href="cluster-randomised-control-trials.html"><i class="fa fa-check"></i><b>14</b> Cluster Randomised Control Trials</a><ul>
+<li class="chapter" data-level="14.1" data-path="cluster-randomised-control-trials.html"><a href="cluster-randomised-control-trials.html#what-is-a-cluster-rct"><i class="fa fa-check"></i><b>14.1</b> What is a cluster RCT?</a></li>
+<li class="chapter" data-level="14.2" data-path="cluster-randomised-control-trials.html"><a href="cluster-randomised-control-trials.html#advantages-and-disadvantages-of-cluster-design"><i class="fa fa-check"></i><b>14.2</b> Advantages and disadvantages of cluster design</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="cluster-randomised-control-trials.html"><a href="cluster-randomised-control-trials.html#advantages"><i class="fa fa-check"></i><b>14.2.1</b> Advantages</a></li>
+<li class="chapter" data-level="14.2.2" data-path="cluster-randomised-control-trials.html"><a href="cluster-randomised-control-trials.html#disadvantages"><i class="fa fa-check"></i><b>14.2.2</b> Disadvantages</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="cluster-randomised-control-trials.html"><a href="cluster-randomised-control-trials.html#logistical-and-pragmatic-constraints"><i class="fa fa-check"></i><b>14.3</b> logistical and pragmatic constraints</a></li>
+<li class="chapter" data-level="14.4" data-path="cluster-randomised-control-trials.html"><a href="cluster-randomised-control-trials.html#contamination"><i class="fa fa-check"></i><b>14.4</b> Contamination</a></li>
+</ul></li>
+<li class="part"><span><b>III Observational Studies</b></span></li>
+<li class="chapter" data-level="15" data-path="observational-studies.html"><a href="observational-studies.html"><i class="fa fa-check"></i><b>15</b> Observational studies</a><ul>
+<li class="chapter" data-level="15.1" data-path="observational-studies.html"><a href="observational-studies.html#class-exercise-5"><i class="fa fa-check"></i><b>15.1</b> Class exercise</a></li>
+<li class="chapter" data-level="15.2" data-path="observational-studies.html"><a href="observational-studies.html#observational-study-designs"><i class="fa fa-check"></i><b>15.2</b> Observational study designs</a><ul>
+<li class="chapter" data-level="15.2.1" data-path="observational-studies.html"><a href="observational-studies.html#cohort-studies"><i class="fa fa-check"></i><b>15.2.1</b> Cohort studies</a></li>
+<li class="chapter" data-level="15.2.2" data-path="observational-studies.html"><a href="observational-studies.html#case-control-studies"><i class="fa fa-check"></i><b>15.2.2</b> Case-Control studies</a></li>
+<li class="chapter" data-level="15.2.3" data-path="observational-studies.html"><a href="observational-studies.html#cross-sectional-studies"><i class="fa fa-check"></i><b>15.2.3</b> Cross-Sectional Studies</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="observational-studies.html"><a href="observational-studies.html#strobe-guidelines"><i class="fa fa-check"></i><b>15.3</b> STROBE guidelines</a></li>
+<li class="chapter" data-level="15.4" data-path="observational-studies.html"><a href="observational-studies.html#matching"><i class="fa fa-check"></i><b>15.4</b> Matching</a><ul>
+<li class="chapter" data-level="15.4.1" data-path="observational-studies.html"><a href="observational-studies.html#propensity-score"><i class="fa fa-check"></i><b>15.4.1</b> Propensity score</a></li>
+<li class="chapter" data-level="15.4.2" data-path="observational-studies.html"><a href="observational-studies.html#distance-matrices"><i class="fa fa-check"></i><b>15.4.2</b> distance matrices</a></li>
+<li class="chapter" data-level="15.4.3" data-path="observational-studies.html"><a href="observational-studies.html#optimal-matching"><i class="fa fa-check"></i><b>15.4.3</b> Optimal matching</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="regression-discontinuity-designs.html"><a href="regression-discontinuity-designs.html"><i class="fa fa-check"></i><b>16</b> Regression discontinuity designs</a><ul>
+<li class="chapter" data-level="16.1" data-path="regression-discontinuity-designs.html"><a href="regression-discontinuity-designs.html#mediators"><i class="fa fa-check"></i><b>16.1</b> Mediators</a></li>
+<li class="chapter" data-level="16.2" data-path="regression-discontinuity-designs.html"><a href="regression-discontinuity-designs.html#moderators"><i class="fa fa-check"></i><b>16.2</b> Moderators</a></li>
+</ul></li>
+<li class="part"><span><b>IV Reproducible Methods and Metaresearch</b></span></li>
 <li class="chapter" data-level="17" data-path="practical-obstacles-to-the-ideal-study.html"><a href="practical-obstacles-to-the-ideal-study.html"><i class="fa fa-check"></i><b>17</b> Practical obstacles to the ideal study</a><ul>
 <li class="chapter" data-level="17.1" data-path="practical-obstacles-to-the-ideal-study.html"><a href="practical-obstacles-to-the-ideal-study.html#sample-size-need-for-team-science"><i class="fa fa-check"></i><b>17.1</b> Sample size: need for team science?</a></li>
 <li class="chapter" data-level="17.2" data-path="practical-obstacles-to-the-ideal-study.html"><a href="practical-obstacles-to-the-ideal-study.html#over-regulation-of-research-when-ethics-committees-misfire"><i class="fa fa-check"></i><b>17.2</b> Over-regulation of research: when ethics committees misfire</a></li>
 <li class="chapter" data-level="17.3" data-path="practical-obstacles-to-the-ideal-study.html"><a href="practical-obstacles-to-the-ideal-study.html#problems-in-generalising-to-the-real-world"><i class="fa fa-check"></i><b>17.3</b> Problems in generalising to the real world</a></li>
 </ul></li>
 <li class="chapter" data-level="18" data-path="can-we-believe-the-literature-publication-bias.html"><a href="can-we-believe-the-literature-publication-bias.html"><i class="fa fa-check"></i><b>18</b> Can we believe the literature? Publication bias</a></li>
-<li class="chapter" data-level="19" data-path="pre-registration-as-a-means-to-combat-publication-bias.html"><a href="pre-registration-as-a-means-to-combat-publication-bias.html"><i class="fa fa-check"></i><b>19</b> Pre-registration as a means to combat publication bias</a></li>
+<li class="chapter" data-level="19" data-path="pre-registration-and-registered-reports.html"><a href="pre-registration-and-registered-reports.html"><i class="fa fa-check"></i><b>19</b> Pre-registration and Registered Reports</a><ul>
+<li class="chapter" data-level="19.1" data-path="pre-registration-and-registered-reports.html"><a href="pre-registration-and-registered-reports.html#what-do-we-mean-by-pre-registration"><i class="fa fa-check"></i><b>19.1</b> What do we mean by Pre-registration?</a></li>
+<li class="chapter" data-level="19.2" data-path="pre-registration-and-registered-reports.html"><a href="pre-registration-and-registered-reports.html#what-is-a-registered-report"><i class="fa fa-check"></i><b>19.2</b> What is a Registered Report?</a></li>
+</ul></li>
 <li class="chapter" data-level="20" data-path="avoiding-waste-the-need-to-start-with-a-systematic-review.html"><a href="avoiding-waste-the-need-to-start-with-a-systematic-review.html"><i class="fa fa-check"></i><b>20</b> Avoiding waste: the need to start with a systematic review</a></li>
 <li class="chapter" data-level="21" data-path="a-template-for-a-research-protocol.html"><a href="a-template-for-a-research-protocol.html"><i class="fa fa-check"></i><b>21</b> A template for a research protocol</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -166,20 +284,376 @@
 
             <section class="normal" id="section-">
 <div id="observational-studies" class="section level1">
-<h1><span class="header-section-number">Chapter 7</span> Observational studies</h1>
+<h1><span class="header-section-number">Chapter 15</span> Observational studies</h1>
+<blockquote>
 <p><em>Janice, a SLT, has recently started using a parent-based approach with late-talking 2-year-olds in her practice. Parents are encouraged to make video recordings of interactions with their child, which are then analysed with the therapist, who notes ways of making the interaction more contingent on the child’s interests and communicative attempts. She wants to evaluate what she is doing. A colleague of hers, Anna, who has a similar caseload, is sceptical about whether Janice’s approach is cost-effective. Anna uses a watchful waiting approach with children this young. Janice and Anna agree to do a study using the same pre- and post-intervention assessments so that they can evaluate the impact of Janice’s approach.</em></p>
+</blockquote>
+<blockquote>
 <p><em>Stephen notes that some aphasic patients referred to his clinic talk glowingly about a commercially available ‘brain-based learning’ programme, MyLangBooster. He wants to know whether he should be recommending this programme to other clients, so he carries out a comparison of patients who used MyLangBooster and those who did not.</em></p>
+</blockquote>
+<blockquote>
 <p><em>Dorothy, a researcher, had a grant for a study predicting outcomes of 4-year-olds who had poor language skills, some of whom had received intervention with SLT services. She saw the same group of 83 children at ages 4, 4.5 and 5.5 years, and noted that their outcomes were very variable. Some children had caught up with their peer group by the final assessment, whereas others had persistent problems. When she presented the results at a conference, a person in the audience suggested that she should do an analysis to see if the amount of intervention was a factor influencing outcomes.</em></p>
+</blockquote>
 <p>All of these vignettes illustrate observational studies: ones where we use naturalistic data rather than exerting any experimental control over who gets an intervention. The last one, as you may have guessed, is a true story – my own experience with a longitudinal study by Bishop and Edmundson (1987). This gives a very clear illustration of the perils of observational studies.</p>
 <p>When I looked at the relationship between intervention and outcome in my sample, I found results that were deeply depressing to SLTs: the children who had the most intervention had the worst outcomes. Did that mean that intervention was actually harming children? Well, it’s possible – as noted in chapter 5, it is dangerous to assume that all effects of intervention are benign. But there was a much simpler explanation for this topsy-turvy result: the children who received intervention were different from those who didn’t – in general they had more severe problems to start with. This makes sense: if a child is referred to SLT services, then the therapist makes a judgement about which ones to intervene with, and these are likely to be different from those who are discharged or simply reviewed after a few months. If, as appears to have been the case in my study in the 1980s, therapists work most with the more serious cases, then intervention may appear ineffective. On the other hand, a contemporary concern in the UK is that therapists are being encouraged to focus their efforts on children who can be discharged after a short block of treatment, which means they prefer to work with children with milder problems. This will create the opposite impression – therapy which is actually ineffective may appear effective. The basic problem is the same: treated and untreated groups are not comparable, and so comparing them will give misleading results.</p>
 <p>Stephen’s study is equally problematic. Here we are comparing a self-selected group of patients with his regular caseload. Those who tried MyLangBooster may be more motivated to improve than other patients. They may have more money, so they can afford to pay for the programme. Or they may be more desperate – having tried other interventions that failed to make a difference. Furthermore, Stephen may only hear from those who felt they improved, and be unaware of other patients who tried it but then dropped out because they obtained disappointing results. It is almost never a good idea to base an evaluation of an intervention on a study of self-selected enthusiasts. There are just too many potential confounds that could cause bias.</p>
 <p>What about the case of Janice and Anna? This may seem less problematic, since the two therapists have similar caseloads, and the decision about therapy is based on therapist preference rather than child characteristics. Here again, though, the comparison has the potential to mislead. If baseline and post-intervention assessments are done using the same measures, then it is at least possible to check if the children in the two practices are similar at the outset. But there would still be concerns about possible differences between the therapists and their practices that might be influencing results. Maybe Anna rejects parent-based intervention because she knows that most of the parents in her practice have full-time jobs and would not be willing or able to devote time to attending sessions to analyse videos. Maybe Janice is an exceptionally skilled therapist who would obtain good outcomes with children regardless of what she did. Perhaps her enthusiasm for a parent-based approach contrasts with Anna’s more downbeat attitude, and this has an influence on parent and/or child. In sum, there is scope for all the non-specific treatment effects discussed in Chapter 4 to exert an impact. If Janice finds better outcomes than Anna, despite doing their best to ensure that the participating children and parents from their practices are similar, then it is reasonable to say that this is useful information that would provide justification doing an experimental study (see Chapter x). But it is not conclusive and cannot substitute for the kind of experimental study discussed in the next chapter.</p>
-<p>Things that may affect outcome and that differ between intervention and control groups are known as <strong>confounders</strong>. Consider possible confounders in the following examples: Does long-term use of hormone replacement therapy carry risks or benefits? Does excessive use of computer games in teenagers cause social isolation? Will your life be extended if you eat more cabbage? Here are just a few possibilities: Woman who decide to continue to use HRT may have more severe menopausal symptoms. Excessive use of computer games may be a consequence rather than a cause of lack of social engagement, and those who eat cabbage may adopt healthier lifestyles than those who don’t.</p>
+Things that may affect outcome and that differ between intervention and control groups are known as <strong>confounders</strong>.
+<div class="figure"><span id="fig:confounder"></span>
+<img src="15-Observational_studies_files/figure-html/confounder-1.png" alt="Confounder path diagram" width="480" />
+<p class="caption">
+Figure 15.1: Confounder path diagram
+</p>
+</div>
+<div class="figure"><span id="fig:confounder2"></span>
+<img src="15-Observational_studies_files/figure-html/confounder2-1.png" alt="Alternative interpretation of confounder path diagram" width="480" />
+<p class="caption">
+Figure 15.2: Alternative interpretation of confounder path diagram
+</p>
+</div>
+<p>Consider possible confounders in the following examples: Does long-term use of hormone replacement therapy carry risks or benefits? Does excessive use of computer games in teenagers cause social isolation? Will your life be extended if you eat more cabbage? Here are just a few possibilities: Woman who decide to continue to use HRT may have more severe menopausal symptoms. Excessive use of computer games may be a consequence rather than a cause of lack of social engagement, and those who eat cabbage may adopt healthier lifestyles than those who don’t.</p>
 <p>Most reports in the media are based on observational rather than experimental data. In some cases, it is hard to see how other types of data could be collected: are we really going to succeed in allocating adolescents to a regime of non-stop computer games, or to force people to start eating cabbage? Indeed, some associations that are now well-established, such as the link between cigarette smoking and cancer, were discovered from observational data, and could not be studied any other way. But where the interest is in interventions administered by a therapist, then it should not be necessary to rely on observational studies, and, as we have shown, to do so can lead to flawed conclusions.</p>
-<div id="class-exercise-2" class="section level2">
-<h2><span class="header-section-number">7.1</span> Class exercise</h2>
+<div id="class-exercise-5" class="section level2">
+<h2><span class="header-section-number">15.1</span> Class exercise</h2>
 <p>Find a newspaper report of a factor that is reported to be a risk or benefit to health. Is it based on an experimental or observational study? Can you identify potential sources of bias?</p>
+</div>
+<div id="observational-study-designs" class="section level2">
+<h2><span class="header-section-number">15.2</span> Observational study designs</h2>
+<p>The key difference between observational studies and other types discussed in this book are that the researcher(s) do not intervene at any stage, and simply observe whether a condition develops, and record any risk factors or particular behaviour <span class="citation">(<span class="citeproc-not-found" data-reference-id="Sedgewick_2012"><strong>???</strong></span>)</span>. The difference between the designs discussed below is either the point at which the intervention or outcome are established.</p>
+<div class="figure">
+<img src="flow.png" alt="Figure 6.3: time course of common observational studies" />
+<p class="caption">Figure 6.3: time course of common observational studies</p>
+</div>
+<div id="cohort-studies" class="section level3">
+<h3><span class="header-section-number">15.2.1</span> Cohort studies</h3>
+<p>A Cohort study follows a group of individuals who do not have the condition or disorder of interest at the time that they enter the study, but they are selected from an at-risk population. The cohort is followed up, observing those that develop the condition or disorder, and those that do not (forming a natural control group, sometimes called an internal control, see Mann, 2003). Within the cohort design, there are different variations, single cohort as above, or two cohort design . For example, a two cohort design would collect data on two cohorts of individuals (both groups do not have the condition at the start of the study). One cohort is assigned to intervention, the other cohort is a control so would be assigned a sham intervention perhaps. Both cohorts would be followed up and the observation of who developed the condition and who did not is recorded for both cohorts.</p>
+</div>
+<div id="case-control-studies" class="section level3">
+<h3><span class="header-section-number">15.2.2</span> Case-Control studies</h3>
+<p>Typically, the case-control study looks at retrospective information on a group of individuals, both a control group (those without particular condition or disorder) and cases (those with a known condition or disorder). Individuals are chosen purely on their status of condition or disorder of interest. These individuals are then asked about previous exposure to potential risk factors, for example, if we were looking at a reading disorder in school-aged children, we might want to record information on family history of the condition, or exposure to books in the home environment, or whether the children and their parent or guardian co-read at home at a pre-school age. The choice of controls participants is key as they must form a representative sample of individuals that are within the at-risk group population but do not have the condition or disorder of interest.</p>
+</div>
+<div id="cross-sectional-studies" class="section level3">
+<h3><span class="header-section-number">15.2.3</span> Cross-Sectional Studies</h3>
+<p>The cross-sectional study is used when only one time point is recorded and its primary purpose is typically to establish prevalance of conditions or disorders. In this design, we differentiate from the others designs as the intervention and outcome are determined simultaneously <span class="citation">(Carlson and Morrison <a href="#ref-Carlson_2009">2009</a>)</span>.</p>
+</div>
+</div>
+<div id="strobe-guidelines" class="section level2">
+<h2><span class="header-section-number">15.3</span> STROBE guidelines</h2>
+<p>The strengthening the reporting of observational studies in epidemiology (STROBE) statement: guidelines for reporting observational studies was developed to try to standardize the key details reported in observational studies in epidemiology (with a focus on the medical field). These guidelines have been adopted to counter poor reporting, the authors of those guidlines state the purpose is not to be a rigid template or assessment tool, but</p>
+<blockquote>
+<p>issues such as confounding, bias, and generalisability could become more transparent, which might help temper the over-enthusiastic reporting of new findings in the scientific community and popular media, and improve the methodology of studies in the long term. Better reporting may also help to have more informed decisions about when new studies are needed, and what they should address.</p>
+</blockquote>
+<ul>
+<li><span class="citation">Elm et al. (<a href="#ref-von_elm_2007">2007</a>)</span></li>
+</ul>
+<p>The Strobe guidelines themselves consist of 22 items that are a necessary requirement to report to ensure some degree of transparency to the research, and ensure a good standard of reporting quality. We restate the STROBE guidelines from <span class="citation">(Elm et al. <a href="#ref-von_elm_2007">2007</a>)</span> in <a href="#tab:strobe"><strong>??</strong></a></p>
+<table>
+<colgroup>
+<col width="37%" />
+<col width="18%" />
+<col width="44%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Item number</th>
+<th>Recommendation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>TITLE and ABSTRACT</td>
+<td>1</td>
+<td><ul>
+<li>Indicate the study’s
+design with a commonly used
+term in the title or the
+abstract</li>
+<li>Provide in the abstract an
+informative and balanced
+summary of what was done and
+what was found</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td>Background/rationale</td>
+<td>2</td>
+<td>Explain the scientific
+background and rationale for
+the investigation being
+reported</td>
+</tr>
+<tr class="odd">
+<td>Objectives</td>
+<td>3</td>
+<td>State specific objectives,
+including any prespecified
+hypotheses</td>
+</tr>
+<tr class="even">
+<td>Study design</td>
+<td>4</td>
+<td>Present key elements of study
+design early in the paper</td>
+</tr>
+<tr class="odd">
+<td>Setting</td>
+<td>5</td>
+<td>Describe the setting,
+locations, and relevant dates,
+including periods of
+recruitment, exposure,
+follow-up, and data collection</td>
+</tr>
+<tr class="even">
+<td>Participants</td>
+<td>6</td>
+<td><ul>
+<li>Cohort study—Give the
+eligibility criteria, and the
+sources and methods of
+selection of participants.
+Describe methods of follow-up
+Case-control study—Give the
+eligibility criteria, and the
+sources and methods of case
+ascertainment and control
+selection. Give the rationale
+for the choice of cases and
+controls
+Cross-sectional study—Give
+the eligibility criteria, and
+the sources and methods of
+selection of participants</li>
+<li>Cohort study—For matched
+studies, give matching
+criteria and number of exposed
+and unexposed
+Case-control study—For
+matched studies, give matching
+criteria and the number of
+controls per case</li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td>Variables</td>
+<td>7</td>
+<td>Clearly define all outcomes,
+exposures, predictors,
+potential confounders, and
+effect modifiers. Give
+diagnostic criteria, if
+applicable</td>
+</tr>
+<tr class="even">
+<td>Data sources/ measurement</td>
+<td>8</td>
+<td>For each variable of interest,
+give sources of data and
+details of methods of
+assessment (measurement).
+Describe comparability of
+assessment methods if there is
+more than one group</td>
+</tr>
+<tr class="odd">
+<td>Bias</td>
+<td>9</td>
+<td>Describe any efforts to
+address potential sources of
+bias</td>
+</tr>
+<tr class="even">
+<td>Study size</td>
+<td>10</td>
+<td>Explain how the study size was
+arrived at</td>
+</tr>
+<tr class="odd">
+<td>Quantitative variables</td>
+<td>11</td>
+<td>Explain how quantitative
+variables were handled in the
+analyses. If applicable,
+describe which groupings were
+chosen, and why</td>
+</tr>
+<tr class="even">
+<td>Statistical methods</td>
+<td>12</td>
+<td><ul>
+<li>Describe all statistical
+methods, including those used
+to control for confounding</li>
+<li>Describe any methods used to
+examine subgroups and
+interactions</li>
+<li>Explain how missing data
+were addressed</li>
+<li>Cohort study—If
+applicable, explain how loss
+to follow-up was addressed
+Case-control study — If
+applicable, explain how
+matching of cases and controls
+was addressed
+Cross-sectional study — If
+applicable, describe
+analytical methods taking
+account of sampling strategy</li>
+<li>Describe any sensitivity
+analyses</li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td>Participants</td>
+<td>13</td>
+<td><ul>
+<li>Report the numbers of
+individuals at each stage of
+the study—e.g., numbers
+potentially eligible, examined
+for eligibility, confirmed
+eligible, included in the
+study, completing follow-up,
+and analysed</li>
+<li>Give reasons for
+non-participation at each
+stage</li>
+<li>Consider use of a flow
+diagram</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td>Descriptive data</td>
+<td>14</td>
+<td><ul>
+<li>Give characteristics of
+study participants (e.g.,
+demographic, clinical, social)
+and information on exposures
+and potential confounders</li>
+<li>Indicate the number of
+participants with missing data
+for each variable of interest</li>
+<li>Cohort study—Summarise
+follow-up time (e.g., average
+and total amount)</li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td>Outcome data</td>
+<td>15</td>
+<td>Cohort study—Report numbers
+of outcome events or summary
+measures over time
+Case-control study—Report
+numbers in each exposure
+category, or summary measures
+of exposure
+Cross-sectional study—Report
+numbers of outcome events or
+summary measures</td>
+</tr>
+<tr class="even">
+<td>Main results</td>
+<td>16</td>
+<td><ul>
+<li>Give unadjusted estimates
+and, if applicable,
+confounder-adjusted estimates
+and their precision (e.g., 95%
+confidence interval).
+Make clear which confounders
+were adjusted for and why they
+were included</li>
+<li>Report category boundaries
+when continuous variables were
+categorized</li>
+<li>If relevant, consider
+translating estimates of
+relative risk into absolute
+risk for a meaningful time
+period</li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td>Other analyses</td>
+<td>17</td>
+<td>Report other analyses
+done—e.g., analyses of
+subgroups and interactions,
+and sensitivity analyses</td>
+</tr>
+<tr class="even">
+<td>Key results</td>
+<td>18</td>
+<td>Summarise key results with
+reference to study objectives</td>
+</tr>
+<tr class="odd">
+<td>Limitations</td>
+<td>19</td>
+<td>Discuss limitations of the
+study, taking into account
+sources of potential bias or
+imprecision. Discuss both
+direction and magnitude
+of any potential bias</td>
+</tr>
+<tr class="even">
+<td>Interpretation</td>
+<td>20</td>
+<td>Give a cautious overall
+interpretation of results
+considering objectives,
+limitations, multiplicity of
+analyses, results from similar
+studies, and other relevant
+evidence</td>
+</tr>
+<tr class="odd">
+<td>Generalisability</td>
+<td>21</td>
+<td>Discuss the generalisability
+(external validity) of the
+study results</td>
+</tr>
+<tr class="even">
+<td>Funding</td>
+<td>22</td>
+<td>Give the source of funding and
+the role of the funders for
+the present study and, if
+applicable, for the original
+study on which the present
+article is based</td>
+</tr>
+</tbody>
+</table>
+<p>The guidelines follow the structure of a typical research article, breaking down the required elements under subheadings that are compatable to most journals reporting observational research.</p>
+</div>
+<div id="matching" class="section level2">
+<h2><span class="header-section-number">15.4</span> Matching</h2>
+<div id="propensity-score" class="section level3">
+<h3><span class="header-section-number">15.4.1</span> Propensity score</h3>
+</div>
+<div id="distance-matrices" class="section level3">
+<h3><span class="header-section-number">15.4.2</span> distance matrices</h3>
+</div>
+<div id="optimal-matching" class="section level3">
+<h3><span class="header-section-number">15.4.3</span> Optimal matching</h3>
 
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Carlson_2009">
+<p>Carlson, M.D., and R.S. Morrison. 2009. “Study Design, Precision, and Validity in Observational Studies.” <em>Journal of Palliative Medicine</em> 12 (1): 77–82. <a href="https://doi.org/10.1089/jpm.2008.9690">https://doi.org/10.1089/jpm.2008.9690</a>.</p>
+</div>
+<div id="ref-von_elm_2007">
+<p>Elm, E. von, D.G. Altman, M. Egger, S.J. Pocock, P.C. Gotzsche, and J.P. Vandenbroucke. 2007. “The Strengthening the Reporting of Observational Studies in Epidemiology (Strobe) Statement: Guidelines for Reporting Observational Studies.” <em>PLoS Med</em> 4 (10). <a href="https://doi.org/e296. 10.1371/journal.pmed.0040296">https://doi.org/e296. 10.1371/journal.pmed.0040296</a>.</p>
 </div>
 </div>
             </section>
@@ -187,8 +661,8 @@
           </div>
         </div>
       </div>
-<a href="wait-list-controls-and-cross-over-designs.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="controlling-for-selection-bias-randomised-assignment-to-intervention.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="cluster-randomised-control-trials.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="regression-discontinuity-designs.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -225,7 +699,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["intervention book.pdf", "intervention book.epub"],
+"download": ["intervention_book.pdf"],
 "toc": {
 "collapse": "subsection"
 }
@@ -233,6 +707,19 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

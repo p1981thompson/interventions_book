@@ -85,11 +85,41 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-02-04}
+    \date{2019-04-01}
 
 \usepackage{booktabs}
+\usepackage{longtable}
 \usepackage{fontspec}
 \setmainfont{Arial}
+
+
+\ifxetex
+  \usepackage{letltxmacro}
+  \setlength{\XeTeXLinkMargin}{1pt}
+  \LetLtxMacro\SavedIncludeGraphics\includegraphics
+  \def\includegraphics#1#{% #1 catches optional stuff (star/opt. arg.)
+    \IncludeGraphicsAux{#1}%
+  }%
+  \newcommand*{\IncludeGraphicsAux}[2]{%
+    \XeTeXLinkBox{%
+      \SavedIncludeGraphics#1{#2}%
+    }%
+  }%
+\fi
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage[table]{xcolor}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
 
 \begin{document}
 \maketitle
@@ -209,7 +239,37 @@ You may be surprised to see reliability at the top of the list. Surely validity 
 
 So what is reliability? This has to do with the issue of random error or `noise', which can be estimated by seeing how far scores on one testing occasion line up with scores on another occasion close in time (i.e.~before we expect any change due to maturation or intervention). Quite simply you want a measure that reflects the child's underlying skill, where there is minimal influence from random, unwanted sources of variation. So if we have two occasions of measurement, they should be closely similar. The similarity can be quantified by a correlation coefficient, demonstrated in Figure x.
 
-\textbf{Figure: The correlation coefficient is a statistic that takes the value of zero when there is no relationship between two variables, one whether there is a perfect relationship, and minus one when there is an inverse relationship. If you draw a straight line through the points on the graph, then if all points fall exactly on the line, the correlation is 1, indicating that you can predict perfectly a person's score on Y if you know their score on X.}
+\begin{figure}
+\centering
+\includegraphics{02-outcomes_files/figure-latex/correlation-1.pdf}
+\caption{\label{fig:correlation}The correlation coefficient is a statistic that takes the value of zero when there is no relationship between two variables, one whether there is a perfect relationship, and minus one when there is an inverse relationship. If you draw a straight line through the points on the graph, then if all points fall exactly on the line, the correlation is 1, indicating that you can predict perfectly a person's score on Y if you know their score on X.}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{02-outcomes_files/figure-latex/anscombequartet-1.pdf}
+\caption{\label{fig:anscombequartet}Anscombe's Quartet}
+\end{figure}
+
+\rowcolors{2}{gray!6}{white}
+\begin{table}[t]
+
+\caption{\label{tab:AQTable}Different data same correlation}
+\centering
+\begin{tabular}{cc}
+\hiderowcolors
+\toprule
+plot & cor(x, y)\\
+\midrule
+\showrowcolors
+1 & 0.8164205\\
+2 & 0.8162365\\
+3 & 0.8162867\\
+4 & 0.8165214\\
+\bottomrule
+\end{tabular}
+\end{table}
+\rowcolors{2}{white}{white}
 
 Let's illustrate this with mean length of utterance (MLU). Roger Brown's classic work first showed that in very young children this is a pretty good indicator of a child's language level (ref and ?plot). As children grow older, though, it become less useful, and it may be strongly influenced by the context in which language is sampled. Length of the language sample will also be important: if you just based a MLU estimate on ten child utterances, then the estimate will be less stable than if you took 50 utterances.
 
@@ -354,7 +414,31 @@ Perhaps the easiest way to get a grasp of what it entails is to suppose we had a
 
 Cognitive test scores are interesting here because they are typically thought of comprising two parts: a `true' score, which reflects how good you really are at whatever is being measured, and an `error' score, which reflects random influences. Suppose, for instance, that you test a child's reading ability. In practice, the child is a very good reader, in the top 10\% for her age, but the exact number of words she gets right will depend on all sorts of things: the particular words selected for the test (she may know `catacomb' but not `pharynx'), the mood she is in on the day, whether she is lucky or unlucky at guessing at words she is uncertain about. All these factors would be implicated in the `error' score, which is treated just like an additional chance factor or throw of the dice affecting a test score. A good test is mostly determined by the `true' score, with only a very small contribution of an `error' score, and we can identify it by the fact that children will be ranked by the test in a very similar way from one test occasion to the next, i.e.~there will be good test-retest reliability. In other words, the correlation from time 1 to time 2 will be high.
 
-\textbf{Possibly find a better figure?!}
+\begin{tabular}{l|r}
+\hline
+groups & Freq\\
+\hline
+high & 7\\
+\hline
+low & 8\\
+\hline
+medium & 6\\
+\hline
+\end{tabular}
+
+\includegraphics{03-limitations_of_prepost_design_files/figure-latex/reg2mean-1.pdf}
+
+\begin{tabular}{l|r|r}
+\hline
+Group & T1\_Mean & T2\_Mean\\
+\hline
+Low & -0.8776406 & -0.0240830\\
+\hline
+Medium & 0.1401478 & -0.1218460\\
+\hline
+High & 1.1349844 & 0.0110685\\
+\hline
+\end{tabular}
 
 \emph{Simulated test scores for 21 children on tests varying in reliability. These figures show simulated scores for a group of 21 children on tests that vary in test-retest reliability. In each case individuals are colour-coded depending on whether they fall in the bottom (blue), middle (purple) or top (red) third of scores at time 1. The simulations assume no systematic differences between time 1 and 2 - i.e.~no intervention effect, maturation or practice. Scores are simulated as random numbers at time 1, with time 2 scores then set to give a specific correlation between time 1 and 2, with no change in average score for the group as a whole.}
 
@@ -414,16 +498,30 @@ The idea of a control group has already come up in chapters 3 and 4, where it ha
 \hypertarget{is-it-ethical-to-include-a-control-group}{%
 \section{Is it ethical to include a control group?}\label{is-it-ethical-to-include-a-control-group}}
 
-The argument against a control group goes something like this: we think our intervention works, but we need to do a study to establish just how well it works. It would be unethical to withhold the intervention from one group of people because they would then be deprived of a potentially helpful treatment.
+The argument against a control group goes something like this: we think our intervention works, but we need to do a study to establish just how well it works. It would be unethical to withhold the intervention from one group of people because they would then be deprived of a potentially helpful treatment. In fact, clinical trials developed blinding of patients, clinicians, and even the statistical analyst (single, double and triple blind studies) to allocation of treatment and placebo. This avoided the bias in conditions where patients were in an advanced stages of their condition and physicians felt morally obliged to help those most in need.
 
 This argument has as many holes in it as a Swiss cheese, and here's why. Do you already know if the treatment works? If the answer is Yes, then why are you doing a study? Presumably it is because you think and hope it works, but don't actually have evidence that it does. So you don't know and you need to find out.
+It is also possible to allocate those to treatment who are likely to get the largest benefit by utilizing the regression discontinuity design. We will discuss this in later chapters, but briefly we must mention the disadvantages of this design over a randomized design. Firstly, we need substantially more observations and/or individuals for robust statistical evidence. Secondly, the relationship between treatment and outcome must be correctly modelled, and lastly, presence of other variables that might confound the result, so must be controlled.
 
 Unfortunately, the kinds of systematic bias discussed in Chapter 3 often lead practitioners to have an unwavering conviction that their intervention is effective: they see improvement in the clients they work with, and assume it is because of what they have done. The harsh reality is that when properly controlled studies are conducted, it is often found that the intervention is not effective and that the improvement is just as great in controls as in the intervention group. There are numerous examples of this in mainstream medicine, as well as in speech and language therapy. Box x gives some examples.
+
+\sffamily\fboxrule.1em\fboxsep1em
+\fcolorbox{black}{white}{\color{black}
+\begin{minipage}[c][5cm][t]{7cm}
+\begin{itemize}
+\item FFW 
+\item Arrowsmith
+\item Cogmed
+\end{itemize}
+\end{minipage}}
 
 \hypertarget{possible-adverse-effects-of-intervention}{%
 \subsection{Possible adverse effects of intervention}\label{possible-adverse-effects-of-intervention}}
 
-Worse still, some interventions do more harm than good. The need to evaluate adverse impacts of intervention is well-recognised in mainstream medicine, where it is easy to see the increased risks of morbidity or mortality, or unpleasant side effects. In speech and language therapy it is typically assumed that interventions won't do any harm -- and it is true that types of adverse effect seen in medicine are not likely. Nevertheless, any intervention creates opportunity costs -- the time (and sometimes money) that are spent in intervention can't be spent doing other things. I first became sensitive to this issue when trying to persuade head teachers to get involved in a computerised intervention I had devised: they were keen to take part, but then discussed with me what activities children should miss if they were to spend 15 minutes every day on my computerised tasks for a period of six weeks. Should we ask children to forfeit their breaks, or to skip non-academic activities such as swimming? This would hardly be popular with the children, we felt. Or should they take time out of lessons in English or Maths? As discussed in Box 1 (FFW and Arrowsmith and Cogmed) some computerised programmes involve a substantial investment of time.
+Worse still, some interventions do more harm than good. The need to evaluate adverse impacts of intervention is well-recognised in mainstream medicine, where it is easy to see the increased risks of morbidity or mortality, or unpleasant side effects. In clinical trials, a new treatment or medication will pass through typically five stages or phases of trials. Each stage increases the number of inidividuals, and the early trials are specifically designed to test safety and effcicacy, beginning with very small doses. It should also be noted that prior to human trials, all treatments will undergo substantial lab based evaulation and sometimes animal testing via rodent or primate modelling.
+
+In speech and language therapy it is typically assumed that interventions won't do any harm -- and it is true that types of adverse effect seen in medicine are not likely. Nevertheless, any intervention creates opportunity costs -- the time (and sometimes money) that are spent in intervention can't be spent doing other things. I first became sensitive to this issue when trying to persuade head teachers to get involved in a computerised intervention I had devised: they were keen to take part, but then discussed with me what activities children should miss if they were to spend 15 minutes every day on my computerised tasks for a period of six weeks. Should we ask children to forfeit their breaks, or to skip non-academic activities such as swimming? This would hardly be popular with the children, we felt. Or should they take time out of lessons in English or Maths? As discussed in Box 1 (FFW and Arrowsmith and Cogmed) some computerised programmes involve a substantial investment of time.
+
 When we move to consider interventions outside the school setting, there are still time costs involved: an aphasic adult with poor mobility or a harassed mother with three small children who is reliant on public transport may have considerable difficulty making it to clinic appointments. You may reply that, even if the intervention is ineffective, the clients are glad to have the attention and professional interest of a therapist. But if that is something that is of importance to them, then that needs to be included in your outcome measures -- i.e.~you need to demonstrate it is so, rather than just assuming this is so.
 
 For parent training programmes, there is an additional risk of making parents worry that they are inadequate, and that their child's difficulties are all their fault. Clearly, competent professionals will be at pains to counteract that perception, but it is an easy mindset to fall into. (Box on media reaction to Jonathan Green study?).
@@ -440,31 +538,76 @@ As explained in Chapter 3, a study that just compares people on a language measu
 \hypertarget{treated-vs-untreated-controls}{%
 \section{Treated vs untreated controls}\label{treated-vs-untreated-controls}}
 
-As noted above, a common design is to compare group A, who receive intervention, with group B who are treated just the same but without any intervention. If you see no effect of intervention using this design, and the study is big enough to give adequate statistical power (see Chapter x), then you can be pretty certain that the intervention is not effective. But if you do see a reliable improvement in group A, over and above and change in group B, can you be certain it was the intervention that made the difference?
+As noted above, a common design is to compare group A, who receive intervention, with group B who are treated just the same but without any intervention. If you see no effect of intervention using this design, and the study is big enough to give adequate statistical power (see Chapter 12), then you can be pretty certain that the intervention is not effective. But if you do see a reliable improvement in group A, over and above and change in group B, can you be certain it was the intervention that made the difference?
 
 There are two things to be concerned about here. First, in the previous chapter I discussed the kinds of very general impact that can be caused just by being in an intervention group. These work in the opposite way to the possible adverse effects discussed above: although some people may be embarrassed or stressed by being a target of intervention, others may be reassured or made more confident. A good therapist will do more than just administer an intervention in a standard fashion: they will form a relationship with their client which can itself be therapeutic. This, however, creates a confound if the control group, B, just has `business as usual' because it means we are really comparing group A, who gets a specific intervention plus a therapeutic relationship, with group B, who gets nothing.
+
+\sffamily\fboxrule.1em\fboxsep1em
+\fcolorbox{black}{white}{\color{black}
+\begin{minipage}[c][5cm][t]{10cm}
+\begin{itemize}
+\item social vs language? 
+\item Dental care?
+\item Gillam study?
+\end{itemize}
+\end{minipage}}
 
 A creative way of dealing with this confound is to ensure that group B does also get some kind of intervention, but different from the one that is the focus of the study. For instance, (Snowling study) compared children who had a parent-reading intervention with a group who had a parent-based intervention designed to improve motor skills. Box X shows other examples (social vs language? Dental care? -- Gillam study?) It is important to choose a comparison intervention that is not expected to have an impact on the main outcome measure -- otherwise you could find yourself in a situation where everyone gets better but groups A and B don't differ, and you are left uncertain whether both interventions worked or neither did.
 
 The use of a contrasting intervention overcomes another possible concern about untreated controls, which is those in group B may actually do worse because they know they are missing out on an intervention that might be able to help them (see Chapter 4).
 
 \hypertarget{wait-list-controls-and-cross-over-designs}{%
-\chapter{Wait-list controls and cross-over designs}\label{wait-list-controls-and-cross-over-designs}}
+\section{Wait-list controls and cross-over designs}\label{wait-list-controls-and-cross-over-designs}}
 
 Another popular approach to controls is to have a two-stage study. Stage 1 is a classic controlled study where a treated group A is compared with an untreated group B. After the intervention phase, group B is then offered the intervention. At this point, group A may continue with the intervention, or intervention may be withdrawn.
 
 Possible outcomes of such a study are shown in Figure x. The pattern seen in panel 1 is unlikely for an intervention that is intended to produce long-lasting effects -- in SLT practice, it would not be expected that skills would decline after an effective intervention had been withdrawn.
 (more needed on this)
- 
+
+\hypertarget{cross-over-design}{%
+\subsection{Cross-over design}\label{cross-over-design}}
+
+The benefit of the crossover design is that a potentially more accurate evaluation of intervention comparison is achieved as we compare individuals to themselves rather than controls that are different individuals. A secondary benefit is that crossover designs typically require fewer individuals as a separate control group is not necessary.
+A crossover deign is split into three phases, an initial phase where two groups are randomized (exactly the same as a parallel group design) to intervention and control. Once the first phase has ellapse, the individuals enter a washout phase, this is important to allow any intervention effect to be removed before the groups are switched and phase two initiates, so that both groups have received intervention. The assessment of the intervention looks at the differences between phases 1 and 3 by group. We hope to see no group difference but a significant phase difference.
+
+\rowcolors{2}{gray!6}{white}
+\begin{table}[t]
+
+\caption{\label{tab:crossovertable}Treatment Allocation Matrix}
+\centering
+\begin{tabular}{>{\bfseries}lcc}
+\hiderowcolors
+\toprule
+  & Period 1 & Period 2\\
+\midrule
+\showrowcolors
+Group 1 & A & B\\
+Group 2 & B & A\\
+\bottomrule
+\end{tabular}
+\end{table}
+\rowcolors{2}{white}{white}
+
+\begin{figure}
+\centering
+\includegraphics{05-Controlling_unwanted_effects_with_a_control_group_files/figure-latex/crossoverplot-1.pdf}
+\caption{\label{fig:crossoverplot}plotting showing a crossover design RCT}
+\end{figure}
 
 \hypertarget{observational-studies}{%
 \chapter{Observational studies}\label{observational-studies}}
 
+\begin{quote}
 \emph{Janice, a SLT, has recently started using a parent-based approach with late-talking 2-year-olds in her practice. Parents are encouraged to make video recordings of interactions with their child, which are then analysed with the therapist, who notes ways of making the interaction more contingent on the child's interests and communicative attempts. She wants to evaluate what she is doing. A colleague of hers, Anna, who has a similar caseload, is sceptical about whether Janice's approach is cost-effective. Anna uses a watchful waiting approach with children this young. Janice and Anna agree to do a study using the same pre- and post-intervention assessments so that they can evaluate the impact of Janice's approach.}
+\end{quote}
 
+\begin{quote}
 \emph{Stephen notes that some aphasic patients referred to his clinic talk glowingly about a commercially available `brain-based learning' programme, MyLangBooster. He wants to know whether he should be recommending this programme to other clients, so he carries out a comparison of patients who used MyLangBooster and those who did not.}
+\end{quote}
 
+\begin{quote}
 \emph{Dorothy, a researcher, had a grant for a study predicting outcomes of 4-year-olds who had poor language skills, some of whom had received intervention with SLT services. She saw the same group of 83 children at ages 4, 4.5 and 5.5 years, and noted that their outcomes were very variable. Some children had caught up with their peer group by the final assessment, whereas others had persistent problems. When she presented the results at a conference, a person in the audience suggested that she should do an analysis to see if the amount of intervention was a factor influencing outcomes.}
+\end{quote}
 
 All of these vignettes illustrate observational studies: ones where we use naturalistic data rather than exerting any experimental control over who gets an intervention. The last one, as you may have guessed, is a true story -- my own experience with a longitudinal study by Bishop and Edmundson (1987). This gives a very clear illustration of the perils of observational studies.
 
@@ -474,7 +617,16 @@ Stephen's study is equally problematic. Here we are comparing a self-selected gr
 
 What about the case of Janice and Anna? This may seem less problematic, since the two therapists have similar caseloads, and the decision about therapy is based on therapist preference rather than child characteristics. Here again, though, the comparison has the potential to mislead. If baseline and post-intervention assessments are done using the same measures, then it is at least possible to check if the children in the two practices are similar at the outset. But there would still be concerns about possible differences between the therapists and their practices that might be influencing results. Maybe Anna rejects parent-based intervention because she knows that most of the parents in her practice have full-time jobs and would not be willing or able to devote time to attending sessions to analyse videos. Maybe Janice is an exceptionally skilled therapist who would obtain good outcomes with children regardless of what she did. Perhaps her enthusiasm for a parent-based approach contrasts with Anna's more downbeat attitude, and this has an influence on parent and/or child. In sum, there is scope for all the non-specific treatment effects discussed in Chapter 4 to exert an impact. If Janice finds better outcomes than Anna, despite doing their best to ensure that the participating children and parents from their practices are similar, then it is reasonable to say that this is useful information that would provide justification doing an experimental study (see Chapter x). But it is not conclusive and cannot substitute for the kind of experimental study discussed in the next chapter.
 
-Things that may affect outcome and that differ between intervention and control groups are known as \textbf{confounders}. Consider possible confounders in the following examples: Does long-term use of hormone replacement therapy carry risks or benefits? Does excessive use of computer games in teenagers cause social isolation? Will your life be extended if you eat more cabbage? Here are just a few possibilities: Woman who decide to continue to use HRT may have more severe menopausal symptoms. Excessive use of computer games may be a consequence rather than a cause of lack of social engagement, and those who eat cabbage may adopt healthier lifestyles than those who don't.
+Things that may affect outcome and that differ between intervention and control groups are known as \textbf{confounders}.
+\includegraphics{06-Observational_studies_files/figure-latex/confounder-1.pdf}
+
+\begin{figure}
+\centering
+\includegraphics{06-Observational_studies_files/figure-latex/confounder2-1.pdf}
+\caption{\label{fig:confounder2}Alternative interpretation of confounder path diagram}
+\end{figure}
+
+Consider possible confounders in the following examples: Does long-term use of hormone replacement therapy carry risks or benefits? Does excessive use of computer games in teenagers cause social isolation? Will your life be extended if you eat more cabbage? Here are just a few possibilities: Woman who decide to continue to use HRT may have more severe menopausal symptoms. Excessive use of computer games may be a consequence rather than a cause of lack of social engagement, and those who eat cabbage may adopt healthier lifestyles than those who don't.
 
 Most reports in the media are based on observational rather than experimental data. In some cases, it is hard to see how other types of data could be collected: are we really going to succeed in allocating adolescents to a regime of non-stop computer games, or to force people to start eating cabbage? Indeed, some associations that are now well-established, such as the link between cigarette smoking and cancer, were discovered from observational data, and could not be studied any other way. But where the interest is in interventions administered by a therapist, then it should not be necessary to rely on observational studies, and, as we have shown, to do so can lead to flawed conclusions.
 
@@ -482,6 +634,412 @@ Most reports in the media are based on observational rather than experimental da
 \section{Class exercise}\label{class-exercise-2}}
 
 Find a newspaper report of a factor that is reported to be a risk or benefit to health. Is it based on an experimental or observational study? Can you identify potential sources of bias?
+
+\hypertarget{observational-study-designs}{%
+\section{Observational study designs}\label{observational-study-designs}}
+
+The key difference between observational studies and other types discussed in this book are that the researcher(s) do not intervene at any stage, and simply observe whether a condition develops, and record any risk factors or particular behaviour.(cite: Sedgewick 2012). The difference between the designs discussed below is either the point at which the intervention or outcome are established.
+
+\begin{figure}
+\centering
+\includegraphics{flow.png}
+\caption{Figure 6.3: time course of common observational studies}
+\end{figure}
+
+\hypertarget{cohort-studies}{%
+\subsection{Cohort studies}\label{cohort-studies}}
+
+A Cohort study follows a group of individuals who do not have the condition or disorder of interest at the time that they enter the study, but they are selected from an at-risk population. The cohort is followed up, observing those that develop the condition or disorder, and those that do not (forming a natural control group, sometimes called an internal control, see Mann, 2003). Within the cohort design, there are different variations, single cohort as above, or two cohort design . For example, a two cohort design would collect data on two cohorts of individuals (both groups do not have the condition at the start of the study). One cohort is assigned to intervention, the other cohort is a control so would be assigned a sham intervention perhaps. Both cohorts would be followed up and the observation of who developed the condition and who did not is recorded for both cohorts.
+
+\hypertarget{case-control-studies}{%
+\subsection{Case-Control studies}\label{case-control-studies}}
+
+Typically, the case-control study looks at retrospective information on a group of individuals, both a control group (those without particular condition or disorder) and cases (those with a known condition or disorder). Individuals are chosen purely on their status of condition or disorder of interest. These individuals are then asked about previous exposure to potential risk factors, for example, if we were looking at a reading disorder in school-aged children, we might want to record information on family history of the condition, or exposure to books in the home environment, or whether the children and their parent or guardian co-read at home at a pre-school age. The choice of controls participants is key as they must form a representative sample of individuals that are within the at-risk group population but do not have the condition or disorder of interest.
+
+\hypertarget{cross-sectional-studies}{%
+\subsection{Cross-Sectional Studies}\label{cross-sectional-studies}}
+
+The cross-sectional study is used when only one time point is recorded and its primary purpose is typically to establish prevalance of conditions or disorders. In this design, we differentiate from the others designs as the intervention and outcome are determined simultaneously (cite: Carlson \& Morrrison, 2009).
+
+\hypertarget{strobe-guidelines}{%
+\section{STROBE guidelines}\label{strobe-guidelines}}
+
+The strengthening the reporting of observational studies in epidemiology (STROBE) statement: guidelines for reporting observational studies was developed to try to standardize the key details reported in observational studies in epidemiology (with a focus on the medical field). These guidelines have been adopted to counter poor reporting, the authors of those guidlines state the purpose is not to be a rigid template or assessment tool, but
+
+\begin{quote}
+issues such as confounding, bias, and generalisability could become more transparent, which might help temper the over-enthusiastic reporting of new findings in the scientific community and popular media, and improve the methodology of studies in the long term. Better reporting may also help to have more informed decisions about when new studies are needed, and what they should address.
+\end{quote}
+
+\begin{itemize}
+\tightlist
+\item
+  Von Elm et al (2007)
+\end{itemize}
+
+The Strobe guidelines themselves consist of 22 items that are a necessary requirement to report to ensure some degree of transparency to the research, and ensure a good standard of reporting quality. We restate the STROBE guidelines from Von Elm at al. (2007) in \ref{tab:strobe}
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+\begin{minipage}[b]{0.34\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[b]{0.17\columnwidth}\raggedright
+Item number\strut
+\end{minipage} & \begin{minipage}[b]{0.40\columnwidth}\raggedright
+Recommendation\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+TITLE and ABSTRACT\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright
+1\strut
+\end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
+\begin{itemize}
+\tightlist
+\item
+  Indicate the study's design
+  with a commonly used term in
+  the title or the abstract
+\item
+  Provide in the abstract an
+  informative and balanced
+  summary of what was done and
+  what was found
+\end{itemize}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+Background/rationale\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright
+2\strut
+\end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
+Explain the scientific
+background and rationale for
+the investigation being
+reported\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+Objectives\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright
+3\strut
+\end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
+State specific objectives,
+including any prespecified
+hypotheses\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+Study design\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright
+4\strut
+\end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
+Present key elements of study
+design early in the paper\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+Setting\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright
+5\strut
+\end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
+Describe the setting,
+locations, and relevant dates,
+including periods of
+recruitment, exposure,
+follow-up, and data collection\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+Participants\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright
+6\strut
+\end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
+\begin{itemize}
+\tightlist
+\item
+  Cohort study---Give the
+  eligibility criteria, and the
+  sources and methods of
+  selection of participants.
+  Describe methods of follow-up
+  Case-control study---Give the
+  eligibility criteria, and the
+  sources and methods of case
+  ascertainment and control
+  selection. Give the rationale
+  for the choice of cases and
+  controls
+  Cross-sectional study---Give the
+  eligibility criteria, and the
+  sources and methods of
+  selection of participants
+\item
+  Cohort study---For matched
+  studies, give matching
+  criteria and number of exposed
+  and unexposed
+  Case-control study---For matched
+  studies, give matching
+  criteria and the number of
+  controls per case
+\end{itemize}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+Variables\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright
+7\strut
+\end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
+Clearly define all outcomes,
+exposures, predictors,
+potential confounders, and
+effect modifiers. Give
+diagnostic criteria, if
+applicable\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+Data sources/ measurement\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright
+8\strut
+\end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
+For each variable of interest,
+give sources of data and
+details of methods of
+assessment (measurement).
+Describe comparability of
+assessment methods if there is
+more than one group\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+Bias\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright
+9\strut
+\end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
+Describe any efforts to
+address potential sources of
+bias\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+Study size\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright
+10\strut
+\end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
+Explain how the study size was
+arrived at\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+Quantitative variables\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright
+11\strut
+\end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
+Explain how quantitative
+variables were handled in the
+analyses. If applicable,
+describe which groupings were
+chosen, and why\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+Statistical methods\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright
+12\strut
+\end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
+\begin{itemize}
+\tightlist
+\item
+  Describe all statistical
+  methods, including those used
+  to control for confounding
+\item
+  Describe any methods used to
+  examine subgroups and
+  interactions
+\item
+  Explain how missing data
+  were addressed
+\item
+  Cohort study---If applicable,
+  explain how loss to follow-up
+  was addressed
+  Case-control study --- If
+  applicable, explain how
+  matching of cases and controls
+  was addressed
+  Cross-sectional study --- If
+  applicable, describe
+  analytical methods taking
+  account of sampling strategy
+\item
+  Describe any sensitivity
+  analyses
+\end{itemize}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+Participants\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright
+13\strut
+\end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
+\begin{itemize}
+\tightlist
+\item
+  Report the numbers of
+  individuals at each stage of
+  the study---e.g., numbers
+  potentially eligible, examined
+  for eligibility, confirmed
+  eligible, included in the
+  study, completing follow-up,
+  and analysed
+\item
+  Give reasons for
+  non-participation at each
+  stage
+\item
+  Consider use of a flow
+  diagram
+\end{itemize}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+Descriptive data\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright
+14\strut
+\end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
+\begin{itemize}
+\tightlist
+\item
+  Give characteristics of
+  study participants (e.g.,
+  demographic, clinical, social)
+  and information on exposures
+  and potential confounders
+\item
+  Indicate the number of
+  participants with missing data
+  for each variable of interest
+\item
+  Cohort study---Summarise
+  follow-up time (e.g., average
+  and total amount)
+\end{itemize}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+Outcome data\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright
+15\strut
+\end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
+Cohort study---Report numbers of
+outcome events or summary
+measures over time
+Case-control study---Report
+numbers in each exposure
+category, or summary measures
+of exposure
+Cross-sectional study---Report
+numbers of outcome events or
+summary measures\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+Main results\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright
+16\strut
+\end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
+\begin{itemize}
+\tightlist
+\item
+  Give unadjusted estimates
+  and, if applicable,
+  confounder-adjusted estimates
+  and their precision (e.g., 95\%
+  confidence interval).
+  Make clear which confounders
+  were adjusted for and why they
+  were included
+\item
+  Report category boundaries
+  when continuous variables were
+  categorized
+\item
+  If relevant, consider
+  translating estimates of
+  relative risk into absolute
+  risk for a meaningful time
+  period
+\end{itemize}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+Other analyses\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright
+17\strut
+\end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
+Report other analyses
+doneâ€''e.g., analyses of
+subgroups and interactions,
+and sensitivity analyses\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+Key results\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright
+18\strut
+\end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
+Summarise key results with
+reference to study objectives\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+Limitations\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright
+19\strut
+\end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
+Discuss limitations of the
+study, taking into account
+sources of potential bias or
+imprecision. Discuss both
+direction and magnitude
+of any potential bias\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+Interpretation\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright
+20\strut
+\end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
+Give a cautious overall
+interpretation of results
+considering objectives,
+limitations, multiplicity of
+analyses, results from similar
+studies, and other relevant
+evidence\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+Generalisability\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright
+21\strut
+\end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
+Discuss the generalisability
+(external validity) of the
+study results\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.34\columnwidth}\raggedright
+Funding\strut
+\end{minipage} & \begin{minipage}[t]{0.17\columnwidth}\raggedright
+22\strut
+\end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
+Give the source of funding and
+the role of the funders for
+the present study and, if
+applicable, for the original
+study on which the present
+article is based\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+The guidelines follow the structure of a typical research article, breaking down the required elements under subheadings that are compatable to most journals reporting observational research.
+
+\hypertarget{matching}{%
+\section{Matching}\label{matching}}
+
+\hypertarget{propensity-score}{%
+\subsection{Propensity score}\label{propensity-score}}
+
+\hypertarget{distance-matrices}{%
+\subsection{distance matrices}\label{distance-matrices}}
+
+\hypertarget{optimal-matching}{%
+\subsection{Optimal matching}\label{optimal-matching}}
 
 \hypertarget{controlling-for-selection-bias-randomised-assignment-to-intervention}{%
 \chapter{Controlling for selection bias: randomised assignment to intervention}\label{controlling-for-selection-bias-randomised-assignment-to-intervention}}
@@ -529,6 +1087,115 @@ This method, however, raises new problems, because we now have a confound betwee
 
 Use a literature search for an intervention/disorder of interest with the term `randomised controlled trial' or RCT, and download the article.
 Is the randomisation process clearly described? Is it adequate?
+
+\hypertarget{randomization-methods}{%
+\section{Randomization methods}\label{randomization-methods}}
+
+\hypertarget{simple-randomization}{%
+\subsection{Simple randomization}\label{simple-randomization}}
+
+In our earlier examples from the start of this chapter, we saw various examples of simple randomization (A-D). This takes the idea of the ``coin toss'' but adds in some degree of control of other variables which might affect the result. Typically, a coin is not used as the random nature of the coin toss means that balanced numbers in each group will not be guaranteed. A randomization list is created by an individual who is unrelated to the trial. This list contains an equal number of allocations for a fixed number of participants which will have been pre-specified according to a sample size calculation. Our first issue is that the allocation list does not allow for individuals dropping out before assignment of intervention. This means that we potentially can have unbalanced groups despite following the list.
+
+Furthermore we saw earlier, simple randomization does not suffciently control unknown variables which may exhert an effect on the outcome, i.e.~overrepresentation of a particular feature in one group that influences the outcome. For example, we randomize children with a language difficultly into two groups, but we find that there are more boys than girls in one group. The intervention sees an effect as predicted, but on further inspection we find that the group difference is confounded by gender.
+
+Simple randomization is rarely (if at all) used in practice, so other approaches have been developed to counter the drawbacks encoutered.
+
+\hypertarget{random-permuted-blocks}{%
+\subsection{Random permuted blocks}\label{random-permuted-blocks}}
+
+The permutated blocks approach tries to overcome the unbalanced problem by allocating individuals into blocks. The idea is that patients are allocated to intervention or control in blocks, so that at certain equally spaced points across the trial, equal numbers are ensured. Let's see how this works using an example:
+
+Say we have chosen out block size to be 4. So, in each block we have 2 assigned to intervention and 2 to control group. The order of assignment of each block is random, for example, ABAB, AABB, ABBA, BBAA, BAAB, and so on. This means at any point in the trial, the randomization is only ever two individuals unbalanced if the trial stops short or fails to recruit sufficient numbers of inidividuals, so the imbalance is minimal and statistical power is maintained.
+
+However, permuted blocks has an unfortunate downside as it is relatively straighforward for the researcher to see a pattern emerge in the allocation, so the randomization can become predictable. This is problematic, if the next allocation is known to the researcher as control and the next child for allocation is a particularly severe case who could benefit from the intervention. This would rely on the researcher making a difficult moral judgement to continue with correct allocation and not deviate.
+
+\hypertarget{unequal-randomization}{%
+\subsection{Unequal randomization}\label{unequal-randomization}}
+
+The approach of unequal randomization differs from the convention of 1:1 allocation ratio. A fixed ratio is decided on before allocation of individuals begins, for example, 2:1 intervention vs control allocation. Use of this method should be considered carefully as there are both pros and cons. On the positive side, we may obtain a more accurate estimate of the effects of intervention, but we are prone to a reduction in power.
+
+\begin{quote}
+``Unequal allocation also has consequences for statistical power. For example, a 2:1 allocation ratio requires 12\% more patients than a trial using 1:1 to detect the same size effect with equivalent power; a 3:1 randomization scheme requires 33\% more patients.''
+\end{quote}
+
+Hey, S. P., \& Kimmelman, J. (2014). The questionable use of unequal allocation in confirmatory trials. Neurology, 82(1), 77-9.
+
+\hypertarget{stratification}{%
+\subsection{Stratification}\label{stratification}}
+
+The previously discussed randomizations have dealt with the unbalanced groups but we are still in need of a way to counter the effect of known or unknown variables on the outcome. Stratification is the first method to permit some control of these variables by splitting the allocation according to those variables. For example, suppose we have an intervention for school aged children and we have a exclusion criteria that they must be between the ages of 5 and 11. We also provide the intervention at three different schools, one inner city school in a low SES area, one public school requiring fees, and a small remote village school. We would anticipate that there might be significant performance differences in age and potentially differences between schools, so we must allow for this when we randomize children to intervention and control groups. The scheme would follow the table below,
+
+\rowcolors{2}{gray!6}{white}
+\begin{table}[t]
+
+\caption{\label{tab:strattable}Randomized allocation by stratas: Age, School}
+\centering
+\begin{tabular}{>{\bfseries}lcc}
+\hiderowcolors
+\toprule
+  & Intervention & Control\\
+\midrule
+\showrowcolors
+school1, ages 5-7 & 23 & 24\\
+school2, ages 8-9 & 31 & 31\\
+school3, ages 10-11 & 28 & 27\\
+school1, ages 8-9 & 19 & 20\\
+school2, ages 10-11 & 25 & 24\\
+\addlinespace
+school3, ages 5-7 & 35 & 35\\
+school1, ages 10-11 & 22 & 27\\
+school2, ages 5-7 & 24 & 23\\
+school3, ages 8-9 & 31 & 31\\
+\bottomrule
+\end{tabular}
+\end{table}
+\rowcolors{2}{white}{white}
+
+\hypertarget{minimization}{%
+\subsection{Minimization}\label{minimization}}
+
+An alternative to stratification called minimization is also very popular in clinical RCTs. Its popularity has grown in recent years as stratifcation becomes weaker when the number of strata increases and is particularly susceptable when used in smaller trials. Minimization was first proposed by Pocock and Simon (ref) and is referred to as a dynamic or adaptive randomization. Each participant's allocation is dependant on the characteristics and allocation of participants already allocated to groups. The idea is to minimise the imbalance by considering a range of factors for each allocation. This prevents the allocation of particular sub groups into one allocation which may happen in any of the aforementioned methods. To demostrate this method, we restate the example from Scott et al. (2002), using table \ref{tab:minitable}:
+
+\rowcolors{2}{gray!6}{white}
+\begin{table}[t]
+
+\caption{\label{tab:minitable}Randomized allocation by minimization}
+\centering
+\begin{tabular}{>{\bfseries}ccc}
+\hiderowcolors
+\toprule
+Prognostic factor & Intervention & Control\\
+\midrule
+\showrowcolors
+\addlinespace[0.3em]
+\multicolumn{3}{l}{\textbf{Sex}}\\
+\hspace{1em}Male & 3 & 5\\
+\hspace{1em}Female & 5 & 3\\
+\addlinespace[0.3em]
+\multicolumn{3}{l}{\textbf{Age band}}\\
+\hspace{1em}21-30 & 4 & 4\\
+\hspace{1em}31-40 & 2 & 3\\
+\hspace{1em}41-50 & 2 & 1\\
+\addlinespace[0.3em]
+\multicolumn{3}{l}{\textbf{Risk factor}}\\
+\hspace{1em}High & 4 & 5\\
+\hspace{1em}Low & 4 & 3\\
+\bottomrule
+\end{tabular}
+\end{table}
+\rowcolors{2}{white}{white}
+
+\begin{quote}
+If we now consider allocation of the 17th participant who has factors: Male, 31-40, and High.
+\textbf{Using the Pocock and Simon's method}
+\end{quote}
+
+\begin{quote}
+If allocated to intervention group, total imbalance is \[|(3+1)-5|+|(2+1)-3|+|(4+1)-5|=1\].
+If allocated to control group, total imbalance is \[|3-(5+1)|+|2-(3+1)|+|4-(5+1)|=7\].
+Patient allocated to the group that would lead to less overall imbalance.
+Therefore 17th participant allocated to intervention group because \[1<7\].
+\end{quote}
 
 \hypertarget{the-experimenter-as-a-source-of-bias}{%
 \chapter{The experimenter as a source of bias}\label{the-experimenter-as-a-source-of-bias}}
@@ -683,44 +1350,213 @@ There are
 Dangers of too many outcome measures
 Dangers of post-hoc subgroups and covariates
 
+\hypertarget{false-positives-and-false-negatives-are-we-missing-true-effects}{%
+\chapter{False positives and false negatives: are we missing true effects?}\label{false-positives-and-false-negatives-are-we-missing-true-effects}}
+
+The aim of many research studies is to investigate whether there is evidence for a specific hypothesis. We typically want to test this hypothesis in a robust way that gives us a clear indication of evidence for or against. Study design is paramount in ensuring that we can trust our results and have confidence in any inferences drawn. The implications of poor study design are not easily visible as many statistical tests will generate results regardless of whether certain test assumptions are met, or if we are using a small sample. This failure to meet certain assumptions or using an insufficient sample size can lead to an increase in false positives, also known as a Type I errors (\(\alpha\)), or an increase in false negatives, also known as Type II errors (\(\beta\)). Some more formal definitions with examples will help us to clarify these concepts.
+
+\hypertarget{type-i-error-alpha}{%
+\subsection{\texorpdfstring{Type I error (\(\alpha\))}{Type I error (\textbackslash{}alpha)}}\label{type-i-error-alpha}}
+
+\textbf{A false positive occurs when the Null hypothesis is rejected and a true effect is not actually present.} Typically, the type I error rate is controlled by setting the ``significance criterion'' at 5\% or sometimes more conservatively 1\%. In real terms, this would indicate that if \(\alpha=0.05\) and a true effect is not present, we would expect 1 in 20 results to be statistically significant but in fact this will have occurred by chance alone.
+
+For example, Researcher X wants to test the hypothesis that eating carrots improves children's IQ by 2 points. The researcher assigns 6 children to two groups, one group eat carrots and the other group eat their usual snack. The data is collected and a significant finding is found (Null hypothesis that carrots do not cause a 2 point increase in IQ is rejected). The researcher is jubilant that he has discovered an interesting result for publication.
+
+His sceptical colleague decides to check this result and decides to try to replicate the finding. The colleague re-runs the study with a new sample of children, but does not alter any other details of the study. Unfortunately, the colleague does not replicate the finding. The first result is likely to be a false positive for a number of reasons including sampling variability in small samples, small effect size, or even just poor quality data.
+
+\hypertarget{type-ii-error-beta}{%
+\subsection{\texorpdfstring{Type II error (\(\beta\))}{Type II error (\textbackslash{}beta)}}\label{type-ii-error-beta}}
+
+\textbf{A false negative occurs when the Null hypothesis is accepted and a true effect is actually present.}
+
+Now consider a second example, where the sceptical colleague wants to test a well-established and frequently-replicated result. she wants to confirm whether on average children who read more frequently obtain better exam results when they are tested on vocabulary. Once again, 6 different children are split into two groups, one group reads with a parent each night for a month and the other group continues with their usual routine. The study is run and the Null hypothesis is accepted as the statistical test results in a non-significant p-value (P\textgreater{}=0.05, in this case).
+
+The sceptical colleague is confused as she cannot replicate a known effect, but there is overwhelming evidence to indicate that an effect should be present. We look to the study design and oncemore, we see that the sample size was small and sampling variability will have played some role in causing a type II error.
+
+\rowcolors{2}{gray!6}{white}
+\begin{table}[t]
+
+\caption{\label{tab:confusionMat}Confusion Matrix for binary test}
+\centering
+\begin{tabular}{>{\centering\arraybackslash}p{9em}>{\centering\arraybackslash}p{9em}>{\centering\arraybackslash}p{9em}>{\centering\arraybackslash}p{9em}}
+\hiderowcolors
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{1}{c}{ } & \multicolumn{2}{c}{True} \\
+\cmidrule(l{2pt}r{2pt}){3-4}
+ &  & Condition positive & Condition negative\\
+\midrule
+\showrowcolors
+Predicted & Predicted Positive & True Positive 
+ POWER & False Positive 
+ Type I error\\
+Predicted & Predicted Negative & False Negative 
+ Type II error & True Negative\\
+\bottomrule
+\end{tabular}
+\end{table}
+\rowcolors{2}{white}{white}
+
+Table \ref{tab:confusionMat} presents a contingency table of the potential combinations of test or predicted condition and true condition. This is a common representation of the classifications of power, false positive, false negative, and true negative for a binary test classifier.
+
+\hypertarget{statistical-power}{%
+\section{Statistical power}\label{statistical-power}}
+
+As we have seen in our earlier examples, a frequent concern in study design refers to sample size and it's related concept of statistical power. Power can be defined as the probability that some statistical test will reject the Null hypothesis given that an alternative hypothesis of interest is true.
+
+Consider the following example, we want to investigate whether there is a significant difference in mean scores between two groups, perhaps an intervention and a control group. The indivduals are randomly assigned to each group and for simplicity we assume that there are no additional differences between the groups. The intervention is administered and we collect data on all individuals before running our statistical analysis. The power is then a function of several quantities:
+
+\begin{itemize}
+\tightlist
+\item
+  Sample size
+\item
+  ``Significance criterion'', also known as the Type 1 error rate (\(\alpha\))
+\item
+  Size of the effect of interest
+\item
+  Type II error (\(\beta\), note that Power=1-\(\beta\))
+\end{itemize}
+
+We can show the relation between these quantities of interest visually through an example using the z-test which is a simple one sample location test. The idea of this test is to assess whether a sample of some quantity of interest has the same sample mean as the population of the same quantity. In the figures below we will use a one-sided z test, which indicates that we have a direction specific hypothesis and is one of the simplest tests to introduce these concepts. A side note, two sided tests are more common in practice due to the fact that it is more realistic to test for a difference regardless of direction of effect.
+
+The first figure \ref{fig:densplot} shows the case for a single individual, n=1. We have set the standard deviation of both Null and Alternative distributions to equal one, and their means to zero and one respectively. When we have a sample size of 1 individual, we see that a small area is defined for power, indicating lower power and higher Type II error.
+
+\begin{figure}
+\centering
+\includegraphics{12-False_positives_and_false_negatives_files/figure-latex/densplot-1.pdf}
+\caption{\label{fig:densplot}Z test: statistical power, N=1}
+\end{figure}
+
+The second figure \ref{fig:densplot2} presents the same one-sided z test but here the sample size has increased. We should notice that two things have appeared to change. Firstly, we see a greater distinction between the two distributions. Secondly, we see that the critical \(z\) value (vertical dashed line) has changed location. The distributions have not changed their location (peak of each bell shaped curve), but the spread of each distribution has shrunk as a result of the sample size as the spread is directly proportional to the sample size. The reason for this change lies in the formula for the standard error and \(Z\) score test statistic itself,
+
+\(SE = \frac{SD}{\sqrt(n)}\), where \(n\) is the sample size, and \(SD\) is the standard deviation.
+
+The \(z\) value or score is also proportional to the sample size, so we see that this value changes accordling. The \(z\) score is defined as follows,
+
+\(z =\frac{M-\mu}{SE}\), where \(M\) is the sample mean score, \(\mu\) is the population mean, and \(SE\) is as defined above.
+
+The shaded areas on the density plots directly relates to the concepts outlined above: power, type I, and type II errors. When the sample size increases, the standard error (SE) and \(z\) score both reduce. The only input parameter that has changed between the two figures is that the power has increased. We notice that the type I error rate (area in red) is proportionally the same at 5\% and the effect size remains fixed, so we see a change in the only two remaining quantities, power and type II rate. This is because these quantities are linked. The area under the density curve must always remain at 1, so proportionally, we can calculate the power as 1-(type II rate, \(\beta\)) and vice versa. We can visually see this in both figures by looking at the specified areas for the alternative distribution.
+
+\begin{figure}
+\centering
+\includegraphics{12-False_positives_and_false_negatives_files/figure-latex/densplot2-1.pdf}
+\caption{\label{fig:densplot2}Z test: statistical power, N=10}
+\end{figure}
+
+An important point to note is that each of the following elements: power, sample size, effect size, and type I and II errors are intertwinned with each other. Hence, if one element is changed this has some effect on the other quantities. It also gives an insight on how we can use this knowledge to design our studies to minimise type I and II errors and increase statistical power.
+
+Typically, clinical trials in medicine will design studies to achieve 80\% statistical power and depending on the statistical analysis strategy, will employ some method to control type I error rate or use a more conservative rate (traditionally in NHST \(\alpha=0.05\)). Fixing these two quantities leaves us with a smaller number of elements to vary, but ususally we are designing to answer a particular scientific question which will also provide theoretical constraints. More specifically, an effect size of interest will be dictated ideally from a meta-analysed estimate of the effect size, or designed to the smallest effect size of interest that is practically or clinically meaningful. This leaves us with sample size as our only remaining element.
+
+A power calculation will vary sample sizes for a specific statistical analysiswhilst keeping statistical power, type I error rate, and effect size of interest at constant values. Sample size is usually most influenced by the size of effect and researcher constraints, i.e.~funding or time. A large effect size will require fewer unique observations and conversely, smaller effect sizes require very large samples. The logic behind this can be seen in figure \ref{fig:densplot2}, if we increase the effect size, the central tendencies (mean) of each distribution diverge, so the overlap of the distributions becomes less, provided that the standard errors remains unchanged.
+
+\hypertarget{multiple-hypothesis-testing}{%
+\section{Multiple hypothesis testing}\label{multiple-hypothesis-testing}}
+
+Even when we have a well-designed and adequately powered study, if we collect multiple outcome variables or if we are applying multiple tests to the same data, then the outcomes are unlikely to be completely independent, so we increase our change of finding a false positive. Returning to the idea that we have a type I error rate for a single test at 5\%, then suppose we apply \(k\) tests to our data. We increase our false positive rate dramatically for the set of tests, officially known as the family-wise error rate (FWER). The new significance level is given by \(1-(1-\alpha)^{k}\) (i.e.~the probability of finding at least one false positive). If we assumed that we have performed 10 tests (k=10), we have increased our chance of obtaining a false positive to approximately 40\%.
+
+\begin{figure}
+\centering
+\includegraphics{12-False_positives_and_false_negatives_files/figure-latex/FWER-1.pdf}
+\caption{\label{fig:FWER}Plot of relationship between familywse error rate and number of statistical tests}
+\end{figure}
+
+Figure \ref{fig:FWER} shows the relationship between the familywise error rate and the number of tests administered to the data. Clearly, the more tests applied leads to significant increase in the chance of at least one false positive result. There are many different ways to adjust for the multiple testing in practice. We shall discuss some of the most commonly applied.
+
+\hypertarget{bonferroni-correction}{%
+\subsection{Bonferroni Correction}\label{bonferroni-correction}}
+
+The Bonferroni correction is both the simplest and most popular adjustment for multiple testing to protect the type I error rate. The correction works by dividing the type I error by the number of tests conducted.
+
+For example, say we had some data and wanted to run multiple t-tests between two groups on 10 outcomes which all measure a similar effect of interest. The Bonferroni correction would adjusted the \(\alpha\) level to be 0.05/10 = 0.005, which would indicate that the critical \(\alpha\) would be \(1-(1-\alpha_{adjusted})^{n} = 1-(1-0.005)^{10} = 0.04888987\) which is approximately close to our original \(\alpha\) as required, so we have successfully controlled our type I errors at approximately 5\%.
+
+Bonferroni is widely used due to its simplicity but it has the consequence that it can be overly conservative. We say that a test is overly conservative if we over correct in some cases which increases our type II errors and reduces our statistical power. This is often the case when we have some dependency between the outcomes
+
+\hypertarget{false-discovery-rate-fdr}{%
+\subsection{False Discovery rate (FDR)}\label{false-discovery-rate-fdr}}
+
+The false discovery rate differs from the Bonferroni as the correction controls the expected proportion of false positives rather than all false positives.
+
+\(FDR = \frac{False\ positive}{False\ positive\ +\ True\ positive}\)
+
+We will present two common techniques for FDR procedure, Benjamini-Hochberg (BH), and Benjamini-Yekutieli (BY). The BH procedure can be summarized into four steps:
+
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  False positives and false negatives: are we missing true effects?
-  Sample size, effect size and statistical power
+  Sort a set of p-values from a set of multiple comparisons into ascending order.
 \item
-  Limitations of the RCT
-  Inefficiency: need for unfeasibly large samples
-  Heterogeneity and personalised intervention
+  For each p-value, assign a rank. For example, the first p-value could be 1 and the second would be 2, and so on.
 \item
-  Alternatives to RCT: regression discontinuity
-  ?mediators and moderators; cluster-based studies (school as unit)
+  Next we need to calculate a BH critical value for each p-value. We use the formula, \((i/n)\alpha\), where \(i\) is a particular p-value's rank; and \(n\) is the number of tests.
 \item
-  Alternatives to RCT: within-subject designs
-  Single case designs
-  When a single case design won't work
-\item
-  Practical obstacles to the ideal study
-  Sample size: need for team science?
-  Over-regulation of research: when ethics committees misfire
-  Problems in generalising to the real world: efficacy vs efficiency
-\item
-  Can we believe the literature? Publication bias
-\item
-  Pre-registration as a means to combat publication bias
-\item
-  Avoiding waste: the need to start with a systematic review
-\item
-  A template for a research protocol
+  Original p-values are now compared against the BH critical values (3), finding the largest p-value that is smaller than the critical value.
 \end{enumerate}
 
-\hypertarget{false-positives-and-false-negatives-are-we-missing-true-effects}{%
-\chapter{False positives and false negatives: are we missing true effects?}\label{false-positives-and-false-negatives-are-we-missing-true-effects}}
+We can solidify this procedure by looking at an example. Consider again that we revisit the set of t-tests from our Bonferroni correction. We are sure that the correction is overly conservative as some of the test are moderately correlated with each other.
 
-sample size, effect size, and power.
+\rowcolors{2}{gray!6}{white}
+\begin{table}[t]
 
-We mention sensitivity and specificity earlier in the book, so this might be better put together? I like to display the concepts starting from the grid of ``power, type 1, type 2, true Neg''.
+\caption{\label{tab:BYexample}Corrected p-values using several different methods (Bonferroni, BH, BY)}
+\centering
+\begin{tabular}{cccccc}
+\hiderowcolors
+\toprule
+Variable & Rank & alpha & p.value & BH & BY\\
+\midrule
+\showrowcolors
+X1 & 1 & 0.05 & \cellcolor[HTML]{3399FF}{\textcolor{black}{0.002}} & \cellcolor[HTML]{00FF00}{\textcolor{black}{0.005}} & \cellcolor[HTML]{FF0000}{\textcolor{black}{0.005}}\\
+X2 & 2 & 0.05 & \cellcolor[HTML]{3399FF}{\textcolor{black}{0.004}} & \cellcolor[HTML]{00FF00}{\textcolor{black}{0.01}} & \cellcolor[HTML]{FF0000}{\textcolor{black}{0.007}}\\
+X3 & 3 & 0.05 & \cellcolor[HTML]{FFFFFF}{\textcolor{black}{0.008}} & \cellcolor[HTML]{00FF00}{\textcolor{black}{0.015}} & \cellcolor[HTML]{FF0000}{\textcolor{black}{0.008}}\\
+X4 & 4 & 0.05 & \cellcolor[HTML]{FFFFFF}{\textcolor{black}{0.012}} & \cellcolor[HTML]{00FF00}{\textcolor{black}{0.02}} & \cellcolor[HTML]{FFFFFF}{\textcolor{black}{0.01}}\\
+X5 & 5 & 0.05 & \cellcolor[HTML]{FFFFFF}{\textcolor{black}{0.023}} & \cellcolor[HTML]{FFFFFF}{\textcolor{black}{0.025}} & \cellcolor[HTML]{FFFFFF}{\textcolor{black}{0.011}}\\
+\addlinespace
+X6 & 6 & 0.05 & \cellcolor[HTML]{FFFFFF}{\textcolor{black}{0.041}} & \cellcolor[HTML]{FFFFFF}{\textcolor{black}{0.03}} & \cellcolor[HTML]{FFFFFF}{\textcolor{black}{0.012}}\\
+X7 & 7 & 0.05 & \cellcolor[HTML]{FFFFFF}{\textcolor{black}{0.054}} & \cellcolor[HTML]{FFFFFF}{\textcolor{black}{0.035}} & \cellcolor[HTML]{FFFFFF}{\textcolor{black}{0.013}}\\
+X8 & 8 & 0.05 & \cellcolor[HTML]{FFFFFF}{\textcolor{black}{0.091}} & \cellcolor[HTML]{FFFFFF}{\textcolor{black}{0.04}} & \cellcolor[HTML]{FFFFFF}{\textcolor{black}{0.015}}\\
+X9 & 9 & 0.05 & \cellcolor[HTML]{FFFFFF}{\textcolor{black}{0.12}} & \cellcolor[HTML]{FFFFFF}{\textcolor{black}{0.045}} & \cellcolor[HTML]{FFFFFF}{\textcolor{black}{0.016}}\\
+X10 & 10 & 0.05 & \cellcolor[HTML]{FFFFFF}{\textcolor{black}{0.2}} & \cellcolor[HTML]{FFFFFF}{\textcolor{black}{0.05}} & \cellcolor[HTML]{FFFFFF}{\textcolor{black}{0.017}}\\
+\bottomrule
+\end{tabular}
+\end{table}
+\rowcolors{2}{white}{white}
+
+Table \ref{tab:BYexample} shows the p values obtained from 10 t-tests on data obtained from the same subjects but different outcome measures. If we considered the p values are sufficiently indpendent, we could conclude that the first six variables(x1-x6) are statistically significant, but on further inspection and deciding to correct using the BH procedure, we find that the we find only X1-X4 are statistically significant under a more robust FWER (green coloured cells). Had we chosen the more conservative Bonferroni correction, we would only find X1 and X2 remain statistically siginficant (\(\alpha_{Bonf}=0.05/10=0.005\), blue coloured cells).
+
+The second method that controls the False discovery rate is the Benjamini-Yekutieli (BY), which is a more conservative correction but allows for dependence between the tests (i.e.~the tests are correlated; therefore, the p-values will also be correlated). The adjustment resemmbles the BH procedure with an additional constraint,
+
+\((i/n)(\frac{\alpha}{\sum_{i=1}^{k} 1/i})\)
+
+Table @ref(tab:BY\_example) shows the p values that remain statistically significant under the Benjamini-Yekutieli adjustment (coloured in red). In our example, the BY is more conservative than the BH but is less conservative than the Bonferroni.
+
+\hypertarget{permutation-methods}{%
+\subsection{Permutation methods}\label{permutation-methods}}
+
+Resampling techniques offer a new perspective on correcting for multiple testing as the basis is not according to adjusted p-values. If we recall in \ref{fig:densplot}, we have a null distribution which is crucial for obtaining our test statistic. The permutations approach creates an empirical estimate of this null distribution by re-sampling, say \(M\) times, the total number of observations, in a population sample. The benefit of this approach is that the statistical significance is estimated from the data. This also has the added benefit that properties of the data including irregularities are carried through in the permuted data sets. The general procedure is as follows:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Using the original data set, a test statistic and corresponding p-value are calculated.
+\item
+  Next, the data are permuted (resampled), so we obtain a jumbled sample of the original data set but with the allowance of resampling with replacement. Using this new permutated sample data, we calculate the test statistic and associated p-value.
+\item
+  Step (2.) is then repeated \(M\) times (typically, \textgreater{}1000 repetitions), and each time the test statistic and p-value are recorded to form empirical distribution of the test statistic.
+\item
+  The permuted distribution is then calculated as the frequency of \(M\) permutations that the original data test statistic is smaller than each permuted test statistic, then dividing this frequency by \(M\), the number of permuted iterations.
+\end{enumerate}
+
+The same statistical test is used according to the original design, but this test is fitted multiple times. The permutations randomly sample values from each group, as the observations from each group are considered as exchangeable. The assumption in the independent groups test is that the level of significance is not dependent on particular pairings of observations from each group.
+
+\begin{figure}
+\centering
+\includegraphics{12-False_positives_and_false_negatives_files/figure-latex/permutations_test-1.pdf}
+\caption{(\#fig:permutations\_test)Permutation distributions for individual tests}
+\end{figure}
+
+Suppose we have two groups of individuals and have measured language performance using three different instruments. We choose to use the Student's two independent samples t-test sequentially to test for differences between the two groups of individuals on each of the three measures. We have chosen not to use a correction that adjusts the p-values, instead we decide that a permutation approach will be more robust. Figure @ref(fig:permutation\_test) shows the result of our analysis using the permutation corrected t-tests. The cross points are the actual p-values of the t-tests on the original data. The 95\% confidence intervals are constructed from the permuted distributions.
 
 \hypertarget{drawbacks-of-the-rct}{%
 \chapter{Drawbacks of the RCT}\label{drawbacks-of-the-rct}}
@@ -732,13 +1568,74 @@ Heterogeneity and personalised intervention
 \hypertarget{alternatives-to-rct-regression-discontinuity}{%
 \chapter{Alternatives to RCT: regression discontinuity}\label{alternatives-to-rct-regression-discontinuity}}
 
+The regression discontinuity follows a quasi-experimental design and is typically used to avoid confounding bias (i.e.~when another variable is present that distorts the effect of intervention) when assesssing interventions. It is particularly useful when assignment to intervention is based on some pre-specified threshold from a continuous measure. For example, let us assume that we wish to assess a new reading intervention in a school. Students are assigned to the intervention group according to a general language test. Students that score below a certain threshold are assigned to the intervention group, and rather than discrd their peers that scored above the threshold, they forma natural control group. The experimenter is not therefore required to randomly allocate students with poor language scores to the control group when they might benefit from the potential effect of the intervention if it is found to be effective.
+
+Before we delve into the regression discontinuity designs, it may be useful for us to first take a look at general linear models, in particular, ordinary linear regression. Linear models consist of some of the most commonly used methods in applied research including ANOVA, ANCOVA, linear regression, t-tests, F-tests and MANCOVA.
+
+Linear regression's purpose is primarily to understand the straight line relationship that exists for some bivariate data. We assume a causal direction inthe relationship unlike correlation as we specify an outcome (dependent) variable and a predictor (independent) variable. The idea being that as we change the value of predictor we see the effect that this has on the outcome variable, by quantifying the relationship according to some statistical model. Figure \ref{fig:linReg} (A, left) shows some bivariate data which appears to have an underlying linear relationship
+
+\begin{figure}
+\centering
+\includegraphics{14-Regression_discontinuity_files/figure-latex/linReg-1.pdf}
+\caption{\label{fig:linReg}Linear regression: Plotting residuals, intercept, and slope explainers}
+\end{figure}
+
+\[Y_{i} = \beta_{0} +  \beta_{1}X_{i,1} + \beta_{2}X_{i,2} + \beta_{3}(X_{i,1} >= c) \]
+
+where
+
+Statistical issues encountered RDD analysis:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Incorrect specification of regression form ( regression is non-linear or needs a polynomial form)
+\item
+  Misallocation of treatment
+\item
+  Inadequate statistical power (sample size too small)
+\item
+  Limited generalization of effects
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics{14-Regression_discontinuity_files/figure-latex/linRegDis-1.pdf}
+\caption{\label{fig:linRegDis}Linear regression: Plotting residuals, intercept, and slope explainers}
+\end{figure}
+
 \hypertarget{mediators}{%
 \section{Mediators}\label{mediators}}
+
+\begin{figure}
+\centering
+\includegraphics{14-Regression_discontinuity_files/figure-latex/mediator-1.pdf}
+\caption{\label{fig:mediator}Mediator path diagram}
+\end{figure}
 
 \hypertarget{moderators}{%
 \section{Moderators}\label{moderators}}
 
-start with diagram as a simplest clear definition
+\begin{figure}
+\centering
+\includegraphics{14-Regression_discontinuity_files/figure-latex/moderator-1.pdf}
+\caption{\label{fig:moderator}Moderator path diagram}
+\end{figure}
+
+If we return to our linear regression definition from earlier, we have some predictor variable \(X\) that has a linear causal relationship with \(Y\), i.e. \(X\) causes \(Y\). Moderation occurs when a third variable is introduced, say \(M\) that changes the strength of causal relationship between \(X\) and \(Y\), hence moderating the relationship.
+
+Figure \ref{fig:moderator} shows a disgrammatic representation of the moderator effect. The moderator is added into the statistical framework as an interaction. The interaction is added into the regression model formula as an extra variable with a new associated parameter estimate. The extra variable is simple the two interacting terms multiplied together. We can give an exmaple of this by returning to the regression equation that we met earlier. The interaction appears as the multiple of \(X_{1}\) and \(X_{2}\).
+
+\[Y_{i} = \beta_{0} +  \beta_{1}X_{i,1} + \beta_{2}X_{i,2} + \beta_{3}(X_{i,1}X_{i,2})\]
+
+We can visual the effect of the interaction much more clearly by looking at some simulated data. Plotting the data, for two types of combinations of variables. Figure \ref{fig:interaction}A (LEFT) shows the relationship between a nominal Moderator and a continuous predictor. Figure \ref{fig:interaction}B (RIGHT) shows the relationship between a nominal Moderator and a nominal predictor.
+
+\begin{figure}
+\centering
+\includegraphics{14-Regression_discontinuity_files/figure-latex/interaction-1.pdf}
+\caption{\label{fig:interaction}Plotting the interaction effect in regression. (A) shows the relation between a nominal Moderator and continuous predictor; (B) shows the relationship between a nominal Moderator and nominal predictor.}
+\end{figure}
 
 \hypertarget{alternatives-to-rct-within-subject-designs}{%
 \chapter{Alternatives to RCT: within-subject designs}\label{alternatives-to-rct-within-subject-designs}}
@@ -747,6 +1644,18 @@ start with diagram as a simplest clear definition
 \section{Single case designs}\label{single-case-designs}}
 
 When a single case design won't work
+
+\hypertarget{adaptive-interventions}{%
+\chapter{Adaptive Interventions}\label{adaptive-interventions}}
+
+\hypertarget{just-in-time-adpative-interventions-jitai}{%
+\section{Just-in-Time adpative interventions (JITAI)}\label{just-in-time-adpative-interventions-jitai}}
+
+\hypertarget{micro-randomized-trials-mrt}{%
+\section{Micro-Randomized Trials (MRT)}\label{micro-randomized-trials-mrt}}
+
+\hypertarget{sequential-multiple-assignment-randomized-trial-smart}{%
+\section{Sequential, Multiple Assignment, Randomized Trial (SMART)}\label{sequential-multiple-assignment-randomized-trial-smart}}
 
 \hypertarget{practical-obstacles-to-the-ideal-study}{%
 \chapter{Practical obstacles to the ideal study}\label{practical-obstacles-to-the-ideal-study}}

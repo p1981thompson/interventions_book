@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 13 False positives and false negatives: are we missing true effects? | Evaluating and conducting intervention studies: a guide for speech and language therapists</title>
-  <meta name="description" content="Introduction to methods for evaluating effectiveness of interventions in medical related fields">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 9 False positives and false negatives: are we missing true effects? | Evaluating and conducting intervention studies: a guide for speech and language therapists</title>
+  <meta name="description" content="Introduction to methods for evaluating effectiveness of interventions in medical related fields" />
+  <meta name="generator" content="bookdown 0.10 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 13 False positives and false negatives: are we missing true effects? | Evaluating and conducting intervention studies: a guide for speech and language therapists />
+  <meta property="og:title" content="Chapter 9 False positives and false negatives: are we missing true effects? | Evaluating and conducting intervention studies: a guide for speech and language therapists" />
   <meta property="og:type" content="book" />
   
   
@@ -17,26 +16,25 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 13 False positives and false negatives: are we missing true effects? | Evaluating and conducting intervention studies: a guide for speech and language therapists />
+  <meta name="twitter:title" content="Chapter 9 False positives and false negatives: are we missing true effects? | Evaluating and conducting intervention studies: a guide for speech and language therapists" />
   
   <meta name="twitter:description" content="Introduction to methods for evaluating effectiveness of interventions in medical related fields" />
   
 
-<meta name="author" content="Dorothy V.M. Bishop and Paul A. Thompson">
+<meta name="author" content="Dorothy V.M. Bishop and Paul A. Thompson" />
 
 
-<meta name="date" content="2019-02-04">
+<meta name="date" content="2020-01-31" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="yet-more-bias-distortions-arising-at-the-analysis-stage.html">
-<link rel="next" href="drawbacks-of-the-rct.html">
+<link rel="prev" href="further-potential-for-bias-who-drops-out-and-who-volunteers.html">
+<link rel="next" href="putting-it-all-together-the-randomised-controlled-trial.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -48,8 +46,73 @@
 
 
 
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
 
 
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -68,10 +131,11 @@
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-did-i-write-this-book"><i class="fa fa-check"></i>Why did I write this book?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-did-we-write-this-book"><i class="fa fa-check"></i>Why did we write this book?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#who-is-this-book-for"><i class="fa fa-check"></i>Who is this book for?</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-is-covered"><i class="fa fa-check"></i>What is covered?</a></li>
 </ul></li>
+<li class="part"><span><b>I General Principles and Foundations</b></span></li>
 <li class="chapter" data-level="1" data-path="how-can-we-know-if-weve-made-a-difference.html"><a href="how-can-we-know-if-weve-made-a-difference.html"><i class="fa fa-check"></i><b>1</b> How can we know if we’ve made a difference?</a><ul>
 <li class="chapter" data-level="1.1" data-path="how-can-we-know-if-weve-made-a-difference.html"><a href="how-can-we-know-if-weve-made-a-difference.html#the-randomness-of-everything"><i class="fa fa-check"></i><b>1.1</b> The randomness of everything</a></li>
 <li class="chapter" data-level="1.2" data-path="how-can-we-know-if-weve-made-a-difference.html"><a href="how-can-we-know-if-weve-made-a-difference.html#systematic-error"><i class="fa fa-check"></i><b>1.2</b> Systematic error</a></li>
@@ -102,46 +166,100 @@
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="controlling-unwanted-effects-with-a-control-group.html"><a href="controlling-unwanted-effects-with-a-control-group.html#treated-vs-untreated-controls"><i class="fa fa-check"></i><b>5.2</b> Treated vs untreated controls</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="wait-list-controls-and-cross-over-designs.html"><a href="wait-list-controls-and-cross-over-designs.html"><i class="fa fa-check"></i><b>6</b> Wait-list controls and cross-over designs</a></li>
-<li class="chapter" data-level="7" data-path="observational-studies.html"><a href="observational-studies.html"><i class="fa fa-check"></i><b>7</b> Observational studies</a><ul>
-<li class="chapter" data-level="7.1" data-path="observational-studies.html"><a href="observational-studies.html#class-exercise-2"><i class="fa fa-check"></i><b>7.1</b> Class exercise</a></li>
+<li class="chapter" data-level="6" data-path="controlling-for-selection-bias-randomised-assignment-to-intervention.html"><a href="controlling-for-selection-bias-randomised-assignment-to-intervention.html"><i class="fa fa-check"></i><b>6</b> Controlling for selection bias: randomised assignment to intervention</a><ul>
+<li class="chapter" data-level="6.1" data-path="controlling-for-selection-bias-randomised-assignment-to-intervention.html"><a href="controlling-for-selection-bias-randomised-assignment-to-intervention.html#units-of-analysis-individuals-vs-clusters"><i class="fa fa-check"></i><b>6.1</b> Units of analysis: Individuals vs clusters</a></li>
+<li class="chapter" data-level="6.2" data-path="controlling-for-selection-bias-randomised-assignment-to-intervention.html"><a href="controlling-for-selection-bias-randomised-assignment-to-intervention.html#class-exercise-2"><i class="fa fa-check"></i><b>6.2</b> Class exercise</a></li>
+<li class="chapter" data-level="6.3" data-path="controlling-for-selection-bias-randomised-assignment-to-intervention.html"><a href="controlling-for-selection-bias-randomised-assignment-to-intervention.html#randomization-methods"><i class="fa fa-check"></i><b>6.3</b> Randomization methods</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="controlling-for-selection-bias-randomised-assignment-to-intervention.html"><a href="controlling-for-selection-bias-randomised-assignment-to-intervention.html#simple-randomization"><i class="fa fa-check"></i><b>6.3.1</b> Simple randomization</a></li>
+<li class="chapter" data-level="6.3.2" data-path="controlling-for-selection-bias-randomised-assignment-to-intervention.html"><a href="controlling-for-selection-bias-randomised-assignment-to-intervention.html#random-permuted-blocks"><i class="fa fa-check"></i><b>6.3.2</b> Random permuted blocks</a></li>
+<li class="chapter" data-level="6.3.3" data-path="controlling-for-selection-bias-randomised-assignment-to-intervention.html"><a href="controlling-for-selection-bias-randomised-assignment-to-intervention.html#unequal-randomization"><i class="fa fa-check"></i><b>6.3.3</b> Unequal randomization</a></li>
+<li class="chapter" data-level="6.3.4" data-path="controlling-for-selection-bias-randomised-assignment-to-intervention.html"><a href="controlling-for-selection-bias-randomised-assignment-to-intervention.html#stratification"><i class="fa fa-check"></i><b>6.3.4</b> Stratification</a></li>
+<li class="chapter" data-level="6.3.5" data-path="controlling-for-selection-bias-randomised-assignment-to-intervention.html"><a href="controlling-for-selection-bias-randomised-assignment-to-intervention.html#adaptive-randomisation"><i class="fa fa-check"></i><b>6.3.5</b> Adaptive randomisation</a></li>
+<li class="chapter" data-level="6.3.6" data-path="controlling-for-selection-bias-randomised-assignment-to-intervention.html"><a href="controlling-for-selection-bias-randomised-assignment-to-intervention.html#minimization"><i class="fa fa-check"></i><b>6.3.6</b> Minimization</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="controlling-for-selection-bias-randomised-assignment-to-intervention.html"><a href="controlling-for-selection-bias-randomised-assignment-to-intervention.html"><i class="fa fa-check"></i><b>8</b> Controlling for selection bias: randomised assignment to intervention</a><ul>
-<li class="chapter" data-level="8.1" data-path="controlling-for-selection-bias-randomised-assignment-to-intervention.html"><a href="controlling-for-selection-bias-randomised-assignment-to-intervention.html#units-of-analysis-individuals-vs-clusters"><i class="fa fa-check"></i><b>8.1</b> Units of analysis: Individuals vs clusters</a></li>
-<li class="chapter" data-level="8.2" data-path="controlling-for-selection-bias-randomised-assignment-to-intervention.html"><a href="controlling-for-selection-bias-randomised-assignment-to-intervention.html#class-exercise-3"><i class="fa fa-check"></i><b>8.2</b> Class exercise</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="the-experimenter-as-a-source-of-bias.html"><a href="the-experimenter-as-a-source-of-bias.html"><i class="fa fa-check"></i><b>9</b> The experimenter as a source of bias</a><ul>
-<li class="chapter" data-level="9.1" data-path="the-experimenter-as-a-source-of-bias.html"><a href="the-experimenter-as-a-source-of-bias.html#allocation-concealment"><i class="fa fa-check"></i><b>9.1</b> Allocation concealment</a></li>
-<li class="chapter" data-level="9.2" data-path="the-experimenter-as-a-source-of-bias.html"><a href="the-experimenter-as-a-source-of-bias.html#the-importance-of-masking-for-assessments"><i class="fa fa-check"></i><b>9.2</b> The importance of masking for assessments</a></li>
-<li class="chapter" data-level="9.3" data-path="the-experimenter-as-a-source-of-bias.html"><a href="the-experimenter-as-a-source-of-bias.html#conflict-of-interest"><i class="fa fa-check"></i><b>9.3</b> Conflict of interest</a></li>
-<li class="chapter" data-level="9.4" data-path="the-experimenter-as-a-source-of-bias.html"><a href="the-experimenter-as-a-source-of-bias.html#class-exercise-4"><i class="fa fa-check"></i><b>9.4</b> Class exercise</a></li>
+<li class="chapter" data-level="7" data-path="the-experimenter-as-a-source-of-bias.html"><a href="the-experimenter-as-a-source-of-bias.html"><i class="fa fa-check"></i><b>7</b> The experimenter as a source of bias</a><ul>
+<li class="chapter" data-level="7.1" data-path="the-experimenter-as-a-source-of-bias.html"><a href="the-experimenter-as-a-source-of-bias.html#allocation-concealment"><i class="fa fa-check"></i><b>7.1</b> Allocation concealment</a></li>
+<li class="chapter" data-level="7.2" data-path="the-experimenter-as-a-source-of-bias.html"><a href="the-experimenter-as-a-source-of-bias.html#the-importance-of-masking-for-assessments"><i class="fa fa-check"></i><b>7.2</b> The importance of masking for assessments</a></li>
+<li class="chapter" data-level="7.3" data-path="the-experimenter-as-a-source-of-bias.html"><a href="the-experimenter-as-a-source-of-bias.html#conflict-of-interest"><i class="fa fa-check"></i><b>7.3</b> Conflict of interest</a></li>
+<li class="chapter" data-level="7.4" data-path="the-experimenter-as-a-source-of-bias.html"><a href="the-experimenter-as-a-source-of-bias.html#class-exercise-3"><i class="fa fa-check"></i><b>7.4</b> Class exercise</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="further-potential-for-bias-who-drops-out-and-who-volunteers.html"><a href="further-potential-for-bias-who-drops-out-and-who-volunteers.html"><i class="fa fa-check"></i><b>10</b> Further potential for bias: who drops out and who volunteers?</a><ul>
-<li class="chapter" data-level="10.1" data-path="further-potential-for-bias-who-drops-out-and-who-volunteers.html"><a href="further-potential-for-bias-who-drops-out-and-who-volunteers.html#dealing-with-dropouts-intention-to-treat-analysis"><i class="fa fa-check"></i><b>10.1</b> Dealing with dropouts: Intention to treat analysis</a></li>
-<li class="chapter" data-level="10.2" data-path="further-potential-for-bias-who-drops-out-and-who-volunteers.html"><a href="further-potential-for-bias-who-drops-out-and-who-volunteers.html#who-volunteers-for-research"><i class="fa fa-check"></i><b>10.2</b> Who volunteers for research?</a></li>
-<li class="chapter" data-level="10.3" data-path="further-potential-for-bias-who-drops-out-and-who-volunteers.html"><a href="further-potential-for-bias-who-drops-out-and-who-volunteers.html#class-exercise-5"><i class="fa fa-check"></i><b>10.3</b> Class exercise</a></li>
+<li class="chapter" data-level="8" data-path="further-potential-for-bias-who-drops-out-and-who-volunteers.html"><a href="further-potential-for-bias-who-drops-out-and-who-volunteers.html"><i class="fa fa-check"></i><b>8</b> Further potential for bias: who drops out and who volunteers?</a><ul>
+<li class="chapter" data-level="8.1" data-path="further-potential-for-bias-who-drops-out-and-who-volunteers.html"><a href="further-potential-for-bias-who-drops-out-and-who-volunteers.html#dealing-with-dropouts-intention-to-treat-analysis"><i class="fa fa-check"></i><b>8.1</b> Dealing with dropouts: Intention to treat analysis</a></li>
+<li class="chapter" data-level="8.2" data-path="further-potential-for-bias-who-drops-out-and-who-volunteers.html"><a href="further-potential-for-bias-who-drops-out-and-who-volunteers.html#who-volunteers-for-research"><i class="fa fa-check"></i><b>8.2</b> Who volunteers for research?</a></li>
+<li class="chapter" data-level="8.3" data-path="further-potential-for-bias-who-drops-out-and-who-volunteers.html"><a href="further-potential-for-bias-who-drops-out-and-who-volunteers.html#class-exercise-4"><i class="fa fa-check"></i><b>8.3</b> Class exercise</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="putting-it-all-together-the-randomised-controlled-trial.html"><a href="putting-it-all-together-the-randomised-controlled-trial.html"><i class="fa fa-check"></i><b>11</b> Putting it all together: the randomised controlled trial</a><ul>
-<li class="chapter" data-level="11.1" data-path="putting-it-all-together-the-randomised-controlled-trial.html"><a href="putting-it-all-together-the-randomised-controlled-trial.html#statistical-analysis-of-a-rct"><i class="fa fa-check"></i><b>11.1</b> Statistical analysis of a RCT</a></li>
-<li class="chapter" data-level="11.2" data-path="putting-it-all-together-the-randomised-controlled-trial.html"><a href="putting-it-all-together-the-randomised-controlled-trial.html#obfuscation-and-omission-in-the-reporting-of-results"><i class="fa fa-check"></i><b>11.2</b> Obfuscation and omission in the reporting of results</a></li>
+<li class="chapter" data-level="9" data-path="false-positives-and-false-negatives-are-we-missing-true-effects.html"><a href="false-positives-and-false-negatives-are-we-missing-true-effects.html"><i class="fa fa-check"></i><b>9</b> False positives and false negatives: are we missing true effects?</a><ul>
+<li class="chapter" data-level="9.0.1" data-path="false-positives-and-false-negatives-are-we-missing-true-effects.html"><a href="false-positives-and-false-negatives-are-we-missing-true-effects.html#type-i-error-alpha"><i class="fa fa-check"></i><b>9.0.1</b> Type I error (<span class="math inline">\(\alpha\)</span>)</a></li>
+<li class="chapter" data-level="9.0.2" data-path="false-positives-and-false-negatives-are-we-missing-true-effects.html"><a href="false-positives-and-false-negatives-are-we-missing-true-effects.html#type-ii-error-beta"><i class="fa fa-check"></i><b>9.0.2</b> Type II error (<span class="math inline">\(\beta\)</span>)</a></li>
+<li class="chapter" data-level="9.1" data-path="false-positives-and-false-negatives-are-we-missing-true-effects.html"><a href="false-positives-and-false-negatives-are-we-missing-true-effects.html#statistical-power"><i class="fa fa-check"></i><b>9.1</b> Statistical power</a></li>
+<li class="chapter" data-level="9.2" data-path="false-positives-and-false-negatives-are-we-missing-true-effects.html"><a href="false-positives-and-false-negatives-are-we-missing-true-effects.html#multiple-hypothesis-testing"><i class="fa fa-check"></i><b>9.2</b> Multiple hypothesis testing</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="false-positives-and-false-negatives-are-we-missing-true-effects.html"><a href="false-positives-and-false-negatives-are-we-missing-true-effects.html#bonferroni-correction"><i class="fa fa-check"></i><b>9.2.1</b> Bonferroni Correction</a></li>
+<li class="chapter" data-level="9.2.2" data-path="false-positives-and-false-negatives-are-we-missing-true-effects.html"><a href="false-positives-and-false-negatives-are-we-missing-true-effects.html#false-discovery-rate-fdr"><i class="fa fa-check"></i><b>9.2.2</b> False Discovery rate (FDR)</a></li>
+<li class="chapter" data-level="9.2.3" data-path="false-positives-and-false-negatives-are-we-missing-true-effects.html"><a href="false-positives-and-false-negatives-are-we-missing-true-effects.html#permutation-methods"><i class="fa fa-check"></i><b>9.2.3</b> Permutation methods</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="yet-more-bias-distortions-arising-at-the-analysis-stage.html"><a href="yet-more-bias-distortions-arising-at-the-analysis-stage.html"><i class="fa fa-check"></i><b>12</b> Yet more bias: distortions arising at the analysis stage</a></li>
-<li class="chapter" data-level="13" data-path="false-positives-and-false-negatives-are-we-missing-true-effects.html"><a href="false-positives-and-false-negatives-are-we-missing-true-effects.html"><i class="fa fa-check"></i><b>13</b> False positives and false negatives: are we missing true effects?</a></li>
-<li class="chapter" data-level="14" data-path="drawbacks-of-the-rct.html"><a href="drawbacks-of-the-rct.html"><i class="fa fa-check"></i><b>14</b> Drawbacks of the RCT</a></li>
-<li class="chapter" data-level="15" data-path="alternatives-to-rct-regression-discontinuity.html"><a href="alternatives-to-rct-regression-discontinuity.html"><i class="fa fa-check"></i><b>15</b> Alternatives to RCT: regression discontinuity</a><ul>
-<li class="chapter" data-level="15.1" data-path="alternatives-to-rct-regression-discontinuity.html"><a href="alternatives-to-rct-regression-discontinuity.html#mediators"><i class="fa fa-check"></i><b>15.1</b> Mediators</a></li>
-<li class="chapter" data-level="15.2" data-path="alternatives-to-rct-regression-discontinuity.html"><a href="alternatives-to-rct-regression-discontinuity.html#moderators"><i class="fa fa-check"></i><b>15.2</b> Moderators</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="alternatives-to-rct-within-subject-designs.html"><a href="alternatives-to-rct-within-subject-designs.html"><i class="fa fa-check"></i><b>16</b> Alternatives to RCT: within-subject designs</a><ul>
-<li class="chapter" data-level="16.1" data-path="alternatives-to-rct-within-subject-designs.html"><a href="alternatives-to-rct-within-subject-designs.html#single-case-designs"><i class="fa fa-check"></i><b>16.1</b> Single case designs</a></li>
+<li class="part"><span><b>II Experimental Studies</b></span></li>
+<li class="chapter" data-level="10" data-path="putting-it-all-together-the-randomised-controlled-trial.html"><a href="putting-it-all-together-the-randomised-controlled-trial.html"><i class="fa fa-check"></i><b>10</b> Putting it all together: the randomised controlled trial</a><ul>
+<li class="chapter" data-level="10.1" data-path="putting-it-all-together-the-randomised-controlled-trial.html"><a href="putting-it-all-together-the-randomised-controlled-trial.html#statistical-analysis-of-a-rct"><i class="fa fa-check"></i><b>10.1</b> Statistical analysis of a RCT</a></li>
+<li class="chapter" data-level="10.2" data-path="putting-it-all-together-the-randomised-controlled-trial.html"><a href="putting-it-all-together-the-randomised-controlled-trial.html#obfuscation-and-omission-in-the-reporting-of-results"><i class="fa fa-check"></i><b>10.2</b> Obfuscation and omission in the reporting of results</a></li>
 </ul></li>
+<li class="chapter" data-level="11" data-path="drawbacks-of-the-rct.html"><a href="drawbacks-of-the-rct.html"><i class="fa fa-check"></i><b>11</b> Drawbacks of the RCT</a><ul>
+<li class="chapter" data-level="11.1" data-path="drawbacks-of-the-rct.html"><a href="drawbacks-of-the-rct.html#yet-more-bias-distortions-arising-at-the-analysis-stage"><i class="fa fa-check"></i><b>11.1</b> Yet more bias: distortions arising at the analysis stage</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="special-cases-of-the-rct-within-subject-designs.html"><a href="special-cases-of-the-rct-within-subject-designs.html"><i class="fa fa-check"></i><b>12</b> Special cases of the RCT: within-subject designs</a><ul>
+<li class="chapter" data-level="12.1" data-path="special-cases-of-the-rct-within-subject-designs.html"><a href="special-cases-of-the-rct-within-subject-designs.html#single-case-designs"><i class="fa fa-check"></i><b>12.1</b> Single case designs</a></li>
+<li class="chapter" data-level="12.2" data-path="special-cases-of-the-rct-within-subject-designs.html"><a href="special-cases-of-the-rct-within-subject-designs.html#cross-over-designs"><i class="fa fa-check"></i><b>12.2</b> Cross-over designs</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="special-cases-of-the-rct-within-subject-designs.html"><a href="special-cases-of-the-rct-within-subject-designs.html#traditional-cross-over-design"><i class="fa fa-check"></i><b>12.2.1</b> Traditional cross-over design</a></li>
+<li class="chapter" data-level="12.2.2" data-path="special-cases-of-the-rct-within-subject-designs.html"><a href="special-cases-of-the-rct-within-subject-designs.html#delayed-crossover-design-wait-list-controls"><i class="fa fa-check"></i><b>12.2.2</b> Delayed crossover design (Wait list controls)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="adaptive-interventions.html"><a href="adaptive-interventions.html"><i class="fa fa-check"></i><b>13</b> Adaptive Interventions</a><ul>
+<li class="chapter" data-level="13.1" data-path="adaptive-interventions.html"><a href="adaptive-interventions.html#more-niche-trial-designs"><i class="fa fa-check"></i><b>13.1</b> More niche trial designs</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="adaptive-interventions.html"><a href="adaptive-interventions.html#just-in-time-adaptive-interventions-jitai"><i class="fa fa-check"></i><b>13.1.1</b> Just-in-Time adaptive interventions (JITAI)</a></li>
+<li class="chapter" data-level="13.1.2" data-path="adaptive-interventions.html"><a href="adaptive-interventions.html#micro-randomized-trials-mrt"><i class="fa fa-check"></i><b>13.1.2</b> Micro-Randomized Trials (MRT)</a></li>
+<li class="chapter" data-level="13.1.3" data-path="adaptive-interventions.html"><a href="adaptive-interventions.html#sequential-multiple-assignment-randomized-trial-smart"><i class="fa fa-check"></i><b>13.1.3</b> Sequential, Multiple Assignment, Randomized Trial (SMART)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="cluster-randomised-control-trials.html"><a href="cluster-randomised-control-trials.html"><i class="fa fa-check"></i><b>14</b> Cluster Randomised Control Trials</a><ul>
+<li class="chapter" data-level="14.1" data-path="cluster-randomised-control-trials.html"><a href="cluster-randomised-control-trials.html#what-is-a-cluster-rct"><i class="fa fa-check"></i><b>14.1</b> What is a cluster RCT?</a></li>
+<li class="chapter" data-level="14.2" data-path="cluster-randomised-control-trials.html"><a href="cluster-randomised-control-trials.html#advantages-and-disadvantages-of-cluster-design"><i class="fa fa-check"></i><b>14.2</b> Advantages and disadvantages of cluster design</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="cluster-randomised-control-trials.html"><a href="cluster-randomised-control-trials.html#advantages"><i class="fa fa-check"></i><b>14.2.1</b> Advantages</a></li>
+<li class="chapter" data-level="14.2.2" data-path="cluster-randomised-control-trials.html"><a href="cluster-randomised-control-trials.html#disadvantages"><i class="fa fa-check"></i><b>14.2.2</b> Disadvantages</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="cluster-randomised-control-trials.html"><a href="cluster-randomised-control-trials.html#logistical-and-pragmatic-constraints"><i class="fa fa-check"></i><b>14.3</b> logistical and pragmatic constraints</a></li>
+<li class="chapter" data-level="14.4" data-path="cluster-randomised-control-trials.html"><a href="cluster-randomised-control-trials.html#contamination"><i class="fa fa-check"></i><b>14.4</b> Contamination</a></li>
+</ul></li>
+<li class="part"><span><b>III Observational Studies</b></span></li>
+<li class="chapter" data-level="15" data-path="observational-studies.html"><a href="observational-studies.html"><i class="fa fa-check"></i><b>15</b> Observational studies</a><ul>
+<li class="chapter" data-level="15.1" data-path="observational-studies.html"><a href="observational-studies.html#class-exercise-5"><i class="fa fa-check"></i><b>15.1</b> Class exercise</a></li>
+<li class="chapter" data-level="15.2" data-path="observational-studies.html"><a href="observational-studies.html#observational-study-designs"><i class="fa fa-check"></i><b>15.2</b> Observational study designs</a><ul>
+<li class="chapter" data-level="15.2.1" data-path="observational-studies.html"><a href="observational-studies.html#cohort-studies"><i class="fa fa-check"></i><b>15.2.1</b> Cohort studies</a></li>
+<li class="chapter" data-level="15.2.2" data-path="observational-studies.html"><a href="observational-studies.html#case-control-studies"><i class="fa fa-check"></i><b>15.2.2</b> Case-Control studies</a></li>
+<li class="chapter" data-level="15.2.3" data-path="observational-studies.html"><a href="observational-studies.html#cross-sectional-studies"><i class="fa fa-check"></i><b>15.2.3</b> Cross-Sectional Studies</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="observational-studies.html"><a href="observational-studies.html#strobe-guidelines"><i class="fa fa-check"></i><b>15.3</b> STROBE guidelines</a></li>
+<li class="chapter" data-level="15.4" data-path="observational-studies.html"><a href="observational-studies.html#matching"><i class="fa fa-check"></i><b>15.4</b> Matching</a><ul>
+<li class="chapter" data-level="15.4.1" data-path="observational-studies.html"><a href="observational-studies.html#propensity-score"><i class="fa fa-check"></i><b>15.4.1</b> Propensity score</a></li>
+<li class="chapter" data-level="15.4.2" data-path="observational-studies.html"><a href="observational-studies.html#distance-matrices"><i class="fa fa-check"></i><b>15.4.2</b> distance matrices</a></li>
+<li class="chapter" data-level="15.4.3" data-path="observational-studies.html"><a href="observational-studies.html#optimal-matching"><i class="fa fa-check"></i><b>15.4.3</b> Optimal matching</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="regression-discontinuity-designs.html"><a href="regression-discontinuity-designs.html"><i class="fa fa-check"></i><b>16</b> Regression discontinuity designs</a><ul>
+<li class="chapter" data-level="16.1" data-path="regression-discontinuity-designs.html"><a href="regression-discontinuity-designs.html#mediators"><i class="fa fa-check"></i><b>16.1</b> Mediators</a></li>
+<li class="chapter" data-level="16.2" data-path="regression-discontinuity-designs.html"><a href="regression-discontinuity-designs.html#moderators"><i class="fa fa-check"></i><b>16.2</b> Moderators</a></li>
+</ul></li>
+<li class="part"><span><b>IV Reproducible Methods and Metaresearch</b></span></li>
 <li class="chapter" data-level="17" data-path="practical-obstacles-to-the-ideal-study.html"><a href="practical-obstacles-to-the-ideal-study.html"><i class="fa fa-check"></i><b>17</b> Practical obstacles to the ideal study</a><ul>
 <li class="chapter" data-level="17.1" data-path="practical-obstacles-to-the-ideal-study.html"><a href="practical-obstacles-to-the-ideal-study.html#sample-size-need-for-team-science"><i class="fa fa-check"></i><b>17.1</b> Sample size: need for team science?</a></li>
 <li class="chapter" data-level="17.2" data-path="practical-obstacles-to-the-ideal-study.html"><a href="practical-obstacles-to-the-ideal-study.html#over-regulation-of-research-when-ethics-committees-misfire"><i class="fa fa-check"></i><b>17.2</b> Over-regulation of research: when ethics committees misfire</a></li>
 <li class="chapter" data-level="17.3" data-path="practical-obstacles-to-the-ideal-study.html"><a href="practical-obstacles-to-the-ideal-study.html#problems-in-generalising-to-the-real-world"><i class="fa fa-check"></i><b>17.3</b> Problems in generalising to the real world</a></li>
 </ul></li>
 <li class="chapter" data-level="18" data-path="can-we-believe-the-literature-publication-bias.html"><a href="can-we-believe-the-literature-publication-bias.html"><i class="fa fa-check"></i><b>18</b> Can we believe the literature? Publication bias</a></li>
-<li class="chapter" data-level="19" data-path="pre-registration-as-a-means-to-combat-publication-bias.html"><a href="pre-registration-as-a-means-to-combat-publication-bias.html"><i class="fa fa-check"></i><b>19</b> Pre-registration as a means to combat publication bias</a></li>
+<li class="chapter" data-level="19" data-path="pre-registration-and-registered-reports.html"><a href="pre-registration-and-registered-reports.html"><i class="fa fa-check"></i><b>19</b> Pre-registration and Registered Reports</a><ul>
+<li class="chapter" data-level="19.1" data-path="pre-registration-and-registered-reports.html"><a href="pre-registration-and-registered-reports.html#what-do-we-mean-by-pre-registration"><i class="fa fa-check"></i><b>19.1</b> What do we mean by Pre-registration?</a></li>
+<li class="chapter" data-level="19.2" data-path="pre-registration-and-registered-reports.html"><a href="pre-registration-and-registered-reports.html#what-is-a-registered-report"><i class="fa fa-check"></i><b>19.2</b> What is a Registered Report?</a></li>
+</ul></li>
 <li class="chapter" data-level="20" data-path="avoiding-waste-the-need-to-start-with-a-systematic-review.html"><a href="avoiding-waste-the-need-to-start-with-a-systematic-review.html"><i class="fa fa-check"></i><b>20</b> Avoiding waste: the need to start with a systematic review</a></li>
 <li class="chapter" data-level="21" data-path="a-template-for-a-research-protocol.html"><a href="a-template-for-a-research-protocol.html"><i class="fa fa-check"></i><b>21</b> A template for a research protocol</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -166,18 +284,410 @@
 
             <section class="normal" id="section-">
 <div id="false-positives-and-false-negatives-are-we-missing-true-effects" class="section level1">
-<h1><span class="header-section-number">Chapter 13</span> False positives and false negatives: are we missing true effects?</h1>
-<p>sample size, effect size, and power.</p>
-<p>We mention sensitivity and specificity earlier in the book, so this might be better put together? I like to display the concepts starting from the grid of “power, type 1, type 2, true Neg”.</p>
+<h1><span class="header-section-number">Chapter 9</span> False positives and false negatives: are we missing true effects?</h1>
+<p>The aim of many research studies is to investigate whether there is evidence for a specific hypothesis. We typically want to test this hypothesis in a robust way that gives us a clear indication of evidence for or against. Study design is paramount in ensuring that we can trust our results and have confidence in any inferences drawn. The implications of poor study design are not easily visible as many statistical tests will generate results regardless of whether certain test assumptions are met, or if we are using a small sample. This failure to meet certain assumptions or using an insufficient sample size can lead to an increase in false positives, also known as a Type I errors (<span class="math inline">\(\alpha\)</span>), or an increase in false negatives, also known as Type II errors (<span class="math inline">\(\beta\)</span>). Some more formal definitions with examples will help us to clarify these concepts.</p>
+<div id="type-i-error-alpha" class="section level3">
+<h3><span class="header-section-number">9.0.1</span> Type I error (<span class="math inline">\(\alpha\)</span>)</h3>
+<p><strong>A false positive occurs when the Null hypothesis is rejected and a true effect is not actually present.</strong> Typically, the type I error rate is controlled by setting the “significance criterion” at 5% or sometimes more conservatively 1%. In real terms, this would indicate that if <span class="math inline">\(\alpha=0.05\)</span> and a true effect is not present, we would expect 1 in 20 results to be statistically significant but in fact this will have occurred by chance alone.</p>
+<p>For example, Researcher X wants to test the hypothesis that eating carrots improves children’s IQ by 2 points. The researcher assigns 6 children to two groups, one group eat carrots and the other group eat their usual snack. The data is collected and a significant finding is found (Null hypothesis that carrots do not cause a 2 point increase in IQ is rejected). The researcher is jubilant that he has discovered an interesting result for publication.</p>
+<p>His sceptical colleague decides to check this result and decides to try to replicate the finding. The colleague re-runs the study with a new sample of children, but does not alter any other details of the study. Unfortunately, the colleague does not replicate the finding. The first result is likely to be a false positive for a number of reasons including sampling variability in small samples, small effect size, or even just poor quality data.</p>
+</div>
+<div id="type-ii-error-beta" class="section level3">
+<h3><span class="header-section-number">9.0.2</span> Type II error (<span class="math inline">\(\beta\)</span>)</h3>
+<p><strong>A false negative occurs when the Null hypothesis is accepted and a true effect is actually present.</strong></p>
+<p>Now consider a second example, where the sceptical colleague wants to test a well-established and frequently-replicated result. she wants to confirm whether on average children who read more frequently obtain better exam results when they are tested on vocabulary. Once again, 6 different children are split into two groups, one group reads with a parent each night for a month and the other group continues with their usual routine. The study is run and the Null hypothesis is accepted as the statistical test results in a non-significant p-value (P&gt;=0.05, in this case).</p>
+<p>The sceptical colleague is confused as she cannot replicate a known effect, but there is overwhelming evidence to indicate that an effect should be present. We look to the study design and oncemore, we see that the sample size was small and sampling variability will have played some role in causing a type II error.</p>
+<table class="table table-striped table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:confusionMat">Table 9.1: </span>Confusion Matrix for binary test
+</caption>
+<thead>
+<tr>
+<th style="border-bottom:hidden" colspan="1">
+</th>
+<th style="border-bottom:hidden" colspan="1">
+</th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+True
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+Condition positive
+</th>
+<th style="text-align:center;">
+Condition negative
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;font-weight: bold;width: 9em; ">
+Predicted
+</td>
+<td style="text-align:center;font-weight: bold;width: 9em; ">
+Predicted Positive
+</td>
+<td style="text-align:center;width: 9em; ">
+True Positive
+POWER
+</td>
+<td style="text-align:center;width: 9em; ">
+False Positive
+Type I error
+</td>
+</tr>
+<tr>
+<td style="text-align:center;font-weight: bold;width: 9em; ">
+Predicted
+</td>
+<td style="text-align:center;font-weight: bold;width: 9em; ">
+Predicted Negative
+</td>
+<td style="text-align:center;width: 9em; ">
+False Negative
+Type II error
+</td>
+<td style="text-align:center;width: 9em; ">
+True Negative
+</td>
+</tr>
+</tbody>
+</table>
+<p>Table <a href="false-positives-and-false-negatives-are-we-missing-true-effects.html#tab:confusionMat">9.1</a> presents a contingency table of the potential combinations of test or predicted condition and true condition. This is a common representation of the classifications of power, false positive, false negative, and true negative for a binary test classifier.</p>
+</div>
+<div id="statistical-power" class="section level2">
+<h2><span class="header-section-number">9.1</span> Statistical power</h2>
+<p>As we have seen in our earlier examples, a frequent concern in study design refers to sample size and it’s related concept of statistical power. Power can be defined as the probability that some statistical test will reject the Null hypothesis given that an alternative hypothesis of interest is true.</p>
+<p>Consider the following example, we want to investigate whether there is a significant difference in mean scores between two groups, perhaps an intervention and a control group. The indivduals are randomly assigned to each group and for simplicity we assume that there are no additional differences between the groups. The intervention is administered and we collect data on all individuals before running our statistical analysis. The power is then a function of several quantities:</p>
+<ul>
+<li>Sample size</li>
+<li>“Significance criterion”, also known as the Type 1 error rate (<span class="math inline">\(\alpha\)</span>)</li>
+<li>Size of the effect of interest</li>
+<li>Type II error (<span class="math inline">\(\beta\)</span>, note that Power=1-<span class="math inline">\(\beta\)</span>)</li>
+</ul>
+<p>We can show the relation between these quantities of interest visually through an example using the z-test which is a simple one sample location test. The idea of this test is to assess whether a sample of some quantity of interest has the same sample mean as the population of the same quantity. In the figures below we will use a one-sided z test, which indicates that we have a direction specific hypothesis and is one of the simplest tests to introduce these concepts. A side note, two sided tests are more common in practice due to the fact that it is more realistic to test for a difference regardless of direction of effect.</p>
+<p>The first figure <a href="false-positives-and-false-negatives-are-we-missing-true-effects.html#fig:densplot">9.1</a> shows the case for a single individual, n=1. We have set the standard deviation of both Null and Alternative distributions to equal one, and their means to zero and one respectively. When we have a sample size of 1 individual, we see that a small area is defined for power, indicating lower power and higher Type II error.</p>
+<div class="figure"><span id="fig:densplot"></span>
+<img src="09-False_positives_and_false_negatives_files/figure-html/densplot-1.png" alt="Z test: statistical power, N=1" width="672" />
+<p class="caption">
+Figure 9.1: Z test: statistical power, N=1
+</p>
+</div>
+<p>The second figure <a href="false-positives-and-false-negatives-are-we-missing-true-effects.html#fig:densplot2">9.2</a> presents the same one-sided z test but here the sample size has increased. We should notice that two things have appeared to change. Firstly, we see a greater distinction between the two distributions. Secondly, we see that the critical <span class="math inline">\(z\)</span> value (vertical dashed line) has changed location. The distributions have not changed their location (peak of each bell shaped curve), but the spread of each distribution has shrunk as a result of the sample size as the spread is directly proportional to the sample size. The reason for this change lies in the formula for the standard error and <span class="math inline">\(Z\)</span> score test statistic itself,</p>
+<p><span class="math inline">\(SE = \frac{SD}{\sqrt(n)}\)</span>, where <span class="math inline">\(n\)</span> is the sample size, and <span class="math inline">\(SD\)</span> is the standard deviation.</p>
+<p>The <span class="math inline">\(z\)</span> value or score is also proportional to the sample size, so we see that this value changes accordling. The <span class="math inline">\(z\)</span> score is defined as follows,</p>
+<p><span class="math inline">\(z =\frac{M-\mu}{SE}\)</span>, where <span class="math inline">\(M\)</span> is the sample mean score, <span class="math inline">\(\mu\)</span> is the population mean, and <span class="math inline">\(SE\)</span> is as defined above.</p>
+<p>The shaded areas on the density plots directly relates to the concepts outlined above: power, type I, and type II errors. When the sample size increases, the standard error (SE) and <span class="math inline">\(z\)</span> score both reduce. The only input parameter that has changed between the two figures is that the power has increased. We notice that the type I error rate (area in red) is proportionally the same at 5% and the effect size remains fixed, so we see a change in the only two remaining quantities, power and type II rate. This is because these quantities are linked. The area under the density curve must always remain at 1, so proportionally, we can calculate the power as 1-(type II rate, <span class="math inline">\(\beta\)</span>) and vice versa. We can visually see this in both figures by looking at the specified areas for the alternative distribution.</p>
+<div class="figure"><span id="fig:densplot2"></span>
+<img src="09-False_positives_and_false_negatives_files/figure-html/densplot2-1.png" alt="Z test: statistical power, N=10" width="672" />
+<p class="caption">
+Figure 9.2: Z test: statistical power, N=10
+</p>
+</div>
+<p>An important point to note is that each of the following elements: power, sample size, effect size, and type I and II errors are intertwinned with each other. Hence, if one element is changed this has some effect on the other quantities. It also gives an insight on how we can use this knowledge to design our studies to minimise type I and II errors and increase statistical power.</p>
+<p>Typically, clinical trials in medicine will design studies to achieve 80% statistical power and, depending on the statistical analysis strategy, will employ some method to control type I error rate or use a more conservative rate (traditionally in NHST, <span class="math inline">\(\alpha=0.05\)</span>). Fixing these two quantities leaves us with a smaller number of elements to vary, but ususally we are designing to answer a particular scientific question which will also provide theoretical constraints. More specifically, an effect size of interest will be dictated ideally from a meta-analysed estimate of the effect size, or designed to the smallest effect size of interest that is practically or clinically meaningful. This leaves us with sample size as our only remaining element.</p>
+<p>A power calculation will vary sample sizes for a specific statistical analysis whilst keeping statistical power, type I error rate, and effect size of interest at constant values. Sample size is usually most influenced by the size of effect and researcher constraints, i.e. funding or time. A large effect size will require fewer unique observations and conversely, smaller effect sizes require very large samples. The logic behind this can be seen in figure <a href="false-positives-and-false-negatives-are-we-missing-true-effects.html#fig:densplot2">9.2</a>, if we increase the effect size, the central tendencies (mean) of each distribution diverge, so the overlap of the distributions becomes less, provided that the standard errors remains unchanged.</p>
+</div>
+<div id="multiple-hypothesis-testing" class="section level2">
+<h2><span class="header-section-number">9.2</span> Multiple hypothesis testing</h2>
+<p>Even when we have a well-designed and adequately powered study, if we collect multiple outcome variables or if we are applying multiple tests to the same data, then the outcomes are unlikely to be completely independent, so we increase our chance of finding a false positive. Returning to the idea that we have a type I error rate for a single test at 5%, then suppose we apply <span class="math inline">\(k\)</span> tests to our data. We increase our false positive rate dramatically for the set of tests, officially known as the family-wise error rate (FWER). The new significance level is given by <span class="math inline">\(1-(1-\alpha)^{k}\)</span> (i.e. the probability of finding at least one false positive). If we assumed that we have performed 10 tests (k=10), we have increased our chance of obtaining a false positive to approximately 40%.</p>
+<div class="figure"><span id="fig:familywise"></span>
+<img src="09-False_positives_and_false_negatives_files/figure-html/familywise-1.png" alt="Plot of relationship between familywse error rate and number of statistical tests" width="672" />
+<p class="caption">
+Figure 9.3: Plot of relationship between familywse error rate and number of statistical tests
+</p>
+</div>
+<p>Figure <a href="false-positives-and-false-negatives-are-we-missing-true-effects.html#fig:familywise">9.3</a> shows the relationship between the familywise error rate and the number of tests administered to the data. Clearly, the more tests applied leads to significant increase in the chance of at least one false positive result. There are many different ways to adjust for the multiple testing in practice. We shall discuss some of the most commonly applied.</p>
+<div id="bonferroni-correction" class="section level3">
+<h3><span class="header-section-number">9.2.1</span> Bonferroni Correction</h3>
+<p>The Bonferroni correction is both the simplest and most popular adjustment for multiple testing to protect the type I error rate. The correction works by dividing the type I error by the number of tests conducted.</p>
+<p>For example, say we had some data and wanted to run multiple t-tests between two groups on 10 outcomes which all measure a similar effect of interest. The Bonferroni correction would adjusted the <span class="math inline">\(\alpha\)</span> level to be 0.05/10 = 0.005, which would indicate that the critical <span class="math inline">\(\alpha\)</span> would be <span class="math inline">\(1-(1-\alpha_{adjusted})^{n} = 1-(1-0.005)^{10} = 0.04888987\)</span> which is approximately close to our original <span class="math inline">\(\alpha\)</span> as required, so we have successfully controlled our type I errors at approximately 5%.</p>
+<p>Bonferroni is widely used due to its simplicity but it has the consequence that it can be overly conservative. We say that a test is overly conservative if we over correct in some cases which increases our type II errors and reduces our statistical power. This is often the case when we have some dependency between the outcomes</p>
+</div>
+<div id="false-discovery-rate-fdr" class="section level3">
+<h3><span class="header-section-number">9.2.2</span> False Discovery rate (FDR)</h3>
+<p>The false discovery rate differs from the Bonferroni as the correction controls the expected proportion of false positives rather than all false positives.</p>
+<p><span class="math inline">\(FDR = \frac{False\ positive}{False\ positive\ +\ True\ positive}\)</span></p>
+<p>We will present two common techniques for FDR procedure, Benjamini-Hochberg (BH), and Benjamini-Yekutieli (BY). The BH procedure can be summarized into four steps:</p>
+<ol style="list-style-type: decimal">
+<li>Sort a set of p-values from a set of multiple comparisons into ascending order.</li>
+<li>For each p-value, assign a rank. For example, the first p-value could be 1 and the second would be 2, and so on.</li>
+<li>Next we need to calculate a BH critical value for each p-value. We use the formula, <span class="math inline">\((i/n)\alpha\)</span>, where <span class="math inline">\(i\)</span> is a particular p-value’s rank; and <span class="math inline">\(n\)</span> is the number of tests.</li>
+<li>Original p-values are now compared against the BH critical values (3), finding the largest p-value that is smaller than the critical value.</li>
+</ol>
+<p>We can solidify this procedure by looking at an example. Consider again that we revisit the set of t-tests from our Bonferroni correction. We are sure that the correction is overly conservative as some of the test are moderately correlated with each other.</p>
+<table class="table table-striped table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:BYexample">Table 9.2: </span>Corrected p-values using several different methods (Bonferroni, BH, BY)
+</caption>
+<thead>
+<tr>
+<th style="text-align:center;">
+Variable
+</th>
+<th style="text-align:center;">
+Rank
+</th>
+<th style="text-align:center;">
+alpha
+</th>
+<th style="text-align:center;">
+p.value
+</th>
+<th style="text-align:center;">
+BH
+</th>
+<th style="text-align:center;">
+BY
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+X1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+0.05
+</td>
+<td style="text-align:center;">
+<span style="     color: black !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #3399FF !important;">0.002</span>
+</td>
+<td style="text-align:center;">
+<span style="     color: black !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #00FF00 !important;">0.005</span>
+</td>
+<td style="text-align:center;">
+<span style="     color: black !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #FF0000 !important;">0.005</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+X2
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+0.05
+</td>
+<td style="text-align:center;">
+<span style="     color: black !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #3399FF !important;">0.004</span>
+</td>
+<td style="text-align:center;">
+<span style="     color: black !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #00FF00 !important;">0.01</span>
+</td>
+<td style="text-align:center;">
+<span style="     color: black !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #FF0000 !important;">0.007</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+X3
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+0.05
+</td>
+<td style="text-align:center;">
+<span style="     color: black !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #FFFFFF !important;">0.008</span>
+</td>
+<td style="text-align:center;">
+<span style="     color: black !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #00FF00 !important;">0.015</span>
+</td>
+<td style="text-align:center;">
+<span style="     color: black !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #FF0000 !important;">0.008</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+X4
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+0.05
+</td>
+<td style="text-align:center;">
+<span style="     color: black !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #FFFFFF !important;">0.012</span>
+</td>
+<td style="text-align:center;">
+<span style="     color: black !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #00FF00 !important;">0.02</span>
+</td>
+<td style="text-align:center;">
+<span style="     color: black !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #FFFFFF !important;">0.01</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+X5
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+0.05
+</td>
+<td style="text-align:center;">
+<span style="     color: black !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #FFFFFF !important;">0.023</span>
+</td>
+<td style="text-align:center;">
+<span style="     color: black !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #FFFFFF !important;">0.025</span>
+</td>
+<td style="text-align:center;">
+<span style="     color: black !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #FFFFFF !important;">0.011</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+X6
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+0.05
+</td>
+<td style="text-align:center;">
+<span style="     color: black !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #FFFFFF !important;">0.041</span>
+</td>
+<td style="text-align:center;">
+<span style="     color: black !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #FFFFFF !important;">0.03</span>
+</td>
+<td style="text-align:center;">
+<span style="     color: black !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #FFFFFF !important;">0.012</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+X7
+</td>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+0.05
+</td>
+<td style="text-align:center;">
+<span style="     color: black !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #FFFFFF !important;">0.054</span>
+</td>
+<td style="text-align:center;">
+<span style="     color: black !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #FFFFFF !important;">0.035</span>
+</td>
+<td style="text-align:center;">
+<span style="     color: black !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #FFFFFF !important;">0.013</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+X8
+</td>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+0.05
+</td>
+<td style="text-align:center;">
+<span style="     color: black !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #FFFFFF !important;">0.091</span>
+</td>
+<td style="text-align:center;">
+<span style="     color: black !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #FFFFFF !important;">0.04</span>
+</td>
+<td style="text-align:center;">
+<span style="     color: black !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #FFFFFF !important;">0.015</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+X9
+</td>
+<td style="text-align:center;">
+9
+</td>
+<td style="text-align:center;">
+0.05
+</td>
+<td style="text-align:center;">
+<span style="     color: black !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #FFFFFF !important;">0.12</span>
+</td>
+<td style="text-align:center;">
+<span style="     color: black !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #FFFFFF !important;">0.045</span>
+</td>
+<td style="text-align:center;">
+<span style="     color: black !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #FFFFFF !important;">0.016</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+X10
+</td>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+0.05
+</td>
+<td style="text-align:center;">
+<span style="     color: black !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #FFFFFF !important;">0.2</span>
+</td>
+<td style="text-align:center;">
+<span style="     color: black !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #FFFFFF !important;">0.05</span>
+</td>
+<td style="text-align:center;">
+<span style="     color: black !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #FFFFFF !important;">0.017</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Table <a href="false-positives-and-false-negatives-are-we-missing-true-effects.html#tab:BYexample">9.2</a> shows the p values obtained from 10 t-tests on data obtained from the same subjects but different outcome measures. If we considered the p values are sufficiently indpendent, we could conclude that the first six variables(x1-x6) are statistically significant, but on further inspection and deciding to correct using the BH procedure, we find that the we find only X1-X4 are statistically significant under a more robust FWER (green coloured cells). Had we chosen the more conservative Bonferroni correction, we would only find X1 and X2 remain statistically siginficant (<span class="math inline">\(\alpha_{Bonf}=0.05/10=0.005\)</span>, blue coloured cells).</p>
+<p>The second method that controls the False discovery rate is the Benjamini-Yekutieli (BY), which is a more conservative correction but allows for dependence between the tests (i.e. the tests are correlated; therefore, the p-values will also be correlated). The adjustment resemmbles the BH procedure with an additional constraint,</p>
+<p><span class="math inline">\((i/n)(\frac{\alpha}{\sum_{i=1}^{k} 1/i})\)</span></p>
+<p>Table <a href="false-positives-and-false-negatives-are-we-missing-true-effects.html#tab:BYexample">9.2</a> shows the p values that remain statistically significant under the Benjamini-Yekutieli adjustment (coloured in red). In our example, the BY is more conservative than the BH but is less conservative than the Bonferroni.</p>
+</div>
+<div id="permutation-methods" class="section level3">
+<h3><span class="header-section-number">9.2.3</span> Permutation methods</h3>
+<p>Resampling techniques offer a new perspective on correcting for multiple testing as the basis is not according to adjusted p-values. If we recall in Figure <a href="false-positives-and-false-negatives-are-we-missing-true-effects.html#fig:densplot">9.1</a>, we have a null distribution which is crucial for obtaining our test statistic. The permutations approach creates an empirical estimate of this null distribution by re-sampling, say <span class="math inline">\(M\)</span> times, the total number of observations, in a population sample. The benefit of this approach is that the statistical significance is estimated from the data. This also has the added benefit that properties of the data including irregularities are carried through in the permuted data sets. The general procedure is as follows:</p>
+<ol style="list-style-type: decimal">
+<li>Using the original data set, a test statistic and corresponding p-value are calculated.</li>
+<li>Next, the data are permuted (resampled), so we obtain a jumbled sample of the original data set but with the allowance of resampling with replacement. Using this new permutated sample data, we calculate the test statistic and associated p-value.</li>
+<li>Step (2.) is then repeated <span class="math inline">\(M\)</span> times (typically, &gt;1000 repetitions), and each time the test statistic and p-value are recorded to form empirical distribution of the test statistic.</li>
+<li>The permuted distribution is then calculated as the frequency of <span class="math inline">\(M\)</span> permutations that the original data test statistic is smaller than each permuted test statistic, then dividing this frequency by <span class="math inline">\(M\)</span>, the number of permuted iterations.</li>
+</ol>
+<p>The same statistical test is used according to the original design, but this test is fitted multiple times. The permutations randomly sample values from each group, as the observations from each group are considered as exchangeable. The assumption in the independent groups test is that the level of significance is not dependent on particular pairings of observations from each group.</p>
+<div class="figure"><span id="fig:permutationstest"></span>
+<img src="09-False_positives_and_false_negatives_files/figure-html/permutationstest-1.png" alt="Permutation distributions for individual tests" width="480" />
+<p class="caption">
+Figure 9.4: Permutation distributions for individual tests
+</p>
+</div>
+<p>Suppose we have two groups of individuals and have measured language performance using three different instruments. We choose to use the Student’s two independent samples t-test sequentially to test for differences between the two groups of individuals on each of the three measures. We have chosen not to use a correction that adjusts the p-values, instead we decide that a permutation approach will be more robust. Figure <a href="false-positives-and-false-negatives-are-we-missing-true-effects.html#fig:permutationstest">9.4</a> shows the result of our analysis using the permutation corrected t-tests. The cross points are the actual p-values of the t-tests on the original data. The 95% confidence intervals are constructed from the permuted distributions.</p>
 
 </div>
+</div>
+</div>
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="yet-more-bias-distortions-arising-at-the-analysis-stage.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="drawbacks-of-the-rct.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="further-potential-for-bias-who-drops-out-and-who-volunteers.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="putting-it-all-together-the-randomised-controlled-trial.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -214,7 +724,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["intervention book.pdf", "intervention book.epub"],
+"download": ["intervention_book.pdf"],
 "toc": {
 "collapse": "subsection"
 }
@@ -222,6 +732,19 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
