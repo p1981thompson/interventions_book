@@ -1,11 +1,70 @@
 # Drawbacks of the RCT
 
-Transfer to real life: efficacy and effectiveness
-Inefficiency: need for unfeasibly large samples
-Heterogeneity and personalised intervention
+## Transfer to real life: efficacy and effectiveness
+
+
+ 
+ Table X from [@Singal_2014];
+ 
+ 
+```{r diff_eff,echo=FALSE,message=FALSE,warning=FALSE, fig.cap='Differences between efficacy and effectiveness studies'}
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+dt <- matrix(c('Question',	'Does the intervention work under ideal circumstance?',	'Does the intervention work in real-world practice?',
+'Setting',	'Resource-intensive (ideal) setting',	'Real-world everyday clinical setting',
+'Study population',	'Highly selected, homogenous population (Several exclusion criteria)', 'Heterogeneous population (Few to no exclusion criteria)',
+'Providers',	'Highly experienced and trained', 'Representative usual providers
+Intervention',	'Strictly enforced and standardized', 'No concurrent interventions',	'Applied with flexibility', 'Concurrent interventions and cross-over permitted'),ncol=3,byrow=TRUE)
+
+dt <- as.data.frame(dt)
+colnames(dt) <- c('','Efficacy study',	'Effectiveness study')
+
+dt %>%
+kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+
+``` 
+ 
+## Inefficiency: need for unfeasibly large samples
+
+Historically, experimental psychology studies using relatively small samples have been the norm for decades, regardless of effect size of interest. The vast majority of these studies have the potential to be underpowered and can potentially report false positive results. The change to using larger well powered studies has been somewhat slower than medical drug trial literature as the requirements for study design have been much more flexible as less regulated. Increasingly, we see studies with smaller effect sizes appearing in the literature but study size has remained relatively low. 
+
+In clinical RCTs, the required sample sizes can be into the thousands of individuals as the effect sizes and statistical analyses require this to give a statistical power of around 80% or more. These types of trials are ususally well funded and have a multidisciplinary team of researchers to facilitate the trial (including expert clinicians, research nurses, statisticians, data managers, field interviewers|qualitative researchers,expert groups, and data entry clerks). When designing an RCT in education or psychology, the resource constraints, whether regarding time, available researcher assistants, or financial, can determine whether the trial is even feasible. 
+
+Effect sizes of interventions are frequently over estimated in the planning stages of an RCT due to optimism for the new intervention that the researcher has developed, or using information to judge an intervention that itself has inherent bias, for example small pilot studies or relying on reported effect sizes from a literature that is populated with underpowered studies or suffers from publication bias , i.e. omission of null results.
+
+Even when the research intervention has been well-planned and the effect size estimate is reasonably accurate, for example, has used simulation or the smallest effect size of interest, the estimates can be pragmatically limiting. For example, if a study's population of interest is a rare condition or a particularly difficult to recruit condition. Other populations of interest may be highly variable and study designs needed to deal with this might also require additional individuals or larger numbers of obserations. 
+
+
+## Heterogeneity and personalised intervention
+
+An RCT by design will assess the 'average' effect of the intervention observed in a study sample. Generally, the traditional RCT is not able to provide information on the effectiveness regarding specific individuals. If the RCT has been randomised correctly, then the identification of individuals 'on treatment' or 'control' is not possible without breaking the blinding. Hence, we can only discuss results in terms of average difference or effect size at the group level. Figure \@ref(fig:intervention_het) shows a hypothetical longitudinal parallel-group study. Average linear regression lines of intervention and controls group line is shown as solid black and dotted lines respectively. We can see that all individuals are plotted as separate coloured lines (red for control and blue for intervention). However, we highlight the average effect that is usually reported in black lines and can clearly see the variation in both groups around those averages. In some cases in the intervention group, the intervention did appear to make a difference, however, because we do not know what their reponse would have been if they were in the control group, then we have no ideal reference to judge the personalised effect.   
+
+```{r intervention_het,echo=FALSE,message=FALSE,warning=FALSE,fig.cap="shows a hypothetical longitudinal parallel-group study. Average linear regression lines of intervention and controls group line is shown as solid black and dotted lines respectively."}
+library(ggplot2)
+ 
+data(ChickWeight)
+ChickWeight2 <- subset(ChickWeight, Diet == 1|Diet == 2)
+ChickWeight2$Intervention <- ChickWeight2$Diet
+levels(ChickWeight2$Intervention) <- c("Control","Intervention")
+ChickWeight2$Outcome <-ChickWeight2$weight
+
+reg1 <- lm(Outcome ~ Time, data = subset(ChickWeight2, Diet == 1))
+reg2 <- lm(Outcome ~ Time, data = subset(ChickWeight2, Diet == 2))
+
+predicted_df1 <- data.frame(Outcome = predict(reg1, subset(ChickWeight2, Diet == 1)), Time=subset(ChickWeight2, Diet == 1)$Time, Chick=subset(ChickWeight2, Diet == 1)$Chick)
+predicted_df2 <- data.frame(Outcome = predict(reg2, subset(ChickWeight2, Diet == 2)), Time=subset(ChickWeight2, Diet == 2)$Time,Chick=subset(ChickWeight2, Diet == 2)$Chick)
+
+ggplot(data=ChickWeight2,aes(x = Time, y = Outcome, group = Chick)) + geom_line(aes(colour=Intervention),alpha=0.5) +
+    geom_point(aes(colour=Intervention),alpha=0.5) + theme_bw() + geom_line(data = predicted_df1, aes(x=Time, y=Outcome),linetype='dashed') + geom_line(data = predicted_df2, aes(x=Time, y=Outcome))
+
+
+```
+
 
 ## Yet more bias: distortions arising at the analysis stage
 
-Dangers of too many outcome measures
-Dangers of post-hoc subgroups and covariates
+ - Dangers of too many outcome measures
+ - Dangers of post-hoc subgroups and covariates
 
