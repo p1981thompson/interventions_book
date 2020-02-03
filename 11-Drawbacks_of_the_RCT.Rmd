@@ -7,7 +7,7 @@
  Table X from [@Singal_2014];
  
  
-```{r diff_eff,echo=FALSE,message=FALSE,warning=FALSE, fig.cap='Differences between efficacy and effectiveness studies'}
+```{r diffeff,echo=FALSE,message=FALSE,warning=FALSE, fig.cap='Differences between efficacy and effectiveness studies'}
 library(tidyverse)
 library(knitr)
 library(kableExtra)
@@ -39,9 +39,9 @@ Even when the research intervention has been well-planned and the effect size es
 
 ## Heterogeneity and personalised intervention
 
-An RCT by design will assess the 'average' effect of the intervention observed in a study sample. Generally, the traditional RCT is not able to provide information on the effectiveness regarding specific individuals. If the RCT has been randomised correctly, then the identification of individuals 'on treatment' or 'control' is not possible without breaking the blinding. Hence, we can only discuss results in terms of average difference or effect size at the group level. Figure \@ref(fig:intervention_het) shows a hypothetical longitudinal parallel-group study. Average linear regression lines of intervention and controls group line is shown as solid black and dotted lines respectively. We can see that all individuals are plotted as separate coloured lines (red for control and blue for intervention). However, we highlight the average effect that is usually reported in black lines and can clearly see the variation in both groups around those averages. In some cases in the intervention group, the intervention did appear to make a difference, however, because we do not know what their reponse would have been if they were in the control group, then we have no ideal reference to judge the personalised effect.   
+An RCT by design will assess the 'average' effect of the intervention observed in a study sample. Generally, the traditional RCT is not able to provide information on the effectiveness regarding specific individuals. If the RCT has been randomised correctly, then the identification of individuals 'on treatment' or 'control' is not possible without breaking the blinding. Hence, we can only discuss results in terms of average difference or effect size at the group level. Figure \@ref(fig:interventionhet) shows a hypothetical longitudinal parallel-group study. Average linear regression lines of intervention and controls group line is shown as solid black and dotted lines respectively. We can see that all individuals are plotted as separate coloured lines (red for control and blue for intervention). However, we highlight the average effect that is usually reported in black lines and can clearly see the variation in both groups around those averages. In some cases in the intervention group, the intervention did appear to make a difference, however, because we do not know what their reponse would have been if they were in the control group, then we have no ideal reference to judge the personalised effect.   
 
-```{r intervention_het,echo=FALSE,message=FALSE,warning=FALSE,fig.cap="shows a hypothetical longitudinal parallel-group study. Average linear regression lines of intervention and controls group line is shown as solid black and dotted lines respectively."}
+```{r interventionhet, echo=FALSE,message=FALSE,warning=FALSE,fig.cap="shows a hypothetical longitudinal parallel-group study. Average linear regression lines of intervention and controls group line is shown as solid black and dotted lines respectively."}
 library(ggplot2)
  
 data(ChickWeight)
