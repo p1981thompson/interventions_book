@@ -14,8 +14,8 @@ library(kableExtra)
 dt <- matrix(c('Question',	'Does the intervention work under ideal circumstance?',	'Does the intervention work in real-world practice?',
 'Setting',	'Resource-intensive (ideal) setting',	'Real-world everyday clinical setting',
 'Study population',	'Highly selected, homogenous population (Several exclusion criteria)', 'Heterogeneous population (Few to no exclusion criteria)',
-'Providers',	'Highly experienced and trained', 'Representative usual providers
-Intervention',	'Strictly enforced and standardized', 'No concurrent interventions',	'Applied with flexibility', 'Concurrent interventions and cross-over permitted'),ncol=3,byrow=TRUE)
+'Providers',	'Highly experienced and trained', 'Representative usual providers',
+'Intervention',	'Strictly enforced and standardized. No concurrent interventions',	'Applied with flexibility. Concurrent interventions and cross-over permitted'),ncol=3,byrow=TRUE)
 
 dt <- as.data.frame(dt)
 colnames(dt) <- c('','Efficacy study',	'Effectiveness study')
@@ -65,6 +65,11 @@ ggplot(data=ChickWeight2,aes(x = Time, y = Outcome, group = Chick)) + geom_line(
 
 ## Yet more bias: distortions arising at the analysis stage
 
- - Dangers of too many outcome measures
- - Dangers of post-hoc subgroups and covariates
 
+### Dangers of too many outcome measures
+ 
+Clinical intervention RCTs are usually registered for a single outcome measure of interest to limit the amount of data dredging for a effect that is loosely related to the hypothesis of interest (typically, is the intervention effective?). SEcondary outcome measures are also specificed but reporting of analyses relating to these outcomes is often much more exploratory. This idea of fishing or data dredging is important in hypothesis testing (as we have seen in Chapter 9, multiple hypothesis testing) using more than one outcome measure, as the chance of finding a statistically significant results increases linearly with the amount of extra statistical tests that are performed. As we have previously seen, there are a number of correction that can be applied to adjust the type I error rate or the family wise error rate. 
+
+Beyond clinical intervention research, behavioural and psychological intervention research is currently more flexible in the amount of outcomes that are recorded and the amount that are actually documented in the final dissemination of results.
+ 
+### Dangers of post-hoc subgroups and covariates
