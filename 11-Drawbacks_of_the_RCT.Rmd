@@ -4,13 +4,15 @@
 
 When designing a randomised controlled trial, it is important to consider the generalisation of the interventions performance from the idealised setting of an RCT to how this would perform under more pragmatic setting. Often trials make assumptions and conditions are highly controlled to ensure randomisation and experimental conditions are consistent for each participant. In practice, there is often little control over these conditions, for example, school based interventions may not adhere to the intervention timetable strictly as they may priortise or fit the intervention around other activities. 
 
-In the clinical RCT setting, the potential mismatch between 'ideal' and 'real-world' or 'in-practice' settings has been addressed by specifically designing some early stage trials as either Explanatory trials (Efficacy) or Pragmatic trials (Effectiveness). Singal and colleagues have summarised the notable differences between these trials[@Singal_2014]. Table X, reproduced from [@Singal_2014], presents the key differences as summary bullet points.
+In the clinical RCT setting, the potential mismatch between 'ideal' and 'real-world' or 'in-practice' settings has been addressed by specifically designing some early stage trials as either Explanatory trials (Efficacy) or Pragmatic trials (Effectiveness). Singal and colleagues have summarised the notable differences between these trials[@Singal_2014]. Table \@ref(tab:diffeff), reproduced from [@Singal_2014], presents the key differences as summary bullet points.
  
  
-```{r diffeff,echo=FALSE,message=FALSE,warning=FALSE, fig.cap='Differences between efficacy and effectiveness studies'}
+```{r diffeff,echo=FALSE,message=FALSE,warning=FALSE,results='asis'}
 library(tidyverse)
 library(knitr)
 library(kableExtra)
+options(kableExtra.html.bsTable = T)
+
 dt <- matrix(c('Question',	'Does the intervention work under ideal circumstance?',	'Does the intervention work in real-world practice?',
 'Setting',	'Resource-intensive (ideal) setting',	'Real-world everyday clinical setting',
 'Study population',	'Highly selected, homogenous population (Several exclusion criteria)', 'Heterogeneous population (Few to no exclusion criteria)',
@@ -20,9 +22,9 @@ dt <- matrix(c('Question',	'Does the intervention work under ideal circumstance?
 dt <- as.data.frame(dt)
 colnames(dt) <- c('','Efficacy study',	'Effectiveness study')
 
-dt %>%
-kable() %>%
-  kable_styling(bootstrap_options = c("striped", "hover"))
+
+knitr::kable(dt,escape = F, align = "c", booktabs = T, caption = 'Differences between efficacy and effectiveness studies') %>%
+  kable_styling(c("striped", "bordered"), latex_options = "striped", full_width = F)
 
 ``` 
  
