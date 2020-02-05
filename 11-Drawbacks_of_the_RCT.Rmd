@@ -2,9 +2,9 @@
 
 ## Transfer to real life: efficacy and effectiveness
 
+When designing a randomised controlled trial, it is important to consider the generalisation of the interventions performance from the idealised setting of an RCT to how this would perform under more pragmatic setting. Often trials make assumptions and conditions are highly controlled to ensure randomisation and experimental conditions are consistent for each participant. In practice, there is often little control over these conditions, for example, school based interventions may not adhere to the intervention timetable strictly as they may priortise or fit the intervention around other activities. 
 
- 
- Table X from [@Singal_2014];
+In the clinical RCT setting, the potential mismatch between 'ideal' and 'real-world' or 'in-practice' settings has been addressed by specifically designing some early stage trials as either Explanatory trials (Efficacy) or Pragmatic trials (Effectiveness). Singal and colleagues have summarised the notable differences between these trials[@Singal_2014]. Table X, reproduced from [@Singal_2014], presents the key differences as summary bullet points.
  
  
 ```{r diffeff,echo=FALSE,message=FALSE,warning=FALSE, fig.cap='Differences between efficacy and effectiveness studies'}
@@ -25,6 +25,9 @@ kable() %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
 
 ``` 
+ 
+Efficacy studies are....
+ 
  
 ## Inefficiency: need for unfeasibly large samples
 
@@ -68,8 +71,16 @@ ggplot(data=ChickWeight2,aes(x = Time, y = Outcome, group = Chick)) + geom_line(
 
 ### Dangers of too many outcome measures
  
-Clinical intervention RCTs are usually registered for a single outcome measure of interest to limit the amount of data dredging for a effect that is loosely related to the hypothesis of interest (typically, is the intervention effective?). SEcondary outcome measures are also specificed but reporting of analyses relating to these outcomes is often much more exploratory. This idea of fishing or data dredging is important in hypothesis testing (as we have seen in Chapter 9, multiple hypothesis testing) using more than one outcome measure, as the chance of finding a statistically significant results increases linearly with the amount of extra statistical tests that are performed. As we have previously seen, there are a number of correction that can be applied to adjust the type I error rate or the family wise error rate. 
+Clinical intervention RCTs are usually registered for a single outcome measure of interest to limit the amount of data dredging for an effect that is loosely related to the hypothesis of interest (typically, 'is the intervention effective?'). Secondary outcome measures are also specificed but reporting of analyses relating to these outcomes is often much more exploratory. This idea of fishing or data dredging is important in hypothesis testing (as we have seen in Chapter 9, multiple hypothesis testing) using more than one outcome measure, as the chance of finding a statistically significant results increases linearly with the amount of extra statistical tests that are performed. As we have previously seen, there are a number of correction that can be applied to adjust the type I error rate or the family wise error rate. 
 
-Beyond clinical intervention research, behavioural and psychological intervention research is currently more flexible in the amount of outcomes that are recorded and the amount that are actually documented in the final dissemination of results.
+Beyond clinical intervention research, behavioural and psychological intervention research is currently more flexible in the amount of outcomes that are recorded at testing and the amount that are actually appear documented in the final dissemination of results. This flexibility is often referred to as P-hacking [@Munafo_2017]. Preregistration of hypotheses and analyses prior to seeing the data help to alleviate the problem of questionable research practices, such as P-hacking or HARKing (hypothesising after results known). 
+
+In addition, too many outcome measures can substantially complicate the statistical analyses required to evaluate the research question of interest. It might be the case that the researcher requires multiple outcomes to determine the effectiveness of an intervention, for example, a quantity of interest might not be able to be measured directly, so several proxy measures are recorded to inform a composite outcome measure. In this case, a more complex multivariate analysis is needed, but this in turn may require a substantially greater sample size. 
+
+Finally, we may find that using many outcomes in a multiple testing framework using corrections can be suboptimal for discovering effects as many corrections can be conservative (i.e. the corrected significance level can be much harder to find an effect of interest, and actually increase the type II errors). 
  
 ### Dangers of post-hoc subgroups and covariates
+
+A related issue posed by using 'too many outcomes', posthoc analyses conducted after seeing the data can be highly misleading to both the researcher and the intended audience unless reported correctly as exploratory analyses (also referred to as hypothesis generating). If we look at the data and observed interesting patterns of data, then subset those individuals based on these observations, we may find that we pursue chance findings rather than a true phenomenon. This is most commonly found when analysing some data with a particular analysis in mind, the researcher may get a result that are against their original hyptothesis; however, they do observe that their hypothesis might be supported if a covaraiate is used to adjust the analysis or if a subgroup of particular individuals is analysed instead. This pattern of data exploration is, in principle, justfied provided that the complete analysis timeline is presented and 'badged' as exploratory. When this process cherry picks the analyses and results that favour their hypothesis wthout documenting all analyses conducted, this is another example of P-hacking.
+
+A related concept is 
