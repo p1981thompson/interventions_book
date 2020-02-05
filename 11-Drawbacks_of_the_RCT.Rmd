@@ -4,13 +4,14 @@
 
 When designing a randomised controlled trial, it is important to consider the generalisation of the interventions performance from the idealised setting of an RCT to how this would perform under more pragmatic setting. Often trials make assumptions and conditions are highly controlled to ensure randomisation and experimental conditions are consistent for each participant. In practice, there is often little control over these conditions, for example, school based interventions may not adhere to the intervention timetable strictly as they may priortise or fit the intervention around other activities. 
 
-In the clinical RCT setting, the potential mismatch between 'ideal' and 'real-world' or 'in-practice' settings has been addressed by specifically designing some early stage trials as either Explanatory trials (Efficacy) or Pragmatic trials (Effectiveness). Singal and colleagues have summarised the notable differences between these trials[@Singal_2014]. Table \@ref(tab:diffeff), reproduced from [@Singal_2014], presents the key differences as summary bullet points.
+In the clinical RCT setting, the potential mismatch between 'ideal' and 'real-world' or 'in-practice' settings has been addressed by specifically designing some early stage trials as either Explanatory trials (Efficacy) or Pragmatic trials (Effectiveness). Singal and colleagues have summarised the notable differences between these trials[@Singal_2014]. Table 11.1, reproduced from [@Singal_2014], presents the key differences as summary bullet points.
  
  
 ```{r diffeff,echo=FALSE,message=FALSE,warning=FALSE,results='asis'}
 library(tidyverse)
 library(knitr)
 library(kableExtra)
+library(flextable)
 options(kableExtra.html.bsTable = T)
 
 dt <- matrix(c('Question',	'Does the intervention work under ideal circumstance?',	'Does the intervention work in real-world practice?',
@@ -20,16 +21,69 @@ dt <- matrix(c('Question',	'Does the intervention work under ideal circumstance?
 'Intervention',	'Strictly enforced and standardized. No concurrent interventions',	'Applied with flexibility. Concurrent interventions and cross-over permitted'),ncol=3,byrow=TRUE)
 
 dt <- as.data.frame(dt)
-colnames(dt) <- c('','Efficacy study',	'Effectiveness study')
+colnames(dt) <- c(' ','Efficacy study',	'Effectiveness study')
 
+mytab1 <- flextable(dt)
+mytab1 <- theme_box(mytab1)
+mytab1 <- align( mytab1, align = "left", part = "all" )
+mytab1 <- autofit(mytab1)
+mytab1 <- bold(mytab1, j = " ")
+mytab1 <- bold(mytab1, part = "header")
+mytab1 <- set_caption(mytab1, "Table 11.1: Definitions of efficacy (explanatory trial) and effectiveness (pragmatic trial) in trial designs")
+mytab1
 
-knitr::kable(dt,escape = F, align = "c", booktabs = T, caption = 'Differences between efficacy and effectiveness studies') %>%
-  kable_styling(c("striped", "bordered"), latex_options = "striped", full_width = F)
+# knitr::kable(dt,escape = F, align = "c", booktabs = T, caption = 'Differences between efficacy and effectiveness studies') %>%
+#   kable_styling(c("striped", "bordered"), latex_options = "striped", full_width = F)
 
 ``` 
  
-Efficacy studies are....
+Explanatory trials (Efficacy) . Table 11.2 is reproduced from @Porzsolt_2015, who describe the 13 steps to assessing efficacy and effectiveness.
  
+ 
+```{r step13,echo=FALSE,message=FALSE,warning=FALSE}
+library(tidyverse)
+library(knitr)
+#library(kableExtra)
+library(flextable)
+options(kableExtra.html.bsTable = T)
+
+dt13 <- matrix(c(
+'(1)',	'Phrase the primary and secondary study questions according to the principles of evidence-based medicine','',
+'(2)',	'Distinguish between primary and secondary outcomes of the study','',
+'(3)',	'Define inclusion criteria','',
+'(4)',	'Define exclusion criteria', 'Define any important risk factors related to any of the primary outcomes',
+'(5)',	'Define treatment options',	'Identify the most frequently used treatments from existing database',
+'(6)',	'Define appropriate study design according to primary study questions (superiority or equivalence or noninferiority study and set the limits for each study type)',	'Any pragmatic trial is a descriptive trial. There is only one common design for descriptive trials. Mention 95% CI',
+'(7)',	'Define the hypothesis (expected difference of experimental and control), mention α-/β-error, calculate the needed number of patients to confirm the hypothesis', 'Any of the selected individual treatments is considered the best possible treatment (in the individual situation for the individual patient)',
+'(8)',	'Ask eligible patients to sign informed consent for randomization, evaluation, and publication of data', 'Ask eligible patients to sign informed consent for evaluation and publication of data',
+'(9)',	'Allocate the patients randomly to the treatment options of the trial',	'Allocate patients to treatment options according to individual preferences and results of shared decision making',
+'(10)', 'Guarantee follow-up long enough to detect outcomes and most of the adverse effects','',
+'(11)', 'Compare the results of the randomized groups',	'Compare only results of groups with identical baseline risks (ie, stratified according to high, intermediate, and low risk). Include results of the “any other treatment” group for specificity control',
+'(12)', 'Apply the intent-to-treat (ITT) principle according to step (9)', 'Application of the ITT principle is not necessary as the risk groups were stratified',
+'(13)', 'Confirm statistical significance only if clinical effect is relevant (save statistical energy)',''),ncol=3,byrow=TRUE)
+
+dt13 <- as.data.frame(dt13)
+colnames(dt13) <- c('Step',	'Explanatory trial (conclusions derived from experimental studies completed under ideal conditions)',	'Pragmatic trial (conclusions derived from observations of real-world health care)')
+
+
+myft <- flextable(dt13)
+myft <- theme_box(myft)
+myft <- myft %>% merge_at(i = 1, j = 2:3)
+myft <- myft %>% merge_at(i = 2, j = 2:3)
+myft <- myft %>% merge_at(i = 3, j = 2:3)
+myft <- myft %>% merge_at(i = 10, j = 2:3)
+myft <- myft %>% merge_at(i = 13, j = 2:3)
+myft <- align( myft, align = "center", part = "all" )
+myft <- bold(myft, j = "Step")
+myft <- bold(myft, part = "header")
+myft <- autofit(myft)
+myft <- set_caption(myft, "Table 11.2: Thirteen steps to assess efficacy (explanatory trial) and effectiveness (pragmatic trial)")
+myft
+
+
+
+```
+
  
 ## Inefficiency: need for unfeasibly large samples
 
