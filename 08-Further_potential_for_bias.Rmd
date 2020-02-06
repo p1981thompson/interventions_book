@@ -24,6 +24,9 @@ If the aim is to evaluate intervention targeted at disadvantaged groups, then it
 
 ## Class exercise
 
-Download a copy of the CONSORT flow diagram: http://www.consort-statement.org/consort-statement/flow-diagram
+Download a copy of the CONSORT flow diagram: [http://www.consort-statement.org/consort-statement/flow-diagram](http://www.consort-statement.org/consort-statement/flow-diagram)
 Use of this kind of diagram has become standard in medical trials, because it helps clarify the issues covered in this chapter. 
-Find an intervention study in the published literature which does not include a flow diagram, and see how much of the information in the flow chart can be completed by reading the Methods section.  
+Find an intervention study in the published literature which does not include a flow diagram, and see how much of the information in the flow chart can be completed by reading the Methods section.
+
+![](CONSORT 2010 Flow Diagram.jpg)
+  

@@ -37,10 +37,11 @@ In the examples given above, allocation of intervention is done at the level of 
 
 This method, however, raises new problems, because we now have a confound between classroom and intervention. Suppose the teacher in classroom A is a better teacher, or it just so happens that classroom B contains a higher proportion of disruptive pupils. In effect, we can no longer treat the individual as the unit of analysis. In addition, we may expect the children within a classroom to be more similar to one another than those in different classrooms, and this has an impact on the way in which the study needs to be analysed. Clustered studies typically need bigger sample sizes than non-clustered ones. We will discuss this issue further in Chapter 14.
 
-## Class exercise
+### Class exercise
 
-Use a literature search for an intervention/disorder of interest with the term 'randomised controlled trial' or RCT, and download the article.
-Is the randomisation process clearly described? Is it adequate?
+Perform a literature search for an intervention/disorder of interest using the search term 'randomised controlled trial' or 'RCT', and download the article.
+ - Is the randomisation process clearly described? 
+ - Is it adequate?
 
 ## Randomization methods
 

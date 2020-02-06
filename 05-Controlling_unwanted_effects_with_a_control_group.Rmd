@@ -22,11 +22,7 @@ The argument against a control group goes something like this: we think our inte
 
 This argument has as many holes in it as a Swiss cheese, and here's why. Do you already know if the treatment works? If the answer is Yes, then why are you doing a study? Presumably it is because you think and hope it works, but don't actually have evidence that it does. So you don't know and you need to find out. Benjamin Freedman coined the term 'clinical equipoise' in 1987 to describe the situation when there is genuine uncertainty about whether an intervention is better than worse than a control (or another intervention) - it is really only ethical to do a trial of intervention when this is the case. But this can be hard to judge.
 
-<!--Dorothy Comment: I took out the stuff about patients with advanced disease and triple blindingm as I think it's not such an issue for SLTs-->
-
 Unfortunately, the kinds of systematic bias discussed in Chapter 3 often lead practitioners to have an unwavering conviction that their intervention is effective: they see improvement in the clients they work with, and assume it is because of what they have done. The harsh reality is that when properly controlled studies are conducted, it is often found that the intervention is not effective and that the improvement is just as great in controls as in the intervention group. There are numerous examples of this in mainstream medicine, as well as in speech and language therapy. Box x gives some examples. 
-<!--Paul comment: Added a test box here as you mention in text. Needs populating with relevant examples.-->
-
 
 
 ```{r,echo=FALSE,message=FALSE,warning=FALSE}
@@ -42,9 +38,7 @@ htmlTable(mytable, align = '|c|')
 ```
 
 
-
-
-### Possible adverse effects of intervention
+## Possible adverse effects of intervention
 
 Worse still, some interventions do more harm than good. The need to evaluate adverse impacts of intervention is well-recognised in mainstream medicine, where it is easy to see the increased risks of morbidity or mortality, or unpleasant side effects. In clinical trials, a new treatment or medication will pass through typically five stages or phases of trials. A each stage the number of participants is increased, and the early trials are specifically designed to test safety and efficacy, beginning with very small doses. Typically for drug studies, before human trials are attempted, treatments undergo substantial lab-based evaluation and sometimes animal testing. 
 
@@ -58,7 +52,7 @@ Finally, the person who is the focus of intervention may feel embarrassed, stres
 
 All these potentially adverse impacts, including the large investments of time associated with the kinds of intervention shown in Box x, will generally be seen as a price well worth paying if the intervention is effective. At the end of the day, a decision whether to intervene or not should involve an appraisal of costs and benefits. Unfortunately, it is all too common to completely ignore the costs and to adopt a rosy, but unevidenced, view of benefits.
 
-### Uncontrolled studies are unethical
+## Uncontrolled studies are unethical
 
 As explained in Chapter 3, a study that just compares people on a language measure before and after intervention is generally uninterpretable, because there are numerous factors that could be responsible for change. Having a control group is not the only way forward: in Chapters x and x, we discuss other types of research design that may be more appropriate for specific contexts. But in most situations where the aim is to test the effectiveness of an intervention for a particular condition, a study with a control group will be the best way to get useful information. Indeed, doing a study without controls is unethical, because you end up investing the time of clients and professionals, and research funds, doing a study that cannot answer the question of whether the intervention is effective.
 <!-- Note from Dorothy - I took out the stuff re regression discontinuity because I think it does overcomplicate matters, but we should cross-reference it here. -->
@@ -68,8 +62,6 @@ As explained in Chapter 3, a study that just compares people on a language measu
 As noted above, a common design is to compare group A, who receive intervention, with group B who are treated just the same but without any intervention. If you see no effect of intervention using this design, and the study is big enough to give adequate statistical power (see Chapter 12), then you can be pretty certain that the intervention is not effective. But if you do see a reliable improvement in group A, over and above and change in group B, can you be certain it was the intervention that made the difference?
 
 There are two things to be concerned about here. First, in the previous chapter we discussed the kinds of very general impact that can be caused just by being in an intervention group. These work in the opposite way to the possible adverse effects discussed above: although some people may be embarrassed or stressed by being a target of intervention, others may be reassured or made more confident. A good therapist will do more than just administer an intervention in a standard fashion: they will form a relationship with their client which can itself be therapeutic. This, however, creates a confound if the control group, B, just has 'business as usual' because it means we are really comparing group A, who gets a specific intervention plus a therapeutic relationship, with group B, who gets nothing. 
-
-<!--Paul comment: Added a test box here as you mention in text. Needs populating with relevant examples.-->
 
 ```{r,echo=FALSE,message=FALSE,warning=FALSE}
 make_list <- function(...) {
@@ -90,8 +82,10 @@ The use of a contrasting intervention overcomes another possible concern about u
 
 Another popular approach to controls is to have a two-stage study. Stage 1 is a classic controlled study where a treated group A is compared with an untreated group B. After the intervention phase, group B is then offered the intervention. At this point, group A may continue with the intervention, or intervention may be withdrawn. These kind of designs are called crossover or wait-list designs and we will discuss this further in Chapter 15.
 
-#Classroom exercise
+## Classroom exercise
+
 Take one of the three vignettes from Chapter 1, or use an intervention method you are familiar with. 
-a) Make a list of any possible harms you can think of that might be caused by the intervention. 
-b) If you wanted to evaluate this intervention using an active control group (rather than an untreated control), what kind of intervention could you use for the controls?
+
+  a) Make a list of any possible harms you can think of that might be caused by the intervention. 
+  b) If you wanted to evaluate this intervention using an active control group (rather than an untreated control), what kind of intervention could you use for the controls?
 

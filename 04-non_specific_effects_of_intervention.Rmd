@@ -4,6 +4,18 @@
 
 Most of us are familiar with the placebo effect in medicine: the finding that patients can show improvement in their condition even if given an inert sugar pill. There is much debate about the nature of placebo effects – whether they are mostly due to the systematic changes discussed in chapter 3, or something else. They are thought to operate in cognitive and behavioural interventions as well: communication may improve in a person with aphasia because they have the attention of a sympathetic professional, rather than because of anything that professional does. And children may grow in confidence because they are made to feel valued and special by the therapist. 
 
+
+```{r placebotab, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = 'shows the placebo effect in a three-arm parallel group trial', fig.width = 5, fig.height = 3}
+
+library(tidyverse)
+plc_dat <- data.frame(Group=c(rep('No treatment',4),rep('Placebo',40),rep('Intervention',70)))
+
+plc_dat$Group<-factor(plc_dat$Group,levels=c("No treatment","Placebo","Intervention"))
+
+
+ggplot(data=plc_dat,aes(x=Group))+geom_bar(aes(colour=Group,fill=Group))+theme_bw()+ylab('Outcome') + annotate('text',x=1.3,y=55,label='Placebo Effect') + geom_segment(aes(x=2, xend=2, y=70, yend=40), size = 0.75, arrow = arrow(length = unit(0.25, "cm")))+ geom_segment(aes(x=2, xend=2, y=40, yend=70), size = 0.75, arrow = arrow(length = unit(0.25, "cm")))
+```
+
 This resembles the well-known Hawthorne effect, which refers to a tendency for people to change their behaviour as a result of being observed. The name comes from the Hawthorne Works in Cicero, Illinois, where a study was done to see the effects of lighting changes and work structure changes such as working hours and break times on worker productivity. These changes appeared to improve productivity, leading the researchers to conclude that the intervention worked. However, subsequent work suggested this was a very general effect that could be produced by almost any change to working practices.  
 
 Most therapists would regard such impacts on their clients as entirely valid outcomes of the intervention – boosting functional communication skills and confidence are key goals of any intervention package. But it is important, nevertheless, to know whether the particular intervention adopted has a specific effect. Many individualised SLT interventions with both adults and children involve complicated processes of assessment and goal-setting with the aim of achieving specific improvements. If these are actually ineffective, and the same could be achieved by simply being warm, supportive and encouraging, then we should not be spending time on them. 
@@ -16,7 +28,7 @@ Study participants themselves may also be influenced by general positive impact 
 
 There are two approaches that can be taken to disentangle nonspecific effects from specific impact of a particular intervention. First, we can include an active control group who get an equivalent amount of therapeutic attention, but directed towards different goals.  We will discuss this further in Chapter 5, which focuses on different approaches to control groups. The second is to include specially selected measures designed to clarify and highlight the active ingredients of the intervention. We will refer to these as 'mechanism' measures, to distinguish them from outcome measures.
 
-Let's take the example of parent-based intervention with a late-talking toddler. In extended milieu therapy, the therapist encourages the parent to change their style of communication in naturalistic contexts in specific ways (see table x).  The ultimate goal of the intervention is to enhance the child's language, but the mechanism is via changes in the parent's communicative style. If we were to find that the child's language improved relative to an untreated control group but there was no change in parental communication (our mechanism measure), then this would suggest we were seeing some general impact of the therapeutic contact, rather than the intended effect of the intervention.
+Let's take the example of parent-based intervention with a late-talking toddler. In extended milieu therapy, the therapist encourages the parent to change their style of communication in naturalistic contexts in specific ways (see table x).  The ultimate goal of the intervention is to enhance the child's language, but the mechanism is via changes in the parent's communicative style. If we were to find that the child's language improved relative to an untreated control group but there was no change in parental communication (our mechanism measure), then this would suggest we were seeing some general impact of the therapeutic contact, rather than the intended effect of the intervention (See Figure \@ref(fig:placebotab)).
 (Jonathan Green e.g.)
 
 To take another example, the theory behind the computerised Fast Forword intervention maintains that children's language disorders are due to problems in auditory processing that lead them to be poor at distinguishing parts of the speech signal that are brief, non-salient or rapidly changing. The intervention involves exercises designed to improve auditory discrimination of certain types of sounds, with the expectation that improved discrimination will lead to improved general language function. If, however, we were to see improved language without the corresponding change in auditory discrimination (a mechanism measure), this would suggest that the active ingredient in the treatment is not the one proposed by the theory.
@@ -27,6 +39,6 @@ The most compelling result, however, is when there is a clear difference between
 
 It is not always easy to identify a 'mechanism' measure – this will depend on the nature of the intervention and how specific its goals are. For some highly specific therapies – e.g. a phonological therapy aimed at changing a specific phonological process, or a grammatical intervention that trains production of particular morphological forms, the 'mechanism' measure might be similar to the kind of 'near transfer' outcome measure that was discussed in chapter 2 – i.e., a measure of change in performance on the particular skill that is targeted. As noted above, we might want to use a broader assessment for our main outcome measure, to indicate how far there is generalisation beyond the specific skills that have been targeted.
 
-#Classroom exercise
+## Classroom exercise
 
  
