@@ -2,9 +2,9 @@
 
 ## Transfer to real life: efficacy and effectiveness
 
-When designing a randomised controlled trial, it is important to consider the generalisation of the interventions performance from the idealised setting of an RCT to how this would perform under more pragmatic setting. Often trials make assumptions and conditions are highly controlled to ensure randomisation and experimental conditions are consistent for each participant. In practice, there is often little control over these conditions, for example, school based interventions may not adhere to the intervention timetable strictly as they may priortise or fit the intervention around other activities. 
+When designing a randomised controlled trial, it is important to consider the generalisation of the interventions performance from the idealised setting of an RCT to how this would perform under more pragmatic setting. Often trials make assumptions and conditions are highly controlled to ensure randomisation and experimental conditions are consistent for each participant. In practice, there is often little control over these conditions, for example, school-based interventions may not strictly adhere to the intervention timetable as they may priortise or fit the intervention around other activities. 
 
-In the clinical RCT setting, the potential mismatch between 'ideal' and 'real-world' or 'in-practice' settings has been addressed by specifically designing some early stage trials as either Explanatory trials (Efficacy) or Pragmatic trials (Effectiveness). Singal and colleagues have summarised the notable differences between these trials[@Singal_2014]. Table 11.1, reproduced from [@Singal_2014], presents the key differences as summary bullet points.
+In the clinical RCT setting, the potential mismatch between 'ideal' and 'real-world' (or 'in-practice') settings has been specifically addressed by designing trials as either Explanatory trials (Efficacy) or Pragmatic trials (Effectiveness). Typically in a clinical drug trial, the explanatory trial would be an earlier phase trial testing for internal validity and the pragmatic trial would be later, using much larger samples of individuals and testing the external validity [@Patsopoulos_2011]. Singal and colleagues have summarised the notable differences between these trials [@Singal_2014]. Table 11.1, reproduced from [@Singal_2014], presents the key differences as summary bullet points.
  
  
 ```{r diffeff,echo=FALSE,message=FALSE,warning=FALSE,results='asis'}
@@ -37,7 +37,11 @@ mytab1
 
 ``` 
  
-Explanatory trials (Efficacy) . Table 11.2 is reproduced from @Porzsolt_2015, who describe the 13 steps to assessing efficacy and effectiveness.
+Explanatory trials (Efficacy) are the most familiar trial design which is what is typically referred to in RCT literature. They are designed to assess specific interventions in idealised setting where most elements are carefully controlled and monitored. Randomisation is used to ensure balance between control and intervention groups. In addition, inclusion and exclusion criteria are strictly adhered to prevent unnecessary confounding. 
+
+Pragmatics trials (Effectiveness) are designed to assess interventions in a naturalistic setting which will be a far less controlled environment. In this type of trial, the intervention may differ slightly depending on the setting and patient requirement. This differs to an explanatory trial which will typically compare against a placebo condition. The pragmatic trial will also collect a range of measures that are more patient-focused rather than a biological or behavioural marker.
+
+Table 11.2 is reproduced from @Porzsolt_2015, who describe the 13 steps to assessing efficacy and effectiveness.
  
  
 ```{r step13,echo=FALSE,message=FALSE,warning=FALSE}
@@ -83,6 +87,8 @@ myft
 
 
 ```
+
+The conventional practice in behavioural or psychological RCTs is somewhere in between the formal clinical definitions as it will assess efficacy of an intervention, but will not be a tightly controlled as a clinical RCT dur to factors beyonfd the control of the researcher. <!-- Dorothy to say more here -->
 
  
 ## Inefficiency: need for unfeasibly large samples
