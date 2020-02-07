@@ -1,1 +1,34 @@
 #	Avoiding waste: the need to start with a systematic review
+
+<!--Key Question for Dorothy: Do we mean systematic review or literature review, see https://figshare.com/articles/Difference_between_a_systematic_review_and_a_literature_review/766364-->
+
+## What is a systematic review?
+
+The strictest definition of a systematic review in clinical research, according to the Cochrane collaboration, is as follows: 
+
+> A systematic review attempts to identify, appraise and synthesize all the empirical evidence that meets pre-specified eligibility criteria to answer a specific research question. Researchers conducting systematic reviews use explicit, systematic methods that are selected with a view aimed at minimizing bias, to produce more reliable findings to inform decision making. - [@cochrane_2020]
+
+The most important part of this definition is the requirement of a 'prespecified eligibility criteria', as may systematic reviews do not conform to such specific criteria following a peer-reviewed protocol and are still badged 'systematic' regardless [@cochrane_2020]. The idea behind the protocol element allows the review to be replicated or updated for a different time period. Beyond clinical resarch, the protocol can be defined and pre-registered (see Chapter 19) and then referred to in the final published systematic review. This ensures the replicability of the review and ensures that search terms are fixed (in the case that search terms are needed to be adjusted, this can be done transparently in the write up).
+
+## Why conduct a literature review?
+
+The primary focus of any literature review at the start of any research project is to survey the research landscape and use this bigger picture outlook to better frame the reseach question of interest (Are we asking the right question?). 
+
+The procedural steps of the literature review are [@Hemingway_2009]:
+
+ - identify all relevant published and unpublished evidence on the research question of interest
+
+ - selection of studies following protocol's inclusion criteria
+
+ - assess the quality of each study included
+
+ - organise, summarise, and unbiasedly present the findings from all included studies
+ 
+ The key points we must take note of and recognise their importance is the presentation of the amalgamated findings in an unbiased way. Regardless of the predispositon of the researcher to the research question of interest, the evidence must be looked at in an objective way and used to inform the study design in a pragmatic way. For example, if the literature review has a mixed boy of evidence for a specific question, then the hypotheis may need to be much more conservative when deciding on effect sizes of interest and variance estimates in the data. Alternatively, if a research question has been well explored and there is a large consensus on an effect that is backed up by robust and replicable results, perhaps the question does not benefit from another study in this area. Another reason might be to assess how feasible an intervention might be to implement.
+ 
+## Systematic review or literature review?
+
+@Kysh_2013 
+
+ 
+ 
