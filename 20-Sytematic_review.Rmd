@@ -1,4 +1,4 @@
-#	Avoiding waste: the need to start with a systematic review
+# Avoiding waste: the need to start with a systematic review
 
 <!--Key Question for Dorothy: Do we mean systematic review or literature review, see https://figshare.com/articles/Difference_between_a_systematic_review_and_a_literature_review/766364-->
 
@@ -8,7 +8,7 @@ The strictest definition of a systematic review in clinical research, according 
 
 > A systematic review attempts to identify, appraise and synthesize all the empirical evidence that meets pre-specified eligibility criteria to answer a specific research question. Researchers conducting systematic reviews use explicit, systematic methods that are selected with a view aimed at minimizing bias, to produce more reliable findings to inform decision making. - [@cochrane_2020]
 
-The most important part of this definition is the requirement of a 'prespecified eligibility criteria', as may systematic reviews do not conform to such specific criteria following a peer-reviewed protocol and are still badged 'systematic' regardless [@cochrane_2020]. The idea behind the protocol element allows the review to be replicated or updated for a different time period. Beyond clinical resarch, the protocol can be defined and pre-registered (see Chapter 19) and then referred to in the final published systematic review. This ensures the replicability of the review and ensures that search terms are fixed (in the case that search terms are needed to be adjusted, this can be done transparently in the write up).
+The most important part of this definition is the requirement of a 'prespecified eligibility criteria', as many systematic reviews do not conform to such specific criteria following a peer-reviewed protocol and are still badged 'systematic' regardless [@cochrane_2020]. The idea behind the protocol element allows the review to be replicated or updated for a different time period. Beyond clinical resarch, the protocol can be defined and pre-registered (see Chapter 19) and then referred to in the final published systematic review. This ensures the replicability of the review and ensures that search terms are fixed (in the case that search terms are needed to be adjusted, this can be done transparently in the write up).
 
 ## Why conduct a literature review?
 
@@ -24,11 +24,11 @@ The procedural steps of the literature review are [@Hemingway_2009]:
 
  - organise, summarise, and unbiasedly present the findings from all included studies
  
- The key points we must take note of and recognise their importance is the presentation of the amalgamated findings in an unbiased way. Regardless of the predispositon of the researcher to the research question of interest, the evidence must be looked at in an objective way and used to inform the study design in a pragmatic way. For example, if the literature review has a mixed boy of evidence for a specific question, then the hypotheis may need to be much more conservative when deciding on effect sizes of interest and variance estimates in the data. Alternatively, if a research question has been well explored and there is a large consensus on an effect that is backed up by robust and replicable results, perhaps the question does not benefit from another study in this area. Another reason might be to assess how feasible an intervention might be to implement.
+ The key points we must take note of and recognise their importance is the presentation of the amalgamated findings in an unbiased way. Regardless of the predisposition of the researcher to the research question of interest, the evidence must be looked at in an objective way and used to inform the study design in a pragmatic way. For example, if the literature review has a mixed boy of evidence for a specific question, then the hypotheis may need to be much more conservative when deciding on effect sizes of interest and variance estimates in the data. Alternatively, if a research question has been well explored and there is a large consensus on an effect that is backed up by robust and replicable results, perhaps the question does not benefit from another study in this area. Another reason might be to assess how feasible an intervention might be to implement.
  
 ## Systematic review or literature review?
 
-@Kysh_2013 
+@Kysh_2013 highlights the critical differences between a formal systematic review and a literature review. A literature review is less structured and focuses on qualitative appraisal of either a general topic or specific question in the literature, providing an overview. A systematic review is very specific to a particular research question and will often incorporate a meta-analytic procedure (although not a requirement). The time line for the systematic review is typically quite long (months to years) as all relevant databases must be searched and strictly pre-defined protocols followed. Systematic reviews are a subset of literature reviews and those including meta-analyses are a further subset within systematic reviews (considered the most evidenced based and unbiased). A well-executed systematic review is considered to be one of the most reliable sources of evidence beyond the RCT.    
 
  
  
