@@ -1,5 +1,5 @@
 
-```{r packages2, echo=F, message=F, warning=F, fig.width=8,fig.height=4, fig.cap="Linear regression: Plotting residuals, intercept, and slope explainers "}
+```{r packages2, echo=F, message=F, warning=F}
 list_of_packages<-c("tidyverse","MASS","ggpubr","kableExtra","knitr")
 new.packages <- list_of_packages[!(list_of_packages %in% installed.packages()[,"Package"])]
 if(length(new.packages))install.packages(new.packages,dependencies = TRUE)
@@ -15,7 +15,7 @@ library(knitr)
 
 Suppose you want to evaluate the effectiveness of a parent-based intervention for improving communication in three-year-olds with poor language skills. You plan to assess their skills before the intervention, immediately after the intervention, and again six months later. The initial measurement period is known as the baseline – because it acts against as a reference point against which improvement can be measured.
 
-There are many measures you could choose: the child's mean length of utterance (MLU) from a language sample, scores on a direct assessment such as preschool CELF (Wiig, Secord, & Semel, 1992), the parent's response to language items on a screening inventory such as the Ages and Stages Questionnaire (Bricker & Squires, 1999). You may wonder whether you should include as many measures as possible to ensure you cover all bases. However, as we shall see in chapter x, if you measure too many things, you run the risk of getting spurious results, so it is important to specify a primary outcome measure – the one you would put your money on as most likely to show the effect of interest, if you were a betting person. 
+There are many measures you could choose: the child's mean length of utterance (MLU) from a language sample, scores on a direct assessment such as preschool CELF [@Wiig_1992], the parent's response to language items on a screening inventory such as the Ages and Stages Questionnaire [@Bricker_1999]. You may wonder whether you should include as many measures as possible to ensure you cover all bases. However, as we shall see in chapter x, if you measure too many things, you run the risk of getting spurious results, so it is important to specify a primary outcome measure – the one you would put your money on as most likely to show the effect of interest, if you were a betting person. 
 
 The key questions to ask are:
 
@@ -26,7 +26,7 @@ The key questions to ask are:
 
 ## Reliability
 
-You may be surprised to see reliability at the top of the list. Surely validity is more important? Well, yes and no. As shown in Figure x, there's not much point in having a measure that is reliable unless it is also valid. But a measure that is valid but not reliable is worse than useless in an intervention study, so we put reliability at the top of the list.
+You may be surprised to see reliability at the top of the list. Surely validity is more important? Well, yes and no. As shown in Figure \@ref(fig:darts), there's not much point in having a measure that is reliable unless it is also valid. But a measure that is valid but not reliable is worse than useless in an intervention study, so we put reliability at the top of the list.
 
 <!--![Reliability and validity illustrated as darts hitting a target](ch2_fig_targets.png)-->
 
@@ -37,7 +37,8 @@ knitr::include_graphics('ch2_fig_targets.png')
 
 <!-- DB comment. Not sure why title of this figure doesn't display. Also concern re copyright status: there are multiple versions of this type of thing online, but it's hard to know who first came up with the idea. Source of this one is: https://webcourses.ucf.edu/courses/1221818/pages/chapter-5-measurement-concepts-->
 
-So what is reliability? This has to do with the issue of random error or "noise": quite simply you want a measure that reflects the child's underlying skill, where there is minimal influence from random, unwanted sources of variation. One way to assess this is to apply the same measure on two occasions (without any intervention between) to see how similar they are: this is known as "test-retest reliability". To assess this, we repeat the measurement with a sample of individuals seen on two occasions close in time (i.e. before we expect any change due to maturation or intervention). Test-retest reliability is typically quantified by the correlation coefficient, demonstrated in Figure x. 
+So what is reliability? This has to do with the issue of random error or "noise": quite simply you want a measure that reflects the child's underlying skill, where there is minimal influence from random, unwanted sources of variation. One way to assess this is to apply the same measure on two occasions (without any intervention between) to see how similar they are: this is known as "test-retest reliability". To assess this, we repeat the measurement with a sample of individuals seen on two occasions close in time (i.e. before we expect any change due to maturation or intervention). Test-retest reliability is typically quantified by the correlation coefficient, demonstrated in Figure \@ref(fig:correlation). 
+
 
 ```{r correlation, echo=F,message=F,warning=F,fig.width=6,fig.height=6,fig.cap="The correlation coefficient is a statistic that takes the value of zero when there is no relationship between two variables, one whether there is a perfect relationship, and minus one when there is an inverse relationship. If you draw a straight line through the points on the graph, then if all points fall exactly on the line, the correlation is 1, indicating that you can predict perfectly a person's score on Y if you know their score on X."}
 
@@ -50,20 +51,24 @@ return(cor_data)
 }
 R_cors<-20*c(1,0.8,0.25,0)
 
-myC<-paste0("C",1:4)
-for(i in R_cors)
-{
-assign(myC[which(R_cors==i)],plot_cors(i) %>% ggplot(aes(x=x,y=y))+geom_point(alpha=0.75)+geom_smooth(method = "lm", se = FALSE, color = "red") + theme_bw() + xlab("Time 1 Score") + ylab("Time 2 Score")+ggtitle(paste0("r = ",R_cors[which(R_cors==i)]/20))+xlim(40,60)+ylim(40,60)+theme(text=element_text(size=16)))
-}
-ggarrange(plotlist = mget(paste0("C",1:length(R_cors))),ncol=2,nrow=2)
+cor_data <- rbind(plot_cors(R_cors[1]),plot_cors(R_cors[2]))
+cor_data <- rbind(cor_data,plot_cors(R_cors[3]))
+cor_data <- rbind(cor_data,plot_cors(R_cors[4]))
+
+cor_data$r <- factor(rep(c(1,0.8,0.25,0),each=40))
+
+ggplot(cor_data, aes(x=x,y=y))+geom_point(alpha=0.75)+geom_smooth(method = "lm", se = FALSE, color = "red") + theme_bw() + xlab("Time 1 Score") + ylab("Time 2 Score")+xlim(40,60)+ylim(40,60)+theme(text=element_text(size=16))+facet_wrap(~r)
+
 ```
+
+
 <!-- DB comment Could you please modify the plots so that all the x and y scales are the same, and they are scaled to be in range from 40 to 60 (which is more like a test score). I added legend for x-axis to be 'Time 1 score', and for y-axis 'Time 2 score', but I think you can get these to display under/to side of the whole array rather for each individual plot, and that would be cleaner. The plot dimensions could be smaller (around 2/3 of current size) and the title, figure legends and points bigger (maybe twice as big as current)-->
 
 
 
 
 
-```{r reliability.by.age}
+```{r ReliabilityByAge}
 mysigma <- matrix(c(1,.3,.3,1),nrow=2)
 myn <- 40
 basedata <- mvrnorm(n=myn,mu=c(0,0),Sigma=mysigma,empirical=TRUE)
@@ -87,9 +92,9 @@ ggplot(alldata,aes(x=X1,y=X2))+
 
 ```
 <!-- sorry Paul, I'm running into the sand again with ggplot. I find an example of what I want online and it just doesn't do it!  So the legend needs fixing to say Age (yr) and the entries should be 3, 4 and 5.-->
-So how reliable should a measure be? Most psychometric tests report reliability estimates, and a good test is expected to have test-retest reliability of at least .8. But be careful in interpreting such estimates, as you need also to consider the age range on which the estimate is based. Figure x shows how a test of vocabulary size that looks highly reliable when considered across the full age range from 3 to 5 years is really not very reliable when we just look at one year-band. Although the overall correlation for Time 1 and Time 2 is .81, within each age band it is only .3. This is because the index of reliability, the correlation coefficient, is affected by the range of scores. If your study was focused just on 3-year-olds, you'd really want it to be reliable within that age range.
+So how reliable should a measure be? Most psychometric tests report reliability estimates, and a good test is expected to have test-retest reliability of at least .8. But be careful in interpreting such estimates, as you need also to consider the age range on which the estimate is based. Figure \@ref(fig:ReliabilityByAge) shows how a test of vocabulary size that looks highly reliable when considered across the full age range from 3 to 5 years is really not very reliable when we just look at one year-band. Although the overall correlation for Time 1 and Time 2 is .81, within each age band it is only .3. This is because the index of reliability, the correlation coefficient, is affected by the range of scores. If your study was focused just on 3-year-olds, you'd really want it to be reliable within that age range.
 
-The topic of reliability is covered more formally in classical test theory (Lord and Novick, 1968) and subsequent developments from this. These involve a mathematical approach that treats an observed test score as the sum of a "true" effect (i.e. what you want to measure) plus random error. The lower the reliability, the greater the random error, and the harder it is to detect the true effect of intervention against the background of noise. 
+The topic of reliability is covered more formally in classical test theory [@Lord_1968; @Dunn_2009] and subsequent developments from this. These involve a mathematical approach that treats an observed test score as the sum of a "true" effect (i.e. what you want to measure) plus random error. The lower the reliability, the greater the random error, and the harder it is to detect the true effect of intervention against the background of noise. 
 
 We have focused on test-retest reliability as this is the most relevant in intervention studies. If you plan to use the same measure at baseline and after intervention, then what you need to know is how much variation in that measure is likely to occur just by chance. There are other reliability indices that are sometimes reported with psychometric tests. In particular split-half reliability and internal consistency (Cronbach's alpha), both of which consider the extent to which a score varies depending on the specific items used to calculate it. For instance, we could assess split half reliability for mean length of utterance (MLU) by computing it separately for all the odd-numbered utterances and the even-numbered utterances. Although this gives useful information, it is usually higher than test-retest reliability, because it does not take into account fluctuations in measurement that relate to changes in the context or the child's state. 
 
@@ -102,13 +107,15 @@ CELF (there are various versions of this - I think we have CELF-4 and possibly P
 But dont worry if you cant find this - I should be able to dig it out -->
 
 
+
+
 ## Sensitivity
 
 Those who develop psychometric tests often focus on reliability and validity but neglect sensitivity. Yet sensitivity is a vital requirement for an outcome measure in an intervention study. This refers to the grain of the measurement: whether it can detect small changes in outcome. Consider Bridget Jones on a holiday to a remote place where there are no scales, just a primitive balance measure that allows her to compare herself against weights of different sizes. She would be unable to detect the daily fluctuations in pounds, and only be able to map her weight change in half-stone units. She could genuinely lose weight but be unaware of the fact.
 
 <!--I thought of putting a cartoon in here; in general these cost money, but I don't mind paying for the occasional one if it livens up what is otherwise quite dry text. There's one here (https://www.pinterest.co.uk/pin/310607705530333581/, 'Mrs Zipsky' one) that I could get from Cartoonstock - cost is about £30 for an e-book usage
 
-Paul - good idea!
+Paul - good idea! I like the cartoon and think it makes the point nicely.
 -->
 
 Many standardized tests fall down on sensitivity, especially in relation to children scoring at the lower end of the ability range. It is customary for assessment purposes to convert raw scores into scaled scores on these tests. This allows us to have a single number that can be interpreted in terms of how well the child is performing relative to others of the same age. But these often reduce a wide range of raw scores to a much smaller set of scaled scores, as illustrated in Table x.<!-- example from CELF needed here--> This means that a child could make substantial gains in raw score after intervention, but still come out with the same scaled score. For this reason, it is often recommended that raw scores be used for evaluating intervention effects. 
@@ -132,7 +139,7 @@ These issues can be important in situations such as phonological interventions, 
 
 These examples illustrate the importance of testing the impact of intervention not only on particular training targets, but also on other related items that were not trained. As noted above, this is something of a two-edged sword. We may hope that treatment effects will generalise, but if they do, it can be difficult to be certain that it was our intervention that brought about the change. The important thing when planning an intervention is to think about these issues and consider whether the mechanism targeted by the treatment is expected to produce generalised effects, and if so to test for those. This is discussed further in chapter x.
 
-The notion of generalisation assumes particular importance when the intervention does not directly target skills that are of direct relevance to everyday life. An example is CogMed working memory training (www.cogmed.com), which is a computer-based intervention that has been promoted as a way of improving children's working memory and intelligence. The child plays games that involve visual tasks that tax working memory, with difficulty increasing as performance improves. Early reports maintained that training on these tasks led to improvement on nonverbal intelligence. However, more recent literature has challenged this claim, arguing that what is seen is "near transfer" – i.e. improvement in the types of memory task that are trained – without any evidence of "far transfer" – i.e. improvement in other cognitive tasks (Aksayli, Sala & Gobet, 2019). This is still a matter of hot debate, but it seems that many forms of "computerised brain training" that are available commercially give disappointing results. If repeatedly doing computerised memory exercises only improves the ability to do those exercises, with no "knock on" effects on everyday functioning, then the value of the intervention is questionable. It would seem preferable to use the time on training skills that would be useful in everyday life.
+The notion of generalisation assumes particular importance when the intervention does not directly target skills that are of direct relevance to everyday life. An example is CogMed working memory training [www.cogmed.com](www.cogmed.com), which is a computer-based intervention that has been promoted as a way of improving children's working memory and intelligence. The child plays games that involve visual tasks that tax working memory, with difficulty increasing as performance improves. Early reports maintained that training on these tasks led to improvement on nonverbal intelligence. However, more recent literature has challenged this claim, arguing that what is seen is "near transfer" – i.e. improvement in the types of memory task that are trained – without any evidence of "far transfer" – i.e. improvement in other cognitive tasks [@Aksayli_2019]. This is still a matter of hot debate, but it seems that many forms of "computerised brain training" that are available commercially give disappointing results. If repeatedly doing computerised memory exercises only improves the ability to do those exercises, with no "knock on" effects on everyday functioning, then the value of the intervention is questionable. It would seem preferable to use the time on training skills that would be useful in everyday life.
 
 ### Functional outcomes vs test scores
 
@@ -146,8 +153,8 @@ In later chapters we will discuss various sources of bias that can affect studie
 
 In the context of intervention, people usually want to believe that interventions are effective and they don't want to appear critical of those administering the intervention, and so ratings of language are likely to improve from baseline to post-test, even if no real change has occurred. This phenomenon has been investigated particularly in situations where people are evaluating treatments that have cost them time and money (cognitive dissonance) but it is likely to apply even in experimental settings when interventions are being evaluated at no financial cost to those participating.
 
-An example of this in the published literature comes from Loeb, Stoke and Fey (2001) who did a small-scale study to evaluate a computerised language intervention, FastForword (FFW). We will discuss larger evaluations of FFW in chapter x, but this study is noteworthy because as well as measuring children's language pre and post intervention, it included parent ratings of children's outcomes. There was a striking dissociation between the reports of parental satisfaction with the intervention and the lack of improvement on language tests. 
-Another example comes from a well-conducted trial of "Sunflower therapy" for children with a range of neurodevelopmental disorders (Bull, 2007); here again we see that parents were very positive about the intervention, while objective measures showed children had made not significant progress relative to a control group.
+An example of this in the published literature comes from @Loeb_2001 who did a small-scale study to evaluate a computerised language intervention, FastForword (FFW). We will discuss larger evaluations of FFW in chapter x, but this study is noteworthy because as well as measuring children's language pre and post intervention, it included parent ratings of children's outcomes. There was a striking dissociation between the reports of parental satisfaction with the intervention and the lack of improvement on language tests. 
+Another example comes from a well-conducted trial of "Sunflower therapy" for children with a range of neurodevelopmental disorders [@Bull_2007]; here again we see that parents were very positive about the intervention, while objective measures showed children had made not significant progress relative to a control group.
 
 Such results are inherently ambiguous. It could be that parents are picking up on positive aspects of intervention that are not captured by the language tests. For instance, in the Sunflower therapy study, parents reported that their children had gained in confidence – something that was not assessed by other means. However, there it is hard to know whether these evaluations are valid, as they are likely to be contaminated by demand characteristics.
 
@@ -159,9 +166,9 @@ Intervention research is usually costly because of the time that is needed to re
 
 Practicality is not always adequately considered when designing an intervention study. A common experience is that the researchers want to measure everything they can think of in as much detail as possible. This is understandable: one does not want to pick the wrong measure and so miss an important impact of the intervention. But, as noted above, and discussed more in chapter x, there is a danger that too many measures will just lead to spurious findings. And each new measure will incur a time cost, which will ultimately translate to a financial cost, as well as potentially involving participants in additional assessment. There is, then, an ethical dimension to selection of measures: we need to optimise our selection of outcome measures to fulfil all the criteria of reliability, sensitivity and validity, but also to be as detailed and complex as we need, but no more. 
 
-The first author's interest in efficiency of measurement may be illustrated with a vignette. Bishop and Edmundson (1987) conducted a longitudinal study of 4-year-olds with developmental language disorders. This was not an intervention study: rather, the goal was to identify how best to predict outcomes.  When experts were asked what measures to use, a common piece of advice was to take a language sample, and then analyse it using LARSP (Crystal,1979), which at the time was a popular approach to grammatical analysis. 
+The first author's interest in efficiency of measurement may be illustrated with a vignette. @Bishop_1987 conducted a longitudinal study of 4-year-olds with developmental language disorders. This was not an intervention study: rather, the goal was to identify how best to predict outcomes.  When experts were asked what measures to use, a common piece of advice was to take a language sample, and then analyse it using LARSP [@Crystal_1979], which at the time was a popular approach to grammatical analysis. 
 
-In practice, however, language sampling seemed to provide little useful information in relation to the time it took to gather and transcribe the sample. Many of the children in the study said rather little and did not attempt complex constructions. It was possible to get more information in five minutes with the two elicitation tasks devised by Renfrew (1975, 1991) than from 30 minutes of language sampling. Furthermore, after investing many hours of training in LARSP, analysing the results, and attempting to extract a quantitative measure from this process, we ended up with something that had a correlation of greater than .9 with the much simpler measure of mean length of utterance (MLU). The lesson learned was that the measure needs to fit the purpose of what you are doing. In this case, we wanted an index of grammatical development that could be used to predict children's future progress. The Renfrew tasks, which were treated dismissively by many therapists, who regarded them as too simple, were among the most effective measures for doing that. A practitioner working with a child might well find LARSP and language sampling preferable for identifying therapy targets and getting a full picture of the child's abilities, but for the purposes of this study, language sampling provided far more detail than was needed. 
+In practice, however, language sampling seemed to provide little useful information in relation to the time it took to gather and transcribe the sample. Many of the children in the study said rather little and did not attempt complex constructions. It was possible to get more information in five minutes with the two elicitation tasks devised by @Renfrew_1975 and @Renfrew_1991 than from 30 minutes of language sampling. Furthermore, after investing many hours of training in LARSP, analysing the results, and attempting to extract a quantitative measure from this process, we ended up with something that had a correlation of greater than .9 with the much simpler measure of mean length of utterance (MLU). The lesson learned was that the measure needs to fit the purpose of what you are doing. In this case, we wanted an index of grammatical development that could be used to predict children's future progress. The Renfrew tasks, which were treated dismissively by many therapists, who regarded them as too simple, were among the most effective measures for doing that. A practitioner working with a child might well find LARSP and language sampling preferable for identifying therapy targets and getting a full picture of the child's abilities, but for the purposes of this study, language sampling provided far more detail than was needed. 
 
 There are other cases where researchers do very complex analysis in the hope that it might give a more sensitive indicator of language, only to find that it is highly intercorrelated with a much simpler index. In the domain of expressive phonology, the first author spent many hours developing an (unpublished) index of severity based on analysis of phonological processes, only to find that this was entirely predictable from a much simpler measure of percentage consonants correct. The phonological processes approach may be useful for other purposes, such as planning therapy, but it seems unnecessarily complicated if one only wants a measure of severity.
 
@@ -172,13 +179,13 @@ On the basis of our experience, we would advise that if you are tempted to use a
 ## Class exercise
 
 ### Mean Length of Utterance
-1. Roger Brown's (1973) classic work first showed that in young children Mean Length of Utterance in morphemes (MLU) is a pretty good indicator of a child's language level; his findings have stood the test of time, when much larger samples have been assessed (Figure 2.x). Is this evidence of reliability, validity and/or sensitivity?
+1. Roger Brown's (1973) classic work [@Brown_1973] first showed that in young children Mean Length of Utterance in morphemes (MLU) is a pretty good indicator of a child's language level; his findings have stood the test of time, when much larger samples have been assessed (Figure \@ref(fig:MLUplot)). Is this evidence of reliability, validity and/or sensitivity?
 
 
 
 <!--![Mean length of utterance (MLU) values for a cohort of 630 children speaking North American English in the Child Language Data Exchange System archive. Recreated from Ratner & MacWhinney, 2016 (data kindly provided by authors)](MLU_by_age.png)-->
 
-```{r MLU_plot,echo=TRUE,warning=TRUE,message=TRUE,fig.cap='Mean length of utterance (MLU) values for a cohort of 630 children speaking North American English in the Child Language Data Exchange System archive. Recreated from Ratner & MacWhinney, 2016 (data kindly provided by authors'}
+```{r MLUplot,echo=TRUE,warning=TRUE,message=TRUE,fig.cap='Mean length of utterance (MLU) values for a cohort of 630 children speaking North American English in the Child Language Data Exchange System archive. Recreated from @Ratner_2016 (data kindly provided by authors'}
 library(tidyverse)
 library(ggpubr)
 
@@ -212,27 +219,4 @@ ggline(mlu_data_R, x = 'AgeBand', y = 'MLU_m', add = "mean_se", point.color = 'A
 4. Take one of the vignettes from Chapter 1 and consider what measures you might use to evaluate whether the intervention was effective. What are the pros and cons of different measures? How far do they meet requirements of reliability, sensitivity, validity and practicality?
 
 
- 
-References
 
-Aksayli, N. D., Sala, G., & Gobet, F. (2019). The cognitive and academic benefits of Cogmed: A meta-analysis. Educational Research Review, 229-243. doi:10.1016/j.edurev.2019.04.003
-
-Bricker, D., & Squires, J. (1999). Ages and Stages Questionnaires: A parent-completed, child-monitoring system, 2nd ed. Baltimore: Paul H. Brookes
-
-Brown, R. (1973). A first language: The early stages. Cambridge, MA: Harvard University Press.
-
-Bull, L. (2007). Sunflower therapy for children with specific learning difficulties (dyslexia): A randomised, controlled trial. Complementary Therapies in Clinical Practice, 13, 15-24. 
-
-Crystal, D. (1979). Working with LARSP. London: Edward Arnold.
-
-Loeb, D. F., Stoke, C., & Fey, M. E. (2001). Language changes associated with Fast ForWord-language: Evidence from case studies. American Journal of Speech - Language Pathology, 10, 216-230. 
-
-Lord, F. M., & Novick, M. R. (1968). Statistical theories of mental test scores. Reading, MA: Addison-Wesley.
-
-Ratner, N. B., & MacWhinney, B. (2016). Your laptop to the rescue: Using the Child Language Data Exchange System Archive and CLAN utilities to improve child language sample analysis. Seminars in  Speech and Language, 37(2), 74-84. doi:10.1055/s-0036-1580742
-
-Renfrew, C.E. (1975). Action picture test. Headington, Oxford: C.E. Renfrew.
-
-Renfrew, C.E. (1991). The Bus Story: A test of continuous speech. Bicester, Oxon, UK: Winslow Press.
-
-Wiig, E. H., Secord, W., & Semel, E. (1992). Clinical Evaluation of Language Fundamentals - Preschool (CELF-Preschool). San Antonio: Psychological Corporation.
