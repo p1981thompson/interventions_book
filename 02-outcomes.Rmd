@@ -30,7 +30,7 @@ You may be surprised to see reliability at the top of the list. Surely validity 
 
 <!--![Reliability and validity illustrated as darts hitting a target](ch2_fig_targets.png)-->
 
-```{r darts,fig.cap='Reliability and validity illustrated as darts hitting a target'}
+```{r darts,fig.cap='Reliability and validity illustrated as darts hitting a target',fig.width=6,fig.height=2}
 knitr::include_graphics('ch2_fig_targets.png')
 ```
 
@@ -64,11 +64,7 @@ ggplot(cor_data, aes(x=x,y=y))+geom_point(alpha=0.75)+geom_smooth(method = "lm",
 
 <!-- DB comment Could you please modify the plots so that all the x and y scales are the same, and they are scaled to be in range from 40 to 60 (which is more like a test score). I added legend for x-axis to be 'Time 1 score', and for y-axis 'Time 2 score', but I think you can get these to display under/to side of the whole array rather for each individual plot, and that would be cleaner. The plot dimensions could be smaller (around 2/3 of current size) and the title, figure legends and points bigger (maybe twice as big as current)-->
 
-
-
-
-
-```{r ReliabilityByAge}
+```{r ReliabilityByAge, echo=F,message=F,warning=F}
 mysigma <- matrix(c(1,.3,.3,1),nrow=2)
 myn <- 40
 basedata <- mvrnorm(n=myn,mu=c(0,0),Sigma=mysigma,empirical=TRUE)
@@ -91,7 +87,7 @@ ggplot(alldata,aes(x=X1,y=X2))+
    
 
 ```
-<!-- sorry Paul, I'm running into the sand again with ggplot. I find an example of what I want online and it just doesn't do it!  So the legend needs fixing to say Age (yr) and the entries should be 3, 4 and 5.-->
+
 So how reliable should a measure be? Most psychometric tests report reliability estimates, and a good test is expected to have test-retest reliability of at least .8. But be careful in interpreting such estimates, as you need also to consider the age range on which the estimate is based. Figure \@ref(fig:ReliabilityByAge) shows how a test of vocabulary size that looks highly reliable when considered across the full age range from 3 to 5 years is really not very reliable when we just look at one year-band. Although the overall correlation for Time 1 and Time 2 is .81, within each age band it is only .3. This is because the index of reliability, the correlation coefficient, is affected by the range of scores. If your study was focused just on 3-year-olds, you'd really want it to be reliable within that age range.
 
 The topic of reliability is covered more formally in classical test theory [@Lord_1968; @Dunn_2009] and subsequent developments from this. These involve a mathematical approach that treats an observed test score as the sum of a "true" effect (i.e. what you want to measure) plus random error. The lower the reliability, the greater the random error, and the harder it is to detect the true effect of intervention against the background of noise. 
@@ -185,7 +181,7 @@ On the basis of our experience, we would advise that if you are tempted to use a
 
 <!--![Mean length of utterance (MLU) values for a cohort of 630 children speaking North American English in the Child Language Data Exchange System archive. Recreated from Ratner & MacWhinney, 2016 (data kindly provided by authors)](MLU_by_age.png)-->
 
-```{r MLUplot,echo=TRUE,warning=TRUE,message=TRUE,fig.cap='Mean length of utterance (MLU) values for a cohort of 630 children speaking North American English in the Child Language Data Exchange System archive. Recreated from @Ratner_2016 (data kindly provided by authors'}
+```{r MLUplot,echo=FALSE,warning=TRUE,message=TRUE,fig.cap='Mean length of utterance (MLU) values for a cohort of 630 children speaking North American English in the Child Language Data Exchange System archive. Recreated from @Ratner_2016 (data kindly provided by authors'}
 library(tidyverse)
 library(ggpubr)
 
