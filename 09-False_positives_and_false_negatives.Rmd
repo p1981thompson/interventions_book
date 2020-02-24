@@ -58,7 +58,7 @@ knitr::kable(mymat,escape = F, align = "c", booktabs = T, caption = 'Confusion M
 Table \@ref(tab:confusionMat) presents a contingency table of the potential combinations of test or predicted condition and true condition. This is a common representation of the classifications of power, false positive, false negative, and true negative for a binary test classifier.
 
 ## Statistical power
-As we have seen in our earlier examples, a frequent concern in study design refers to sample size and it's related concept of statistical power. Power can be defined as the probability that some statistical test will reject the Null hypothesis given that an alternative hypothesis of interest is true. 
+As we have seen in our earlier examples, a frequent concern in study design refers to sample size and its related concept of statistical power. Power can be defined as the probability that some statistical test will reject the Null hypothesis given that an alternative hypothesis of interest is true. 
 
 Consider the following example, we want to investigate whether there is a significant difference in mean scores between two groups, perhaps an intervention and a control group. The indivduals are randomly assigned to each group and for simplicity we assume that there are no additional differences between the groups. The intervention is administered and we collect data on all individuals before running our statistical analysis. The power is then a function of several quantities:
 
@@ -161,7 +161,7 @@ ggarrange(p1, p2, ncol = 1, nrow = 2)
 
 ```
 
-An important point to note is that each of the following elements: power, sample size, effect size, and type I and II errors are intertwinned with each other. Hence, if one element is changed this has some effect on the other quantities. It also gives an insight on how we can use this knowledge to design our studies to minimise type I and II errors and increase statistical power. 
+An important point to note is that each of the following elements: power, sample size, effect size, and type I and II errors are intertwined with each other. Hence, if one element is changed this has some effect on the other quantities. It also gives an insight on how we can use this knowledge to design our studies to minimise type I and II errors and increase statistical power. 
 
 Typically, clinical trials in medicine will design studies to achieve 80% statistical power and, depending on the statistical analysis strategy, will employ some method to control type I error rate or use a more conservative rate (traditionally in NHST, $\alpha=0.05$). Fixing these two quantities leaves us with a smaller number of elements to vary, but ususally we are designing to answer a particular scientific question which will also provide theoretical constraints. More specifically, an effect size of interest will be dictated ideally from a meta-analysed estimate of the effect size, or designed to the smallest effect size of interest that is practically or clinically meaningful. This leaves us with sample size as our only remaining element. 
 
