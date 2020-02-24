@@ -20,7 +20,7 @@ require(reshape2)
 # time1<- c(64.92,11.77,66.92,11.63,69.33,10.22,55,0.001)
 # time2 <- c(74.58,	13.13,	71.58,	13.32,	75.56,	13.08,	64.33,	8.08)
 # group <- c('1. Speech','2. Modified speech','3. Untrained','Drop-out')
-# myN <- c(12, 12,9, 3)
+# myN <- c(12, 12,9, 3) #
 time1<- c(64.92,11.77,66.92,11.63,69.33,10.22)
 time2 <- c(74.58,	13.13,	71.58,	13.32,	75.56,	13.08)
 Group <- c('Normal Speech','Modified speech','Untrained')
