@@ -1,3 +1,8 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
 # Drawbacks of the RCT
 
 ## Transfer to real life: efficacy and effectiveness
@@ -104,22 +109,25 @@ Even when the research intervention has been well-planned and the effect size es
 
 ## Heterogeneity and personalised intervention
 
-An RCT by design will assess the 'average' effect of the intervention observed in a study sample. Generally, the traditional RCT is not able to provide information on the effectiveness regarding specific individuals. If the RCT has been randomised correctly, then the identification of individuals 'on treatment' or 'control' is not possible without breaking the blinding. Hence, we can only discuss results in terms of average difference or effect size at the group level. Figure \@ref(fig:interventionhet) shows a hypothetical longitudinal parallel-group study. Average linear regression lines of intervention and controls group line is shown as solid black and dotted lines respectively. We can see that all individuals are plotted as separate coloured lines (red for control and blue for intervention). However, we highlight the average effect that is usually reported in black lines and can clearly see the variation in both groups around those averages. In some cases in the intervention group, the intervention did appear to make a difference, however, because we do not know what their reponse would have been if they were in the control group, then we have no ideal reference to judge the personalised effect.   
+An RCT by design will assess the 'average' effect of the intervention observed in a study sample. Generally, the traditional RCT is not able to provide information on the effectiveness regarding specific individuals. If the RCT has been randomised correctly, then the identification of individuals 'on treatment' or 'control' is not possible without breaking the blinding. Hence, we can only discuss results in terms of average difference or effect size at the group level. Figure \@ref(fig:interventionhet) shows a hypothetical longitudinal parallel-group study. Average linear regression lines of intervention and controls group line is shown as solid black and dotted lines respectively. We can see that all individuals are plotted as separate coloured lines (red for control and blue for intervention). However, we highlight the average effect that is usually reported in black lines and can clearly see the variation in both groups around those averages. In some cases in the intervention group, the intervention did appear to make a difference, however, because we do not know what their response would have been if they were in the control group, then we have no ideal reference to judge the personalised effect.   
 
 ```{r interventionhet, echo=FALSE,message=FALSE,warning=FALSE,fig.cap="shows a hypothetical longitudinal parallel-group study. Average linear regression lines of intervention and controls group line is shown as solid black and dotted lines respectively."}
 library(ggplot2)
+library(forcats)
  
 data(ChickWeight)
 ChickWeight2 <- subset(ChickWeight, Diet == 1|Diet == 2)
 ChickWeight2$Intervention <- ChickWeight2$Diet
-levels(ChickWeight2$Intervention) <- c("Control","Intervention")
+#levels(ChickWeight2$Intervention)=c("Control","Intervention")
+ChickWeight2<-ChickWeight2 %>% mutate(Intervention = fct_recode(Intervention, Control = "1", Intervention = "2"))
+
 ChickWeight2$Outcome <-ChickWeight2$weight
 
-reg1 <- lm(Outcome ~ Time, data = subset(ChickWeight2, Diet == 1))
-reg2 <- lm(Outcome ~ Time, data = subset(ChickWeight2, Diet == 2))
+reg1 <- lm(Outcome ~ Time, data = subset(ChickWeight2, Intervention == 'Control'))
+reg2 <- lm(Outcome ~ Time, data = subset(ChickWeight2, Intervention == 'Intervention'))
 
-predicted_df1 <- data.frame(Outcome = predict(reg1, subset(ChickWeight2, Diet == 1)), Time=subset(ChickWeight2, Diet == 1)$Time, Chick=subset(ChickWeight2, Diet == 1)$Chick)
-predicted_df2 <- data.frame(Outcome = predict(reg2, subset(ChickWeight2, Diet == 2)), Time=subset(ChickWeight2, Diet == 2)$Time,Chick=subset(ChickWeight2, Diet == 2)$Chick)
+predicted_df1 <- data.frame(Outcome = predict(reg1, subset(ChickWeight2, Intervention == 'Control')), Time=subset(ChickWeight2, Intervention == 'Control')$Time, Chick=subset(ChickWeight2, Intervention == 'Control')$Chick)
+predicted_df2 <- data.frame(Outcome = predict(reg2, subset(ChickWeight2, Intervention == 'Intervention')), Time=subset(ChickWeight2, Intervention == 'Intervention')$Time,Chick=subset(ChickWeight2, Intervention == 'Intervention')$Chick)
 
 ggplot(data=ChickWeight2,aes(x = Time, y = Outcome, group = Chick)) + geom_line(aes(colour=Intervention),alpha=0.5) +
     geom_point(aes(colour=Intervention),alpha=0.5) + theme_bw() + geom_line(data = predicted_df1, aes(x=Time, y=Outcome),linetype='dashed') + geom_line(data = predicted_df2, aes(x=Time, y=Outcome))

@@ -1,0 +1,256 @@
+---
+title: "simul_gorilla_data"
+author: "DVM Bishop/P Thompson"
+date: "26/02/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+require(tidyverse)
+require(lme4)
+require(lmerTest)
+options(scipen = 999)
+```
+
+## Background
+
+Simulated data from the Treasure Hunt Game to establish power.
+Step 1. Simulate a series of Items with a given probability of success that varies by (a) group and (b) item type. Also include estimates of random intercepts for subject and item.
+
+This chunk just uses estimates of effects (in terms of how they affect probability of success) to do a sanity check
+
+```{r makedata}
+nItem<-20 #Items per session and condition
+nsub <- 25 #subjects per group
+ncond <- 2 # 2 conditions (repeated and non)
+nsess <- 4 # 4 sessions
+ngroup <- 2
+simdat <- data.frame(matrix(NA, nrow=nItem*nsub*ncond*nsess*ngroup,ncol=6))
+colnames(simdat) <- c('Subject','Group','Session','Item','Condition','Correct')
+pcorrsess <- c(.7,.75,.8,.85) #Session effect, estimated as 5% increase in accuracy for each session
+p.interaction <- matrix(c(-.075,.075,0,0),nrow=2) #matrix row is condition, column is group.
+#These values are added to pcorrsess to define interaction between group and condition
+#The sum of the absolute values of first 2 terms defines the difference in conditions for group 1 as a proportion. The sum of absolute values of last 2 terms does the same for group 2 (set to null effect here).
+#Thus if group 1 values are +/- .075, then we predict a 15% difference in accuracy between the two conditions for group 1 overall. 
+# NB this matrix will also determine the size of any main effect of group and condition
+
+#We are not including any prediction of an interaction with session.
+
+# The following terms for group and condition just refer to the coding of these effects in analysis, and NOT to effect sizes
+groupcode <- c(-1,1)
+condcode <-c(-1,1)
+# These are random effects estimates
+itemeff <- (runif(nItem)-.5)/10 #item-specific effect
+subeff <- (runif(nsub)-.5)/10 #subject specific effect - these are both small probabilities +ve or -ve
+thisrow<-0
+for (sess in 1:nsess){
+  for (group in 1:ngroup){
+     for (sub in 1:nsub){
+      for (cond in 1:ncond){
+         for(Item in 1:nItem){
+       thisrow <- thisrow+1
+        simdat$Subject[thisrow]<-sub+1000*group #use large offset for subject code to ensure no overlap in subject IDs for groups 1 and 2. 
+        #Group 1 will be numbered 1,2,3, etc and Group 2 1001,1002,1003 etc
+         simdat$Group[thisrow]<-groupcode[group]
+         simdat$Item[thisrow]<-Item
+          simdat$Session[thisrow]<-sess
+           simdat$Condition[thisrow]<-condcode[cond]
+           criticalp <- pcorrsess[sess]+p.interaction[cond,group]+subeff[sub]+itemeff[Item]
+           response<-0
+           if(runif(1)<criticalp) 
+             {response<-1}
+             simdat$Correct[thisrow]<-response
+      }
+    }
+  }
+  }
+}
+#Simdat2 was used in course of checking simulated data: it crunches data to give proportions correct for each Session/Group/subject/condition
+#It is not used further in analysis
+simdat2 <- aggregate(simdat$Correct, by=list(simdat$Session,simdat$Group,simdat$Subject,simdat$Condition),FUN=mean)
+colnames(simdat2)<-c('Session','Group','Subject','Condition','Correct')
+```
+
+```{r plotsims}
+#Check scores are as intended
+
+myag <- aggregate(simdat$Correct, by=list(simdat$Session,simdat$Group,simdat$Condition),
+  FUN=mean)
+myagsd <- aggregate(simdat$Correct, by=list(simdat$Session,simdat$Group,simdat$Condition),
+  FUN=sd)
+myag<-cbind(myag,myagsd[,4]/sqrt(nsub))
+colnames(myag)<-c('Session','Group','Condition','p.Corr','se')
+
+
+group1<-filter(myag,Group==-1,Condition==1)
+group2<-filter(myag,Group==1,Condition==1)
+
+plot(group1$Session,group1$p.Corr,type='b',ylim=c(.5,1),xaxt="n",xlab='Session',ylab='percent correct')
+axis(side=1, at=1:4, line=1)
+lines(group2$Session,group2$p.Corr,type='b',col='red')
+
+group1a<-filter(myag,Group==-1,Condition==-1)
+group2a<-filter(myag,Group==1,Condition==-1)
+lines(group1a$Session,group1a$p.Corr,type='b',lty=2,col='black')
+lines(group2a$Session,group2a$p.Corr,type='b',lty=2,col='red')
+
+# Add a legend
+legend('bottomright', legend=c("DLD_repeated","TD_repeated","DLD_novel", "TD_novel"),
+       col=c("black", "red","black", "red"), lty=c(1,1,2,2), cex=0.8)
+
+
+myagg2<-aggregate(myag$p.Corr, by=list(myag$Group,myag$Condition),FUN=mean)
+colnames(myagg2)<-c('Group','Condition')
+```
+
+# Run statistics on the model
+
+
+Following advice from here 
+https://stats.stackexchange.com/questions/58745/using-lmer-for-repeated-measures-linear-mixed-effect-model
+
+```{r runmodel}
+
+m5 <- lmer(Correct ~ Group*Condition*Session + (1|Subject) + (1|Item), simdat)
+summary(m5)
+
+m6 <- lm(Correct~Group*Condition*Session,simdat) #basic Anova without any random effects
+summary(m6)
+
+```
+
+
+```{r power_sim}
+data_sims <- function(nItem = 20, nsub = 50, ncond = 2, nsess = 4, ngroup = 2,int_eff=0.075,sess_effect = c(.7,.75,.8,.85))
+{
+# nItem = Items per session per condition
+# nsub = subjects per group
+# ncond  = 2 conditions (repeated and non)
+# nsess  = 4 sessions
+# ngroup = 2 groups
+# int_eff = estimate of increase/decrease in p.correct for group 1 in condition 1/2
+# sess_effect = estimate of proportion correct for sessions 1,2,3,4 (across all groups/conditions)
+  
+simdat <- data.frame(matrix(NA, nrow=nItem*nsub*ncond*nsess*ngroup,ncol=6))
+colnames(simdat) <- c('Subject','Group','Session','Item','Condition','Correct')
+pcorrsess <- sess_effect
+p.interaction <- matrix(c(-int_eff,int_eff,0,0),nrow=2) #matrix row is condition, column is group.
+#These values are added to pcorrsess to define interaction
+
+#
+groupcode <- c(-1,1)
+condcode <-c(-1,1)
+itemeff <- (runif(nItem)-.5)/10 #item-specific effect
+subeff <- (runif(nsub)-.5)/10 #subject specific effect - these are both small probabilities +ve or -ve
+thisrow<-0
+for (sess in 1:nsess){
+  for (group in 1:ngroup){
+     for (sub in 1:nsub){
+     for (cond in 1:ncond){
+         for(Item in 1:nItem){
+       thisrow <- thisrow+1
+        simdat$Subject[thisrow]<-sub+100*group
+         simdat$Group[thisrow]<-groupcode[group]
+         simdat$Item[thisrow]<-Item
+          simdat$Session[thisrow]<-sess
+           simdat$Condition[thisrow]<-condcode[cond]
+           criticalp <- pcorrsess[sess]+p.interaction[cond,group]+subeff[sub]+itemeff[Item]
+           response<-0
+           if(runif(1)<criticalp) 
+             {response<-1}
+             simdat$Correct[thisrow]<-response
+      }
+    }
+  }
+  }
+}
+
+return(simdat)
+}
+```
+
+
+```{r dopower}
+require(rlang)
+require(evaluate)
+
+powercalc<-function(N_iters = 100)
+{
+res<-out<-vector(mode="numeric",length=N_iters)  
+set.seed(1)
+  for(i in 1:N_iters)
+  {
+  mydat <- data_sims(nItem = 20, nsub = 25, ncond = 2, nsess = 4, ngroup = 2,int_eff=0.075,sess_effect = c(.7,.75,.8,.85)) 
+  res[i] <- summary(lmer(Correct ~ Group*Condition*Session + (1|Subject)+(1|Item), mydat))$coefficients[5,5]
+  }
+
+out <- ifelse(res>0.05,0,1)
+
+power = mean(out)  
+return(list(power=power,res=res,out=out))  
+}
+
+mypower <- powercalc(200)
+
+```
+
+```{r power2}
+require(lme4)
+require(lmerTest)
+require(base)
+options(warn=2)
+
+recordWarnings <- function(expr)
+{
+  warn = NULL
+  frame_number <- sys.nframe()
+  ans <- withCallingHandlers(expr, warning = function(w)
+  {
+    assign("warn", w, envir = sys.frame(frame_number))
+    invokeRestart("muffleWarning")
+  })
+  list(ans, warn)
+}
+
+powercalc<-function(N_iters = 100)
+{
+res<-out<-vector(mode="numeric",length=N_iters)  
+set.seed(1)
+for(i in 1:N_iters)
+  {
+    if(i %% 10==0) {
+      # Print on the screen some message
+      cat(paste0("iteration: ", i, "\n"))
+   }
+  
+mydat <- data_sims(nItem = 20, nsub = 25, ncond = 2, nsess = 4, ngroup = 2,int_eff=0.075,sess_effect = c(.7,.75,.8,.85)) 
+
+#error handling case #1
+poss.err.mod1 = recordWarnings(lmer(Correct ~ Group*Condition*Session + (1|Subject)+(1|Item), mydat))
+
+
+res[i] <-ifelse(!is.null(poss.err.mod1[[2]]),NA,summary(lmer(Correct ~ Group*Condition*Session + (1|Subject)+(1|Item), mydat))$coefficients[5,5])
+
+ if(is.na(res[i]))
+ {out[i]<-NA}
+ else{out[i] <- ifelse(res[i]>0.05,0,1)}
+
+print(paste0('res=',res[i]))
+print(paste0('out=',out[i]))
+cat("","\n")
+}
+
+
+#    results.file <- tempfile("iteration_", tmpdir=getwd())
+#     save(results.0, results.2.5, results.5, results.10, results.20,
+#          results.40, results.80, p, file=results.file)
+# 
+ power = mean(out,na.rm=TRUE)  
+ return(list(power=power,res=res,out=out)) 
+}
+
+mypower <- powercalc(1000)
+
+
+```

@@ -1,0 +1,147 @@
+# Data simulation
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Why simulate data?
+
+Simulating data has been a key part of methods development by statisticians for decades. It provides controlled conditions to test a method, safe in the knowledge that the data does not have any hidden nasties. More recently, simulation is becoming an increasingly popular means to aid teaching of statistical methods and providing a test environment to evalate the suitability of planned data analysis to data before real data is actually collected. It should be noted that not all facets of the data can be predicted in advance but, on the whole, many can be. 
+
+A secondary benefit of learning to simulate data is the ability to perform more complex statistical power analyses. Most modern statistical packages and specialist power calculation software will generally, only provide direct power estimates for relatively simple analyses (for example, most linear models such as ANOVA, T-tests, etc...), but will not have the facility to provide estimates for more complex models (Structural Equation Models - SEM and linear mixed effects models). 
+
+When thinking about generating data it is important to first think about what we want our data to look like or more specifically, what structure the data will have. We first give some common examples of data types and then show using some simple intuitive steps how to build a representative data set.
+
+It is possible to use a number of software packages to simulate data, but we choose to use R [@RCore_2019] as it is open source with many free sources of information and teaching materials. Some particularly useful resources are: 
+
+ - [https://education.rstudio.com/learn/beginner/](https://education.rstudio.com/learn/beginner/)
+ - [https://moderndive.com](https://moderndive.com)
+ - [https://r4ds.had.co.nz](https://r4ds.had.co.nz)
+ - [https://software-carpentry.org/lessons/](https://software-carpentry.org/lessons/)
+ - [https://psyteachr.github.io](https://psyteachr.github.io)
+ 
+ Dorothy Bishop provides open access to her teaching materials on simulation here:
+ 
+ - [https://www.slideshare.net/deevybishop/simulating-data-to-gain-insights-intopower-and-phacking](https://www.slideshare.net/deevybishop/simulating-data-to-gain-insights-intopower-and-phacking)
+ - [https://osf.io/skz3j/](https://osf.io/skz3j/)
+
+
+## Generating random numbers
+
+A first step to simulation is to understand that all data has a random element to it. To be able to generate numbers at random, we must first have some basic knowledge about probability. What do we mean when we talk about probability? Probability can be defined as the formal description of how likely an event is to occur. For example, how likely am I to role a six on a dice if allowed one roll? First we need to define exactly how many possible outcomes there are; in this case, we are using a standard six faced dice that is fair (not loaded) and gives an equally likely chance for each of the six possibilities (1,2,3,4,5,6). With this knowledge, we can then determine that to roll a six on the first try gives the probability of $1/6$. Probilities are typically expressed as a proportion or percentage, and it is important to note that probabilities do not exceed 1 or that the sum of probabilites from a set also do not exceed 1.
+
+At this point, we can also introduce the concept of different random variable types, specifically, discrete and continuous random variables. A discrete random variable is a variable that can only take a certain number of fixed values. An example of a discrete value might be a Likert scale (i.e. 5 point rating scale - strongly disagree, disagree, neutral, agree, stongly agree). A continuous random variable is a variable that can take any value within a range. An example of a continuous random variable might be a person's weight.
+
+
+We can use `R` to simulate realizations from a discrete random variable using the function `sample()`. Suppose we want to simulate data for a Likert scale as in our earlier example. We first need to decide whether each category on a five-point Likert scale will have equal probability or some variable quantities. As previously mentioned, we ensure that our 5 probabilities sum to one as we have a fixed number of possibilities rather than in the case of the continuous variable which we will come onto next. Once we have the probabilties for each category, we can then decide the number of random numbers that we wish to draw. Say we want to simulate 20 random numbers, this can be though of as 20 draws from an imaginary bag of numbers. The set of random numbers generated forms the discrete random variable. 
+
+```{r SimulateDiscrete,echo=FALSE,message=FALSE,warning=FALSE}
+library(tidyverse)
+library(flextable)
+set.seed(123)
+probabilities <- c(0.1,0,0.1,0.3,0.5)
+mydraws <- base::sample.int(5,20,prob=probabilities,replace=TRUE)
+
+#ggplot(as.data.frame(mydraws),aes(x=mydraws))+geom_bar()+theme_bw()
+
+
+df <- as.data.frame(mydraws) %>%
+  group_by(mydraws) %>%
+  summarise(counts = n())
+
+df[5,]<-c(2,0)
+
+df<-df[c(1,5,2,3,4),]
+
+myft <- flextable(df)
+myft <- theme_box(myft)
+myft <- align(myft, align = "center", part = "all" )
+myft <- bold(myft, part = "header")
+myft <- autofit(myft)
+myft <- colformat_num(x = myft, col_keys = c('mydraws','counts'), big.mark=",", digits = 0, na_str = "N/A")
+myft <- set_caption(myft, "Table X: Freqency Table of Discrete random variable categories")
+myft
+```
+
+Figure \@ref(fig:drawsplot) show the distribution of twenty realizations of the randomly generated discrete variable. We can see that the height of each lollipop inidcates the count and in addition, we can see that the height is directly proportional to the probability that we set for each category. When simulating discrete data it is important to be able to accurately estimate these probabilities wth regard to what is expected in the  real data. 
+
+```{r drawsPlot,echo=FALSE,message=FALSE,warning=FALSE,fig.cap='Lollipop chart showing the distribution of randomly generated discrete values.'}
+df$mydraws<-as.factor(df$mydraws)
+
+ggplot(df, aes(mydraws, counts)) +
+  geom_linerange(
+    aes(x = mydraws, ymin = 0, ymax = counts), 
+    color = "lightgray", size = 1) + 
+  geom_point(aes(color = mydraws), size = 2) +
+  ggpubr::color_palette("jco") +
+  theme_bw() + theme(legend.position = 'none')
+
+```
+
+Generating continuous random variables are more complex as we cannot simply state discrete probabilities. We require some additional statistical framework to help us called the probability density function, denoted $f_{X}(x)$. There is no need to be intimidated by this technical term or the mathematical notation, we will explain this now. 
+
+If we recall, the discrete random variable has a set of distinct values that probabilities can be associated. In a continuous random variable, we cannot easily assign probabilities to individual values as there are no clear bounds or cutpoints between the values, i.e. a continuum. The probability density function does exactly what it says on the tin, it tells us about the probability density. The purpose of this function is to quantify the probability of the random variable taking a specific value within a range of values, unlike the discrete equivalent that takes on any one value of interest. That's a fairly unintuitive statement, so lets plot the probability density function and clarify things.
+
+```{r probDensFunc,echo=FALSE, message=FALSE, warnings=FALSE, fig.cap="Z test: statistical power, N=1"}
+# https://github.com/rafalab/dsbook/blob/master/dataviz/distributions.Rmd
+# Rafalab book for plot inspiration.
+
+library(magrittr)
+library(ggplot2)
+library(ggpubr)
+
+mha <- 1  # mean under the alternative
+z1 <- 0 
+z2 <- 2
+n <- 1
+x <- seq(-3, 4, length=1000)
+dh0 <- dnorm(x, 0, 1/sqrt(n))
+dh1 <- dnorm(x, mha, 1/sqrt(n))
+mydata<-data.frame(x,dh0,dh1) 
+
+
+ggplot(data = mydata, aes(x = x, y=dh1)) +
+  geom_area(aes(x=x,y=dh1),data = filter(mydata, between(x, z1, z2)), alpha=0.5,fill='skyblue') +
+  geom_line(aes(y = dh1),colour='blue') +
+  geom_vline(xintercept = c(z1,z2), linetype = 'dashed') +
+  theme_bw()+ylab("") + theme(legend.position = "none")
+
+
+```
+
+Figure \@ref(fig:probDensFunc) shows the probability density function for the normal distribution with the region between 0 and 2 highlighted. The area under the curve equals 1 and the probability of getting a value between 0 and 2 is defined by the red coloured region (i.e. the band under the curve that is bounded by 0 and 2). The proability density function is just a mathematical expression that defines this area. Specifically, there is an equation that exactly specifies the blue line and we then use a mathematical technique from calculus called integration, to find the area under the curve. 
+
+There are many different probability density functions, for example, Normal (also known as Gaussian), t-distribution and Chi-square ($\chi^{2}). Each can be used to simulate different types of random continuous variables. Now, suppose we wanted to simulate some data that is based on lots of inter-related variables, we can use our knowledge of random variables and correlation to simulate realistic and representative study data.
+
+## From random numbers to representative simulated data
+
+Data Simulation uses the principles outlined above and extends this to allow us to simulate data based on particular model frameworks. This additional flexibility permits us to explore the effect of particular variables on an outcome in the presense of other variables. If we take linear regression as our example, and say we have three predictor variables and a continuous outcome measure (we'll assume that the continuous measure is not overly skewed and outliers are not a problem). Thinking what our data will look like is a good place to start, and we should firstly consider the predictor variables as they will influence the structure and properties of our outcome measure (provided the regression is a sensible statistical model). In our hypothetical regression, we would like to simulate one dichotomous variable (dyslexic diagnosis or typically developing); a three category variable (say education - secondary level (Pre-16yrs), further education (A-levels, GNVQ level 3, T-levels, apprenticeships), or  higher education (undergraduate and postgraduate)); and a continuous variable (say height, measured in centimetres). Now, we also need to consider our outcome variable, lets say that this might be reading comprehension which we assume to be a continuous variable and we are hypothesising that the variables, dyslexic or not, education, and height, explain some of the variance in the outcome measure. In most statistical analysis, the purpose is to identify sources of variance.  
+
+We can simulate these measures individually, but this makes the assumption that these are not inter-related in any way, i.e. not correlated with each other. This would be a somewhat unrealistic scenario as the measurements are taken from each individual so there could potentially be some correlation between the measurements. For the moment, we will ignore the correlation between measures and simply simulate each predictor variable according to its relevant distribution. 
+
+Returning to our regression example, let's start with the predictor variables;  We would like to simulate a dichotomous variable for 'Dyslexic' or 'Typically Developing' individuals, where only two response categories are permitted. Using `R` and some of its core functions, we can take random samples from a bernoulli distribution to create this variable. The following code chunk will simulate the data as required:
+
+```{r sim_dichoto,echo=TRUE}
+#  
+# we assign the simulated variable a name 'dyslexic', so that we can save this and refer back to it. First thing to note, which may be confusing, is that we use the function called 'rbinom' (meaning random generation for the Binomial distribution) and not 'Bernoulli'. The Bernoulli distribution refers to when we have only one trial, i.e. say one flip of a coin, whereas Binomial will refer to the probability when there are multiple trials. In this case, we only want to simulate multiple bernoulli trials. This is clearer if we try both and see the difference in output. NOTE: there is not default function for bernoulli, so we can use the binomial function and set number of trials to equal one which is equivalent. 
+
+# The 'rbinom' function has two parameter inputs, size and prob. 'size' is the number of trials, and 'prob' is the probability of success in each trial.
+
+# First we simulate results for 100 individuals that flip a coin 10 times each (10 trials per person) and we record the number of successful trials for each person. We should see a number from 0 to 10 for each of the 10 individuals. We have set our probability of success as 0.3 or 30%, so we expect less successes than failures. 
+
+dyslexic_binom <- rbinom(n=10,size=10,prob=0.3)
+dyslexic_binom
+
+# Next, we simulate some random samples from the Bernoulli distribution. Again, we have ten individuals flip a coin, but this time only one trial each. This limits the numbers outputted for each individual as either 0 or 1. This is the output that we require to simulate a dichotomous variable.
+
+dyslexic_bern <- rbinom(n=10,size=1,prob=0.3)
+dyslexic_bern
+
+# We can scale up our simulation to a realistic number of individual observations, say N = 100.
+
+dyslexic <- rbinom(n=100,size=1,prob=0.3)
+dyslexic
+
+```
+
+
