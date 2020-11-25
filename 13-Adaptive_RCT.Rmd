@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # Adaptive Interventions
 
 ```{r packages16, echo=F, message=F, warning=F}

@@ -36,6 +36,12 @@ Now consider a second example, where the sceptical colleague wants to test a wel
 
 The sceptical colleague is confused as she cannot replicate a known effect, but there is overwhelming evidence to indicate that an effect should be present. We look to the study design and oncemore, we see that the sample size was small and sampling variability will have played some role in causing a type II error. 
 
+
+### Binary classifier evaluation
+
+We can also relate the concepts of type I and II errors for binary classifiers when our outcome measure is binary or dichotomous (i.e. a two possible responses, such yes or no; disorder or typical development). Conveniently, we can summarise the relationship in a 2 x 2 contingency table (see Table \@ref(tab:confusionMat)). This table presents the potential combinations of test of predicted condition vs actual condition (true). 
+
+An application of this method would be to use of model with some test variables as predictors for whether a set of individuals have a condition or not. This can then be compared against a diagnosis label. An example of this approach with application to developmental dyslexia and predicting individual risk is given in @Thompson_2015.
   
 ```{r confusionMat, echo=FALSE, message=FALSE, warnings=FALSE,results='asis'}
 options(kableExtra.html.bsTable = T)
@@ -43,8 +49,8 @@ mymat<-matrix(NA,nrow=2,ncol=4)
 
 mymat[,1]<-rep("Predicted",2)
 mymat[,2]<-c("Predicted Positive","Predicted Negative")
-mymat[,3]<-c("True Positive \n POWER","False Negative \n Type II error")
-mymat[,4]<-c("False Positive \n Type I error","True Negative")
+mymat[,3]<-c("True Positive","False Negative \n (Type II error)")
+mymat[,4]<-c("False Positive \n (Type I error)","True Negative")
 
 mymat<-as.data.frame(mymat)
 names(mymat)<-c("","","Condition positive","Condition negative")
@@ -55,7 +61,7 @@ knitr::kable(mymat,escape = F, align = "c", booktabs = T, caption = 'Confusion M
   column_spec(1:4,width = "9em") %>%
   add_header_above(c(" "," ","True" = 2))
 ```
-Table \@ref(tab:confusionMat) presents a contingency table of the potential combinations of test or predicted condition and true condition. This is a common representation of the classifications of power, false positive, false negative, and true negative for a binary test classifier.
+
 
 ## Statistical power
 As we have seen in our earlier examples, a frequent concern in study design refers to sample size and its related concept of statistical power. Power can be defined as the probability that some statistical test will reject the Null hypothesis given that an alternative hypothesis of interest is true. 
@@ -166,6 +172,7 @@ An important point to note is that each of the following elements: power, sample
 Typically, clinical trials in medicine will design studies to achieve 80% statistical power and, depending on the statistical analysis strategy, will employ some method to control type I error rate or use a more conservative rate (traditionally in NHST, $\alpha=0.05$). Fixing these two quantities leaves us with a smaller number of elements to vary, but ususally we are designing to answer a particular scientific question which will also provide theoretical constraints. More specifically, an effect size of interest will be dictated ideally from a meta-analysed estimate of the effect size, or designed to the smallest effect size of interest that is practically or clinically meaningful. This leaves us with sample size as our only remaining element. 
 
 A power calculation will vary sample sizes for a specific statistical analysis whilst keeping statistical power, type I error rate, and effect size of interest at constant values. Sample size is usually most influenced by the size of effect and researcher constraints, i.e. funding or time. A large effect size will require fewer unique observations and conversely, smaller effect sizes require very large samples. The logic behind this can be seen in figure \@ref(fig:densplot2), if we increase the effect size, the central tendencies (mean) of each distribution diverge, so the overlap of the distributions becomes less, provided that the standard errors remains unchanged. 
+
 
 ## Multiple hypothesis testing
 Even when we have a well-designed and adequately powered study, if we collect multiple outcome variables or if we are applying multiple tests to the same data, then the outcomes are unlikely to be completely independent, so we increase our chance of finding a false positive. Returning to the idea that we have a type I error rate for a single test at 5%, then suppose we apply $k$ tests to our data. We increase our false positive rate dramatically for the set of tests, officially known as the family-wise error rate (FWER). The new significance level is given by $1-(1-\alpha)^{k}$ (i.e. the probability of finding at least one false positive). If we assumed that we have performed 10 tests (k=10), we have increased our chance of obtaining a false positive to approximately 40%.

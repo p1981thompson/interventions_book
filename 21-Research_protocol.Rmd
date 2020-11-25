@@ -1,1 +1,7 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
+
 #	A template for a research protocol

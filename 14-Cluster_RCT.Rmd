@@ -1,3 +1,8 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
 # Cluster Randomised Control Trials
 
 ```{r packages16, echo=F, message=F, warning=F}
