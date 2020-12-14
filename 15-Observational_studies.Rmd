@@ -167,12 +167,12 @@ Typically, the case-control study looks at retrospective information on a group 
 
 ### Cross-Sectional Studies
 
-The cross-sectional study is used when only one time point is recorded and its primary purpose is typically to establish prevalance of conditions or disorders. In this design, we differentiate from the others designs as the intervention and outcome are determined simultaneously [@Carlson_2009]. 
+The cross-sectional study is used when only one time point is recorded and its primary purpose is typically to establish prevalence of conditions or disorders. In this design, we differentiate from the others designs as the intervention and outcome are determined simultaneously [@Carlson_2009]. 
 
 
 ## STROBE guidelines
 
-The strengthening the reporting of observational studies in epidemiology (STROBE) statement: guidelines for reporting observational studies was developed to try to standardize the key details reported in observational studies in epidemiology (with a focus on the medical field). These guidelines have been adopted to counter poor reporting, the authors of those guidlines state the purpose is not to be a rigid template or assessment tool, but 
+The strengthening the reporting of observational studies in epidemiology (STROBE) statement: guidelines for reporting observational studies was developed to try to standardize the key details reported in observational studies in epidemiology (with a focus on the medical field). These guidelines have been adopted to counter poor reporting, the authors of those guidelines state the purpose is not to be a rigid template or assessment tool, but 
 
 >issues such as confounding, bias, and generalisability could become more transparent, which might help temper the over-enthusiastic reporting of new findings in the scientific community and popular media, and improve the methodology of studies in the long term. Better reporting may also help to have more informed decisions about when new studies are needed, and what they should address.
 
@@ -273,14 +273,44 @@ pander::pander(strobe.mat, keep.line.breaks = TRUE, style = 'grid', justify = 'l
 
 ```
 
-The guidelines follow the structure of a typical research article, breaking down the required elements under subheadings that are compatable to most journals reporting observational research.
+The guidelines follow the structure of a typical research article, breaking down the required elements under subheadings that are compatible to most journals reporting observational research.
 
 ## Matching
 
+Similarly to randomised controlled trials, observational studies require groups to be as balanced or similar as possible to ensure that any comparisons between the groups on a outcome of interest is fair and unbiased. In observational studies, the "treatment" has not been randomly assigned, so to achieve this balance requires us to look at the distribution of covariates in both groups and ensure that they are sufficiently similar.
+
+There are several techniques that can be used to statistically balance the groups prior to investigation of outcomes. Typically, matching methods generally fall into three categories: 1:1 matching, weighting, and sub-classification [@Stuart_2010].
+
+The implementation of matching broadly follows four steps:
+
+ 1. First chose and calculate the distance measure to be used which quantifies the "closeness" of matched individuals,
+ 2. Once we have identified a distance measurement, we can use this to implement our matching method,
+ 3. Matching may have many competing solutions, so it is important to assess the quality of matched samples. This process is likely to be an iterative although some methods will have the process inbuilt.
+ 4. Given we have a matched sample, we can analyse our outcome of interest and estimate the treatment effect. 
+ 
 
 
-### Propensity score
+### Distance measures
 
-### distance matrices
+#### Propensity scores
 
-### Optimal matching
+The propensity score is one of the most popular and widely used techniques for balancing treatment and control groups according to a set of covariates. The methods evolved to tackle the complexity in finding exact matches when a large number of covariates were present. The propensity score instead allows us to separate out matched treatment and control groups with similar pattern of covariate distribution without needing exact matches in each group by using probabilities instead [@Stuart_2010; @Rosenbaum_1983]. A common method for calculating propensity scores uses logistic regression to estimate the scores (other methods include: discriminant analysis, neural networks, and random forests; @Austin_2011). Logistic regression is an extension of ordinary linear regression, but instead we have a binary dependent variable (The outcome would be group,i.e., treatment or control). The covariates to be balanced would be the predictors in the logistic model and the propensity scores (PS) would be extracted from the model as the predicted probability of treatment [@Austin_2011]:
+
+$\ln(PS/(1-PS))=\beta_{0}+\beta_{1}X1+\dots+\beta_{p}X_{p}//
+PS=\exp{\beta_{0}+\beta_{1}X1+\dots+\beta_{p}X_{p}}/(1+\exp{\beta_{0}+\beta_{1}X1+\dots+\beta_{p}X_{p}})$
+
+where $PS$ is the propensity score, $X_{p}$ are the covariates, and $\beta_{p}$ are the parameter estimates for each covariate. 
+
+Once the propensity score is calculated, there are different ways in which these scores can then be used to balance groups in an observational study. We will briefly introduce each method but for a complete description and mathematical notation, see @Austin_2011, @Rosenbaum_1983 and @Steyerberg_2019.
+
+ Matching - involves creating a set of pairs of individuals that have the same or nearly identical propensity scores. Most commonly, one-to-one matching is used where individuals are picked from one group and a match is searched for in the other group. The outcome of interest can be evaluated in a similar manner to a regular RCT in this matching method by directly comparing the groups.
+ 
+ Stratification - involves stratifying individuals into subsets based on the calculated propensity scores by ranking. The thresholds for subsets are usually predefined for example, using the quintiles of propensity scores [@Austin_2011]. Treated and untreated groups appear in each strata and should have approximately similar propensity scores and be balanced within each strata. Treatment effect can be calculated within each strata and an overall estimate can be found by pooling the effects from each strata.
+ 
+ Weighting - 
+
+
+The concept is best explained through an example. Suppose we have a standard RCT which randomises participants to two groups, treatment and control; here we would have a propensity score of 0.5 for all individuals (i.e. equal proportions allocated randomly to each group). In an observational study, we do not have the luxury of randomised assignment to treatment. For example, if wanted to see the effect of reading at home with a parent or guardian to children's language skills. If this were not a formal intervention, but had a record of children that did and didn't via school diary reading records. We could calculate the propensity scores for a large sample of children and look at the balance in the group that did read at home versus those that didn't and compare the distribution of scores. In this example, we might want to check that the following covariates are similarly distributed in each group: Social economic status, Age, baseline reading level, access to books. 
+
+
+

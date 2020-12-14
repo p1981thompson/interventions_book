@@ -1,13 +1,13 @@
 #	Pre-registration and Registered Reports
 
-When pre-registration is discussed in the broader scientific literature, the specificity of the terminology can be quite opaque. Here we make the clear distinction between pre-registration and registered reports as these are often used interchangably. Professor Chris Chambers has produced the useful Venn diagram [Figure X,  see @Chambers_2018] that aids the distinction between pre-registration and registered reports.
+When pre-registration is discussed in the broader scientific literature, the specificity of the terminology can be quite opaque. Here we make the clear distinction between pre-registration and registered reports as these are often used interchangeably. Professor Chris Chambers has produced the useful Venn diagram [Figure 1,  see @Chambers_2018] that aids the distinction between pre-registration and registered reports.
 
 ![](Chambers venn diagram.jpg)
 
 
 ## What do we mean by Pre-registration?
 
-Pre-registration is the act or process of writing down any formal hypothese(s), as a minimum, prior to collecting and analysing study data. This gives the clear distinction that pre-registration is not an exploratory framework and is uniquely for confirmatory research. 
+Pre-registration is the process of writing down any formal hypothese(s), as a minimum, prior to collecting and analysing study data. This gives the clear distinction that pre-registration is not an exploratory framework and is uniquely for confirmatory research. 
 
 **INSERT: Sensible example of a project that could be preregistered**
 
