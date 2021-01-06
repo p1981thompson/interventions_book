@@ -94,6 +94,75 @@ Consider possible confounders in the following examples: Does long-term use of h
 
 Most reports in the media are based on observational rather than experimental data. In some cases, it is hard to see how other types of data could be collected: are we really going to succeed in allocating adolescents to a regime of non-stop computer games, or to force people to start eating cabbage? Indeed, some associations that are now well-established, such as the link between cigarette smoking and cancer, were discovered from observational data, and could not be studied any other way. But where the interest is in interventions administered by a therapist, then it should not be necessary to rely on observational studies, and, as we have shown, to do so can lead to flawed conclusions.
 
+## A very brief introduction to Linear Regression 
+
+At this point, it may be useful for us to first take a look at general linear models, in particular, ordinary linear regression. The family of General Linear Models includes some of the most commonly used methods in applied research, for example: ANOVA, ANCOVA, linear regression, t-tests, F-tests and MANCOVA.
+
+Linear regression's purpose is primarily to understand the straight line relationship that exists for some bivariate data. We assume a causal direction in the relationship unlike correlation as we specify an outcome (dependent) variable and a predictor (independent) variable. The idea being that as we change the value of predictor we see the effect that this has on the outcome variable, by quantifying the relationship according to some statistical model. Figure \@ref(fig:linReg) (A, left) shows some bivariate data which appears to have an underlying linear relationship 
+
+<div class="figure">
+<img src="16-Regression_discontinuity_files/figure-html/linReg-1.png" alt="Linear regression: Plotting residuals, intercept, and slope explainers " width="768" />
+<p class="caption">(\#fig:linReg)Linear regression: Plotting residuals, intercept, and slope explainers </p>
+</div>
+
+
+$$Y_{i} = \beta_{0} +  \beta_{1}X_{i,1} + \beta_{2}X_{i,2} + \beta_{3}(X_{i,1} >= c) $$
+
+where $$\beta_{j}, j=1,2,3$$ are the regression parameter estimates, and $$X_{i,j}, j=1,2,3$$ and $$i=1,..,N, if N=number of participants$$.
+
+We can use the regression framework to test different causal relationships in the data, such mediating factors and moderating factors.
+
+## Mediators
+
+<div class="figure">
+<img src="16-Regression_discontinuity_files/figure-html/mediator-1.png" alt="Mediator path diagram" width="672" />
+<p class="caption">(\#fig:mediator)Mediator path diagram</p>
+</div>
+
+Mediation is commonly explored in observational studies as often the relations among variables is not always entirely clear cut or obvious. In particular, complex data that has many variables can be difficult to disentangle clear relations that are not affected or changed by the introduction of further variables into the model. Thankfully, we have different causal frameworks to test these relationships. A Mediation model's purpose, in technical terms, is to identify and describe the relation between a dependent variable and an independent variable, but also accounting for the effect of an additional variable (the mediator). It is entirely possible that the strength of direct relationship between the dependent variable and the independent variable is altered after inclusion of the mediator, in some cases this relationship is completely redundant.
+
+There are typically four steps to follow to determine mediation which we restate directly from @Judd_1981 and @Baron_1986 (although steps 2 and 3 are combined in the original manuscripts):
+
+ 1. From Figure \@ref(fig:mediator), show that the predictor (X) is correlated with the outcome (Y). Fit a regression model with X as a predictor to estimate the causal path between X and Y, establishing whether an effect is present that can be mediated.
+
+ 2. Similarly to step 1 and returning to Figure \@ref(fig:mediator), we need to show that the predictor (X) is correlated with the mediator (M). Again, we fit a regression model with X as a predictor but this time we replace the outcome with the mediator (on Figure \@ref(fig:mediator), this is the path or arrow between X and M).
+
+ 3. Next, the determine if the mediator affects the outcome variable. Fit a regression model with Y as our dependent measure and both X and M as predictors.  Importantly, only allowing the mediator to correlate with the outcome is not sufficient because the mediator and the outcome may be correlated because they are both caused by the causal variable X. Thus, the causal variable must be controlled in establishing the effect of the mediator on the outcome.
+
+ 4. Finally, the predictor should exerts no effect on the outcome when the mediator are controlled, if complete mediation has occurred. More specifically, the effect of the predictor (X) on the dependent variable (Y) after controlling for the mediator (M) should be zero (i.e the arrow between X and Y should be zero). 
+ 
+The mediation effect can be quantified by calculating the indirect effect which in the causal diagram in Figure \@ref(fig:mediator) would trace the path from X to Y via M. 
+
+An example of a mediating relationship, say we want to establish the relationship between 
+
+## Moderators
+
+
+<div class="figure">
+<img src="16-Regression_discontinuity_files/figure-html/moderator-1.png" alt="Moderator path diagram" width="672" />
+<p class="caption">(\#fig:moderator)Moderator path diagram</p>
+</div>
+
+If we return to our linear regression definition from earlier, we have some predictor variable $X$ that has a linear causal relationship with $Y$, i.e. $X$ causes $Y$. Moderation occurs when a third variable is introduced, say $M$ that changes the strength of causal relationship between $X$ and $Y$, hence moderating the relationship.
+
+Figure \@ref(fig:moderator) shows a diagrammatic representation of the moderator effect. The moderator is added into the statistical framework as an interaction. The interaction is added into the regression model formula as an extra variable with a new associated parameter estimate. The extra variable is simple the two interacting terms multiplied together. We can give an example of this by returning to the regression equation that we met earlier. The interaction appears as the multiple of $X_{1}$ and $X_{2}$. 
+
+
+$$Y_{i} = \beta_{0} +  \beta_{1}X_{i,1} + \beta_{2}X_{i,2} + \beta_{3}(X_{i,1}X_{i,2})$$
+
+
+We can visualize the effect of the interaction much more clearly by looking at some simulated data. Plotting the data, for two types of combinations of variables. Figure \@ref(fig:interaction)A (LEFT) shows the relationship between a nominal Moderator and a continuous predictor. Figure \@ref(fig:interaction)B (RIGHT) shows the relationship between a nominal Moderator and a nominal predictor. 
+
+<div class="figure">
+<img src="16-Regression_discontinuity_files/figure-html/interaction-1.png" alt="Plotting the interaction effect in regression. (A) shows the relation between a nominal Moderator and continuous predictor; (B) shows the relationship between a nominal Moderator and nominal predictor." width="672" />
+<p class="caption">(\#fig:interaction)Plotting the interaction effect in regression. (A) shows the relation between a nominal Moderator and continuous predictor; (B) shows the relationship between a nominal Moderator and nominal predictor.</p>
+</div>
+
+
+
+
+
+
 
 ## Class exercise
 
@@ -168,6 +237,26 @@ Typically, the case-control study looks at retrospective information on a group 
 ### Cross-Sectional Studies
 
 The cross-sectional study is used when only one time point is recorded and its primary purpose is typically to establish prevalence of conditions or disorders. In this design, we differentiate from the others designs as the intervention and outcome are determined simultaneously [@Carlson_2009]. 
+
+
+###	Bonus method: Regression discontinuity designs
+
+The regression discontinuity follows a quasi-experimental design and is typically used to avoid confounding bias (i.e. when another variable is present that distorts the effect of intervention) when assessing interventions. It is particularly useful when assignment to intervention is based on some pre-specified threshold from a continuous measure. For example, let us assume that we wish to assess a new reading intervention in a school. Students are assigned to the intervention group according to a general language test. Students that score below a certain threshold are assigned to the intervention group, and rather than discard their peers that scored above the threshold, they form a natural control group. The experimenter is not therefore required to randomly allocate students with poor language scores to the control group when they might benefit from the potential effect of the intervention if it is found to be effective.
+
+
+Statistical issues encountered RDD analysis:
+
+ 1. Incorrect specification of regression form ( regression is non-linear or needs a polynomial form)
+ 2. Misallocation of treatment
+ 3. Inadequate statistical power (sample size too small)
+ 4. Limited generalization of effects
+
+<div class="figure">
+<img src="16-Regression_discontinuity_files/figure-html/linRegDis-1.png" alt="Linear regression: Plotting residuals, intercept, and slope explainers " width="576" />
+<p class="caption">(\#fig:linRegDis)Linear regression: Plotting residuals, intercept, and slope explainers </p>
+</div>
+
+
 
 
 ## STROBE guidelines
@@ -307,7 +396,7 @@ Once the propensity score is calculated, there are different ways in which these
  
  Stratification - involves stratifying individuals into subsets based on the calculated propensity scores by ranking. The thresholds for subsets are usually predefined for example, using the quintiles of propensity scores [@Austin_2011]. Treated and untreated groups appear in each strata and should have approximately similar propensity scores and be balanced within each strata. Treatment effect can be calculated within each strata and an overall estimate can be found by pooling the effects from each strata.
  
- Weighting - 
+ Weighting - The third approach is used when fitting a linear regression model. The calculated propensity scores are used as weights in a weighted linear regression model, but what is weighted linear regression. Typically, we use weighted regression when one of the key assumptions is not met. The residuals from a fitted regression model should have constant variance (homoskedasticity), i.e. if we plotted the residuals vs the continuous predictor variable, we should see horizontal even spread of data points above and below the zero line, if not and there is any kind of pattern or trend, the residuals are described as heteroskedastic. The weighting procedure will go some way to correct for the heteroskedascity and alleviate bias in the parameter estimates (in particular, their standard errors are poorly defined - typically, over inflated). 
 
 
 The concept is best explained through an example. Suppose we have a standard RCT which randomises participants to two groups, treatment and control; here we would have a propensity score of 0.5 for all individuals (i.e. equal proportions allocated randomly to each group). In an observational study, we do not have the luxury of randomised assignment to treatment. For example, if wanted to see the effect of reading at home with a parent or guardian to children's language skills. If this were not a formal intervention, but had a record of children that did and didn't via school diary reading records. We could calculate the propensity scores for a large sample of children and look at the balance in the group that did read at home versus those that didn't and compare the distribution of scores. In this example, we might want to check that the following covariates are similarly distributed in each group: Social economic status, Age, baseline reading level, access to books. 

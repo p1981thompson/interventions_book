@@ -1,5 +1,3 @@
-# (PART) Reproducible Methods and Metaresearch{-}
-
 #	Practical obstacles to the ideal study
 
 ## Sample size: need for team science?
