@@ -69,7 +69,7 @@ The adaptive design, as the name suggests, allows for modifications to certain a
 
 
 
-
+<!--
 ## More niche trial designs
 
 ### Just-in-Time adaptive interventions (JITAI)
@@ -77,3 +77,5 @@ The adaptive design, as the name suggests, allows for modifications to certain a
 ### Micro-Randomized Trials (MRT)
 
 ### Sequential, Multiple Assignment, Randomized Trial (SMART)
+
+-->
