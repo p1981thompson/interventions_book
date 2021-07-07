@@ -15,7 +15,7 @@ library(knitr)
 
 Suppose you want to evaluate the effectiveness of a parent-based intervention for improving communication in three-year-olds with poor language skills. You plan to assess their skills before the intervention, immediately after the intervention, and again six months later. The initial measurement period is known as the baseline – because it acts against as a reference point against which improvement can be measured.
 
-There are many measures you could choose: the child's mean length of utterance (MLU) from a language sample, scores on a direct assessment such as preschool CELF (Wiig, Secord, & Semel, 1992), the parent's response to language items on a screening inventory such as the Ages and Stages Questionnaire (Bricker & Squires, 1999). You may wonder whether you should include as many measures as possible to ensure you cover all bases. However, as we shall see in chapter x, if you measure too many things, you run the risk of getting spurious results, so it is important to specify a primary outcome measure – the one you would put your money on as most likely to show the effect of interest, if you were a betting person. 
+There are many measures you could choose: the child's mean length of utterance (MLU) from a language sample, scores on a direct assessment such as preschool CELF (@wiig2006), the parent's response to language items on a screening inventory such as the Ages and Stages Questionnaire (@bricker1999). You may wonder whether you should include as many measures as possible to ensure you cover all bases. However, as we shall see in chapter x, if you measure too many things, you run the risk of getting spurious results, so it is important to specify a primary outcome measure – the one you would put your money on as most likely to show the effect of interest, if you were a betting person. 
 
 The key questions to ask are:
 
@@ -235,4 +235,3 @@ Renfrew, C.E. (1975). Action picture test. Headington, Oxford: C.E. Renfrew.
 
 Renfrew, C.E. (1991). The Bus Story: A test of continuous speech. Bicester, Oxon, UK: Winslow Press.
 
-Wiig, E. H., Secord, W., & Semel, E. (1992). Clinical Evaluation of Language Fundamentals - Preschool (CELF-Preschool). San Antonio: Psychological Corporation.
