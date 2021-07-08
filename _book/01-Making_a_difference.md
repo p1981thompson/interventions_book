@@ -1,32 +1,53 @@
+---
+title: "Untitled"
+author: "Dorothy Bishop"
+date: "08/07/2021"
+output: html_document
+---
+
+
+
+
 # (PART) General Principles and Foundations {-}
 
 # How can we know if we've made a difference?
 
-*Anthony was a 60-year-old builder who suffered a stroke that left him paralysed on his right side and globally aphasic (with difficulties producing and understanding language). He was discharged home after three weeks in hospital, by which time he recovered the ability to walk and talk, but still had severe word-finding problems. He received weekly sessions with a speech-and-language therapist (SLT) for 6 weeks, after which his word-finding difficulties had reduced markedly. He is full of praise for the SLT and says she made a huge difference.* 
+*Anthony was a 60-year-old builder who suffered a stroke that left him paralysed on his right side and globally aphasic, with difficulties producing and understanding language. He was discharged home after three weeks in hospital, by which time he recovered the ability to walk and talk, but still had severe word-finding problems. He received weekly sessions with a speech-and-language therapist (SLT) for 6 weeks, after which his word-finding difficulties had reduced markedly. He is full of praise for the SLT and says she made a huge difference.* 
 
 *At two years of age, Tina's speech was markedly delayed. She had an expressive vocabulary of just ten words (mummy, daddy, doggie, water, more, want, juice, milk, bread and bear), and her repertoire of speech sounds was limited, so what she said was often not intelligible to strangers. She was socially engaged and an assessment showed that she had age-appropriate understanding of what others said to her.  The SLT worked with Tina's mother to encourage her to talk about the toys Tina was playing with and to repeat and expand on her utterances. The mother said she found this extremely useful and it transformed her interactions with her daughter. Six months later, there was a dramatic improvement in Tina's expressive language: her speech was much clearer and she was talking in 2-3 word utterances.* 
 
-*A teaching assistant works in a primary school in an area of high social deprivation. She has worked with the school's SLT to develop a language intervention programme with a class of 5-year-olds that involves regular group sessions of story-book reading with an emphasis on developing the children's vocabulary. A vocabulary test that was given at the start of the school term and again 3 months later shows that on average children know ten more vocabulary items after the intervention than they did at the outset. The class teacher was enthusiastic about the intervention and wants to roll it out to more classes.*
+*A teaching assistant works in a primary school in an area of high social deprivation. She has worked with the school's SLT to develop a language intervention programme with a class of 5-year-olds that involves regular group sessions of story-book reading with an emphasis on developing the children's vocabulary. A vocabulary test that was given at the start of the school term and again 3 months later shows that on average children know ten more of the vocabulary items after the intervention than they did at the outset. The class teacher was enthusiastic about the intervention and wants to roll it out to more classes.*
 
 These three vignettes illustrate the kinds of everyday problem confronting SLTs going about their daily work: language problems are identified, interventions implemented, and, in many cases, improvements are observed. But the thoughtful therapist will have a niggling doubt: yes, in each case we see an improvement in language skills, but would this have occurred anyway? People with aphasia often recover over time, late-talkers turn out to be 'late-bloomers' and children's vocabulary grows as they get older. 
 
-Readers might wonder whether we should worry. After all, in each case, the SLT used their professional judgement to intervene and an improvement in language was seen. So does it matter whether that improvement would have occurred anyway?
+Readers might wonder whether we should worry. After all, in each case, the SLT used their professional judgment to intervene and an improvement in language was seen. So does it matter whether that improvement would have occurred anyway?
 
-I take a very firm view on this question: it matters enormously, for four reasons. 
+We take a very firm view on this question: it matters enormously, for four reasons. 
 
- -	First, we owe it to those who receive our interventions to apply due diligence to ensure that what we are doing is evidence-based and unlikely to do harm – which in the best case may involve wasting people's time or money, and in the worst case could cause emotional damage. The purity of the motives of a practitioner is not sufficient to ensure this – they have to have the skills and willingness to consider the evidence dispassionately.
- -	If SLTs want to be taken seriously, then they need to show that what they do is evidence-based: otherwise they are no better than purveyors of dubious alternative health cures, such as aromatherapy or iridology. 
- -	Third, someone – often the taxpayer – is paying for the SLT's time. If some interventions are ineffective, then the money could be better spent elsewhere. 
--	Fourth, if a profession relies purely on traditional practice to determine which interventions to use, then there is no pressure to develop new interventions that may be more effective.
+ -	First, we owe it to those who receive our interventions to apply due diligence to ensure that what we are doing is evidence-based and unlikely to do harm – which in the best case may involve wasting people's time or money, and in the worst case could cause emotional damage. The purity of the motives of a practitioner is not sufficient to ensure this – they have to have the skills and willingness to consider the evidence dispassionately.  
+ -	If SLTs want to be taken seriously, then they need to show that what they do is evidence-based: otherwise they are no better than purveyors of dubious alternative health cures, such as aromatherapy or iridology.  
+ -	Third, someone – either the client or the taxpayer – is paying for the SLT's time. If some interventions are ineffective, then the money could be better spent elsewhere.  
+-	Fourth, if a profession relies purely on traditional practice to determine which interventions to use, then there is no pressure to develop new interventions that may be more effective.  
 
 Showing that an intervention works in an individual case is very hard – especially when dealing with a condition that fluctuates or is self-limiting. In later chapters we shall consider how we can make use of group studies to evaluate interventions, and how single case designs can sometimes give greater confidence that a real effect has been achieved.  But first, it is important to recognise the range of factors that conspire to make it difficult to answer the question 'Did I make a difference?' To do this, we need to understand about random and systematic change.
 
+
+<div class="figure">
+<img src="01-Making_a_difference_files/figure-html/weightplot-1.png" alt="Random fluctuations in Bridget Jones' weight, mesaured to the nearest pound" width="672" />
+<p class="caption">(\#fig:weightplot)Random fluctuations in Bridget Jones' weight, mesaured to the nearest pound</p>
+</div>
+
 ## The randomness of everything
-Anyone who has tried to diet will be aware of how weight can fluctuate: a fact used to comic effect in the novel Bridget Jones' diary, where the protagonist's mood soared and plummeted depending on whether she was a pound heavier or lighter than the previous week. Some of the factors affecting what the scales say may be systematic and depend on calories ingested and worked off, but some will be fairly random: how you stand on the scales, whether you had a cup of tea prior to weighing, and whether the floor is level may affect the reading. And a different set of scales might give a different result. Figure 1 shows a notional weight chart for Bridget, who is obsessively measuring herself daily. This plot was generated from random numbers – something we will learn how to do in Chapter x. For now, however, the simple point I want to make is that all measures will show some fluctuation. This is variously referred to as noise, measurement error or random error in the intervention literature.
+Anyone who has tried to diet will be aware of how weight can fluctuate: a fact used to comic effect in the novel Bridget Jones's diary [@Fielding_1996], where the protagonist's mood soared and plummeted depending on whether she was a pound heavier or lighter than the previous day. Some of the factors affecting what the scales say may be systematic and depend on calories ingested and worked off, but some will be fairly random: how you stand on the scales, whether you had a cup of tea prior to weighing, and whether the floor is level may affect the reading. And a different set of scales might give a different result. Figure \@ref(fig:weightplot) shows a notional weight chart for Bridget, who is obsessively measuring herself daily on a set of scales that weighs to the nearest pound. This plot was generated by simulating numbers with random variation – something we will learn how to do in Chapter x. For now, however, the simple point we want to make is that all measures will show some fluctuation. This is variously referred to as noise, measurement error or random error in the intervention literature. Bridget may be euphoric by Day 14, as she sees a decline in her weight, but this trend is meaningless, and entirely down to the play of chance.
 
-When we evaluate an intervention, we need to identify measures that can be used to assess the outcome. All too often, insufficient attention is given to the specific measures that we select, but these can have a dramatic influence on whether or not we find a treatment effect. Figure 2 shows two putative measures of a child's vocabulary, for a simulated situation where a vocabulary intervention does have a positive impact. In effect, what we are trying to do when we assess a treatment is to sift out the systematic effect of treatment from the background noise. It is obvious that this will be much harder if we have a measure that hops around a lot from one measurement occasion to the next – a 'noisy' measure. 
+In effect, what we are trying to do when we assess a treatment is to sift out any systematic effect of treatment from the background noise. This will be much harder if we have a measure that hops around a lot from one measurement occasion to the next regardless of our intervention – a 'noisy' measure. So when we evaluate an intervention, we need to identify measures that are well-suited to assess the outcome, i.e., within minimal unwanted variation. 
 
-One bad consequence of noisy measures is that they can show big changes from one occasion to another which, in individuals, might give a misleading impression of genuine treatment effects. Figure 3 shows simulated data from 10 people using the noisy measure when there is no true effect. We might be tempted to conclude that there is a subset of people who respond to the treatment – those shown in red in the figure. If we were to just ignore the remainder of the group, we could give a quite false impression of effectiveness of intervention. Unfortunately, this sometimes happens, when people fail to recognise that some gains in a measure could just be due to chance, and conclude instead that there is a subset of 'responders' and another subset of 'treatment resisters'. It is possible to design a study to avoid making this basic error, but you need to be aware of it to defend against it.
+<div class="figure">
+<img src="01-Making_a_difference_files/figure-html/weightplot2-1.png" alt="Pre- and post-intervention scores on an ineffective diet" width="672" />
+<p class="caption">(\#fig:weightplot2)Pre- and post-intervention scores on an ineffective diet</p>
+</div>
+
+Figure \@ref(fig:weightplot2) shows simulated data from 14 people given a dietary intervention which does not have any beneficial effect. One consequence of noisy measures is that they can show big changes from one occasion to another which, in individuals, might give a misleading impression of genuine treatment effects. We might be tempted to conclude that there is a subset of people who respond to the treatment – those shown in red in the figure. And indeed, those who have lost weight may be inclined to tell their friends about the marvellously effective diet, whereas those who did not remain silent. If we were to just ignore the remainder of the group, we could give a quite false impression of effectiveness of intervention. Unfortunately, this sometimes happens, when people fail to recognise that some gains in a measure could just be due to chance, and conclude instead that there is a subset of 'responders' and another subset of 'treatment resisters'. It is possible to design a study to avoid making this basic error, but you need to be aware of it to defend against it.  
 
 ## Systematic error
 
@@ -34,4 +55,15 @@ An even greater danger for the unwary researcher is a failure to take into accou
 
 In all three cases, therefore, we are not only trying to detect a signal from among noise – i.e. an effect of intervention using measures that inevitably contain random error: we also want to know whether any signal we see is due to the intervention that was provided, or whether it is just part of natural change. This can be extremely hard to do, but methods have been developed that provide a rational approach to addressing the question.
 
-It isn't always this difficult. Some conditions are more stable and pose less of a problem of spontaneous recovery. But, in my experience, the commonest error in the field of SLT intervention research is a failure to take into account systematic error, and so I will be focusing most on that. And methods that are designed to deal with systematic error are also valid for more stable situations, so if you can cope with those, then you will be in a strong position to evaluate intervention in other contexts.
+It isn't always this difficult. Some conditions are more stable and pose less of a problem of spontaneous recovery. But, in our experience, the commonest error in the field of SLT intervention research is a failure to take into account systematic error, and so we will be focusing most on that. And methods that are designed to deal with systematic error are also valid for more stable situations, so if you can cope with those, then you will be in a strong position to evaluate intervention in other contexts.
+
+
+## Class exercise  
+
+In the following examples, identify whether the error is systematic or random?
+
+ 1. The measurement device is incorrectly calibrated, so the true measurement is always underestimated **(systematic | random)**  
+ 2. Six participants are included into a study, all have identical demographic and covariate information but have different values on the primary outcome **(systematic | random)**  
+ 3. The researcher makes a judgement to round up all measurements to whole numbers rather than specify exact values **(systematic | random)**,
+ 4. Children are included in a school based intervention to improve literacy. The researcher makes an observation that some children scored poorly if they were less engaged or appeared to be bored **(systematic | random)**
+
