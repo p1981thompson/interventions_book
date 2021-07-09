@@ -15,7 +15,7 @@ library(knitr)
 
 Suppose you want to evaluate the effectiveness of a parent-based intervention for improving communication in three-year-olds with poor language skills. You plan to assess their skills before the intervention, immediately after the intervention, and again six months later. The initial measurement period is known as the baseline – because it acts against as a reference point against which improvement can be measured.
 
-There are many measures you could choose: the child's mean length of utterance (MLU) from a language sample, scores on a direct assessment such as preschool CELF (@wiig2006), the parent's response to language items on a screening inventory such as the Ages and Stages Questionnaire (@bricker1999). You may wonder whether you should include as many measures as possible to ensure you cover all bases. However, as we shall see in chapter x, if you measure too many things, you run the risk of getting spurious results, so it is important to specify a primary outcome measure – the one you would put your money on as most likely to show the effect of interest, if you were a betting person. 
+There are many measures you could choose: the child's mean length of utterance (MLU) from a language sample, scores on a direct assessment such as preschool CELF (@wiig2006), the parent's response to language items on a screening inventory such as the Ages and Stages Questionnaire (@bricker1999). You may wonder whether you should include as many measures as possible to ensure you cover all bases. However, as we shall see in Chapter 9, if you measure too many things, you run the risk of getting spurious results, so it is important to specify a primary outcome measure – the one you would put your money on as most likely to show the effect of interest, if you were a betting person. 
 
 The key questions to ask are:
 
@@ -26,7 +26,7 @@ The key questions to ask are:
 
 ## Reliability
 
-You may be surprised to see reliability at the top of the list. Surely validity is more important? Well, yes and no. As shown in Figure x, there's not much point in having a measure that is reliable unless it is also valid. But a measure that is valid but not reliable is worse than useless in an intervention study, so we put reliability at the top of the list.
+
 
 <!--![Reliability and validity illustrated as darts hitting a target](ch2_fig_targets.png)-->
 
@@ -37,7 +37,8 @@ knitr::include_graphics('ch2_fig_targets.png')
 
 <!-- DB comment. Not sure why title of this figure doesn't display. Also concern re copyright status: there are multiple versions of this type of thing online, but it's hard to know who first came up with the idea. Source of this one is: https://webcourses.ucf.edu/courses/1221818/pages/chapter-5-measurement-concepts-->
 
-So what is reliability? This has to do with the issue of random error or "noise": quite simply you want a measure that reflects the child's underlying skill, where there is minimal influence from random, unwanted sources of variation. One way to assess this is to apply the same measure on two occasions (without any intervention between) to see how similar they are: this is known as "test-retest reliability". To assess this, we repeat the measurement with a sample of individuals seen on two occasions close in time (i.e. before we expect any change due to maturation or intervention). Test-retest reliability is typically quantified by the correlation coefficient, demonstrated in Figure x. 
+You may be surprised to see reliability at the top of the list. Surely validity is more important? Well, yes and no. As shown in Figure \@ref(fig:dart), there's not much point in having a measure that is reliable unless it is also valid. But a measure that is valid but not reliable is worse than useless in an intervention study, so we put reliability at the top of the list.
+
 
 ```{r correlation, echo=F,message=F,warning=F,fig.width=6,fig.height=6,fig.cap="The correlation coefficient is a statistic that takes the value of zero when there is no relationship between two variables, one whether there is a perfect relationship, and minus one when there is an inverse relationship. If you draw a straight line through the points on the graph, then if all points fall exactly on the line, the correlation is 1, indicating that you can predict perfectly a person's score on Y if you know their score on X."}
 
@@ -59,11 +60,14 @@ ggarrange(plotlist = mget(paste0("C",1:length(R_cors))),ncol=2,nrow=2)
 ```
 <!-- DB comment Could you please modify the plots so that all the x and y scales are the same, and they are scaled to be in range from 40 to 60 (which is more like a test score). I added legend for x-axis to be 'Time 1 score', and for y-axis 'Time 2 score', but I think you can get these to display under/to side of the whole array rather for each individual plot, and that would be cleaner. The plot dimensions could be smaller (around 2/3 of current size) and the title, figure legends and points bigger (maybe twice as big as current)-->
 
+So what is reliability? This brings us back to the issue of random error or "noise": quite simply you want a measure that reflects the child's underlying skill, where there is minimal influence from random, unwanted sources of variation. One way to assess this is to apply the same measure on two occasions (without any intervention between) to see how similar they are, computing an index of "test-retest reliability". To assess this, we repeat the measurement with a sample of individuals seen on two occasions close in time (i.e. before we expect any change due to maturation or intervention). Test-retest reliability is often quantified by the correlation coefficient, demonstrated in Figure \@ref(fig:correlation).  
+
+<!---START CUSTOM BLOCK-->
+Although the correlation coefficient is widely used to index reliability, it can be misleading because it just reflects agreement in the rank ordering of two measures. So it would be possible to get a high correlation even if the task showed practice effects, so that scores at time 2 were substantially higher than those at time 1. For that reason, the intraclass correlation coefficient (ICC) is usually preferred, as this reflects agreement in absolute scores. The two types of correlation will give the same values if there is no difference in means between the two occasions of measurement.  For more explanation see https://dapa-toolkit.mrc.ac.uk/concepts/statistical-assessment.
+<!---END CUSTOM BLOCK-->
 
 
-
-
-```{r reliability.by.age}
+```{r reliability.by.age,echo=F,include=F}
 mysigma <- matrix(c(1,.3,.3,1),nrow=2)
 myn <- 40
 basedata <- mvrnorm(n=myn,mu=c(0,0),Sigma=mysigma,empirical=TRUE)
@@ -86,21 +90,16 @@ ggplot(alldata,aes(x=X1,y=X2))+
    
 
 ```
-<!-- sorry Paul, I'm running into the sand again with ggplot. I find an example of what I want online and it just doesn't do it!  So the legend needs fixing to say Age (yr) and the entries should be 3, 4 and 5.-->
-So how reliable should a measure be? Most psychometric tests report reliability estimates, and a good test is expected to have test-retest reliability of at least .8. But be careful in interpreting such estimates, as you need also to consider the age range on which the estimate is based. Figure x shows how a test of vocabulary size that looks highly reliable when considered across the full age range from 3 to 5 years is really not very reliable when we just look at one year-band. Although the overall correlation for Time 1 and Time 2 is .81, within each age band it is only .3. This is because the index of reliability, the correlation coefficient, is affected by the range of scores. If your study was focused just on 3-year-olds, you'd really want it to be reliable within that age range.
 
-The topic of reliability is covered more formally in classical test theory (Lord and Novick, 1968) and subsequent developments from this. These involve a mathematical approach that treats an observed test score as the sum of a "true" effect (i.e. what you want to measure) plus random error. The lower the reliability, the greater the random error, and the harder it is to detect the true effect of intervention against the background of noise. 
+So how reliable should a measure be? Most psychometric tests report reliability estimates, and a good test is expected to have test-retest reliability of at least .8. But be careful in interpreting such estimates, as you need also to consider the age range on which the estimate is based. Figure \@ref(fig:reliability.by.age) shows how a test of vocabulary size that looks highly reliable when considered across the full age range from 3 to 5 years is really not very reliable when we just look at one year-band. Although the overall correlation for Time 1 and Time 2 is .81, within each age band it is only .3. This is because the index of reliability, the correlation coefficient, is affected by the range of scores. If your study was focused just on 3-year-olds, you'd really want it to be reliable within that age range.
 
-We have focused on test-retest reliability as this is the most relevant in intervention studies. If you plan to use the same measure at baseline and after intervention, then what you need to know is how much variation in that measure is likely to occur just by chance. There are other reliability indices that are sometimes reported with psychometric tests. In particular split-half reliability and internal consistency (Cronbach's alpha), both of which consider the extent to which a score varies depending on the specific items used to calculate it. For instance, we could assess split half reliability for mean length of utterance (MLU) by computing it separately for all the odd-numbered utterances and the even-numbered utterances. Although this gives useful information, it is usually higher than test-retest reliability, because it does not take into account fluctuations in measurement that relate to changes in the context or the child's state. 
+The topic of reliability is covered more formally in classical test theory (@lord1968) and subsequent developments from this (@reise2005). These involve a mathematical approach that treats an observed test score as the sum of a "true" effect (i.e. what you want to measure) plus random error. The lower the reliability, the greater the random error, and the harder it is to detect the true effect of intervention against the background of noise. 
 
-It is much easier to compute measures of internal consistency than to do the extra testing that is needed to estimate test-retest reliability, and many published psychometric tests only provide that information. Table x shows reliability estimates from some commonly used tests.
+We have focused on test-retest reliability as this is the most relevant form of reliability in intervention studies. If you plan to use the same measure at baseline and after intervention, then what you need to know is how much variation in that measure you might expect if there were no intervention. There are other reliability indices that are sometimes reported with psychometric tests. In particular split-half reliability and internal consistency (Cronbach's alpha), both of which consider the extent to which a score varies depending on the specific items used to calculate it. For instance, we could assess split-half reliability for mean length of utterance (MLU) by computing it separately for all the odd-numbered utterances and the even-numbered utterances. Although this gives useful information, it is likely to differ from test-retest reliability, because it does not take into account fluctuations in measurement that relate to changes in the context or the child's state. 
 
-<!--To be done. 
-Table could show: Test/subtest, age range; internal consistency/split half; test-retest reliability
-Paul - if you can assemble this information this would be v helpful. It should be in test manuals - there are a collection of these in the cabinets outside my office, including:
-CELF (there are various versions of this - I think we have CELF-4 and possibly Preschool CELF- these should give reliabiity for different subtests.  WASI verbal scales (Vocabulary and Similarities) and British Picture Vocabulary Scales and TROG-2).
-But dont worry if you cant find this - I should be able to dig it out -->
+It is much easier to compute measures of internal consistency than to do the extra testing that is needed to estimate test-retest reliability, and many published psychometric tests only provide that information. 
 
+A recent review by Denman (@denman2017) looked at psychometric properties, including reliability, of 15 comprehensive language assessments for children aged 4-17 years. Although all but one reported test-retest reliability that was rated as good on the scale used by Denman et al, the methodological quality of the psychometric data was deemed questionable for all but two tests. 
 
 ## Sensitivity
 
