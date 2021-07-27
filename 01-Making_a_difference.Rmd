@@ -1,5 +1,3 @@
-
-
 # (PART) General Principles and Foundations {-}
 ```{r initialisefigs,echo=FALSE,message=FALSE,warnings=FALSE}
 require(ggplot2)
@@ -52,8 +50,9 @@ Anyone who has tried to diet will be aware of how weight can fluctuate: a fact u
 
 In effect, when we assess an intervention we aim to sift out any systematic effect of treatment from the background noise. This will be much harder if we have a measure that hops around a lot from one measurement occasion to the next regardless of our intervention – a "noisy" measure. So when we evaluate an intervention, we need to identify measures that are well-suited to assess the outcome, i.e., within minimal unwanted variation. We will discuss this further in Chapter 2.
 
+<!---START CODE BLOCK-->
 Note that for the purposes of an intervention study, we treat as "noise" or "random error" anything that creates variability in our measurements that is not part of the treatment effect. Strictly speaking, we can distinguish "measurement error", which relates to noise in the measurement system we are using (e.g. the scales) and other sources of noise, such as genuine fluctuations in weight from day to day that do not trend up or down over time. If Bridget hopped off and on the scales repeatedly in a 5 minute interval, there would be some fluctuations in her weight due to the scales (measurement error), especially if very precise measurement was used. But we could be confident her weight had not genuinely altered within that time period. Such variation is likely to be smaller than the variation observed day by day, which includes genuine variation around Bridget's average weight, reflecting physiological factors and gut contents. It is usually hard to isolate the causes of noisy measures: for our purposes, when we refer to noisy measures, the focus is just on how much a score varies in the absence of any intervention.
-
+<!---END CODE BLOCK-->
 ```{r weightplot2,echo=FALSE, message=FALSE, warnings=FALSE, fig.cap="Pre- and post-intervention scores on an ineffective diet"}
 set.seed(23)  #ensure consistent output
 df$wt2.lb <- .5*df$Weight.lbs+.5*rnorm(14,130,1) #posttest wt as function of pretest + noise
