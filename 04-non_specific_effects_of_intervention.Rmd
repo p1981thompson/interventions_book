@@ -16,7 +16,13 @@ plc_dat$Group<-factor(plc_dat$Group,levels=c("No treatment","Placebo","Intervent
 ggplot(data=plc_dat,aes(x=Group))+geom_bar(aes(colour=Group,fill=Group))+theme_bw()+ylab('Outcome') + annotate('text',x=0.9,y=20,label='Placebo Effect',angle = 90) + geom_segment(aes(x=1, xend=1, y=40, yend=5), size = 0.75, arrow = arrow(length = unit(0.25, "cm")))+ geom_segment(aes(x=1, xend=1, y=5, yend=40), size = 0.75, arrow = arrow(length = unit(0.25, "cm")))+ annotate('text',x=1.9,y=55,label='Treatment Effect',angle = 90) + geom_segment(aes(x=2, xend=2, y=70, yend=40), size = 0.75, arrow = arrow(length = unit(0.25, "cm")))+ geom_segment(aes(x=2, xend=2, y=40, yend=70), size = 0.75, arrow = arrow(length = unit(0.25, "cm")))+ annotate('text',x=0.6,y=17,label='Hawthorne Effect',angle = 90) + geom_segment(aes(x=0.6, xend=0.6, y=-2, yend=0), size = 0.75, arrow = arrow(length = unit(0.25, "cm")))+ geom_segment(aes(x=0.6, xend=0.6, y=6, yend=4), size = 0.75, arrow = arrow(length = unit(0.25, "cm")))
 ```
 
-This resembles the well-known Hawthorne effect, which refers to a tendency for people to change their behaviour as a result of being observed. The name comes from the Hawthorne Works in Cicero, Illinois, where a study was done to see the effects of lighting changes and work structure changes such as working hours and break times on worker productivity. These changes appeared to improve productivity, leading the researchers to conclude that the intervention worked. However, subsequent work suggested this was a very general effect that could be produced by almost any change to working practices.  
+ 
+
+<!---START CUSTOM BLOCK-->
+**The Hawthorne effect?**
+The placebo effect in behavioural interventions resembles the well-known Hawthorne effect, which refers to a tendency for people to change their behaviour as a result of being observed. The name comes from the Hawthorne Works in Cicero, Illinois, where a study was done to see the effects of lighting changes and work structure changes such as working hours and break times on worker productivity. These changes appeared to improve productivity, but subsequent work suggested this was a very general effect that could be produced by almost any change to working practices. The term Hawthorne effect was coined to describe an improvement in performance that is attributable to the mere effect of being in a research study, or being the focus of experimenter attention.  However, there is a twist in the tail.  The original factory studies on the Hawthorne effect have been described as "among the most influential experiments in social science". Yet, like so many classic phenomena in social science, the work attracted critical scrutiny years after it was conducted, and the effect turns out to be far less compelling than was previously thought. The paper "Was there really a Hawthorne effect at the Hawthorne plant?" (@levitt2011) describes how the authors dug out and reanalysed the original data from the study, concluding that "an honest appraisal of this experiment reveals that the experimental design was not strong, the manner in which the studies were carried out was lacking, and the results were mixed at best...".  
+<!---END CUSTOM BLOCK-->
+
 
 Most therapists would regard such impacts on their clients as entirely valid outcomes of the intervention – boosting functional communication skills and confidence are key goals of any intervention package. But it is important, nevertheless, to know whether the particular intervention adopted has a specific effect. Many individualised SLT interventions with both adults and children involve complicated processes of assessment and goal-setting with the aim of achieving specific improvements. If these are actually ineffective, and the same could be achieved by simply being warm, supportive and encouraging, then we should not be spending time on them. 
 
@@ -40,5 +46,12 @@ The most compelling result, however, is when there is a clear difference between
 It is not always easy to identify a 'mechanism' measure – this will depend on the nature of the intervention and how specific its goals are. For some highly specific therapies – e.g. a phonological therapy aimed at changing a specific phonological process, or a grammatical intervention that trains production of particular morphological forms, the 'mechanism' measure might be similar to the kind of 'near transfer' outcome measure that was discussed in chapter 2 – i.e., a measure of change in performance on the particular skill that is targeted. As noted above, we might want to use a broader assessment for our main outcome measure, to indicate how far there is generalisation beyond the specific skills that have been targeted.
 
 ## Classroom exercise
+
+In their analysis of the original data on the Hawthorne effect, @levitt2011 found that output rose sharply on Mondays, regardless of whether artificial light was altered. Should we be concerned about possible effects of the day of the week or the time of day on intervention studies?  For instance:
+Would it matter if all participants were given a pre-test on Monday and a post-test on Friday?  
+Or if those in the control group were tested in the afternoon, but those in the intervention group were tested in the morning?  
+
+If there is a bias introduced by date or time, is it random or systematic?  
+
 
  
