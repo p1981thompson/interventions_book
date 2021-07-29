@@ -21,7 +21,7 @@ E.	Create pairs of people matched on a key variable such as age, and then toss a
 
 If you have read this far, it is hoped that you will identify that B is clearly a flawed approach. Not only does it fail to equate the intervention and control groups at the outset, it also is likely to result in regression to the mean, so that greater gains will be seen for the intervention vs. the control group, for purely spurious statistical reasons. Despite its obvious flaws, this approach is sometimes seen in published literature – often taken to the extreme where an intervention group with a disorder is compared to a 'control' group with no disorder. This makes no sense at all – you are not controlling for anything unless the groups are equivalent at the outset, and so cannot evaluate the intervention this way.  
 
-Approach A is an improvement, but it is still prone to bias, because there may be systematic differences between people who are identified early in the recruitment phase of a study and later on. For instance, those who sign up immediately may be the most enthusiastic. Approach A also creates problems for blinding, which is discussed further in Chapter 9.  
+Approach A is an improvement, but it is still prone to bias, because there may be systematic differences between people who are identified early in the recruitment phase of a study and later on. For instance, those who sign up immediately may be the most enthusiastic. Approach A also creates problems for allocation concealment, which is discussed further in Chapter 8.  
 
 Most people think that Approach C as a reasonable way to achieve equal group sizes and avoid the kinds of 'time of recruitment' issues that arise with Approach A. But this is not a random approach and would therefore be regarded as problematic by modern standards of trials design. One reason, which we will discuss at more length in Chapter 8, is that this method could allow the researcher to influence who gets into the study. Suppose the experimenter allocates aphasic patients to a study to improve word-finding according to some systematic method such as their serial order on a list, but notices that the next person destined for the intervention group has particularly profound difficulties with comprehension. It may be sorely tempting to ensure that he had an 'odd' number rather than an 'even' number and so ended up in the control group. Similar objections arise to methods such as using a person's case number or date of birth as the basis for intervention assignment: although this may be a fixed characteristic of the person and so appear to avoid bias, it raises the possibility that the experimenter could simply decide not to include someone in the study if they were destined for the intervention group and looked unpromising. 
 
@@ -131,7 +131,7 @@ This method, however, raises new problems, because we now have a confound betwee
 
 ### Class exercise
 
-Perform a literature search for an intervention/disorder of interest using the search term 'randomised controlled trial' or 'RCT', and download the article.
+Perform a literature search for an intervention/disorder of interest using the search term 'randomised controlled trial' or 'RCT', and download the article.  
  - Is the randomisation process clearly described? 
  - Is it adequate?
 
