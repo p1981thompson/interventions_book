@@ -1,0 +1,242 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+<!---Paul -I have messed around with the permutations bit and am not 100% sure I have it right - in trying to explain it to others I realised I may have got the wrong end of the stick.  -->
+
+# False positives, p-hacking and multiple comparisons
+```{r packages12, echo=F,warning=F,message=F}
+list_of_packages<-c("tidyverse","kableExtra","knitr","MASS")
+new.packages <- list_of_packages[!(list_of_packages %in% installed.packages()[,"Package"])]
+if(length(new.packages))install.packages(new.packages,dependencies = TRUE)
+
+library(tidyverse)
+library(kableExtra)
+library(knitr)
+library(MASS)
+library(dplyr)
+library(gtools) #for permutations
+
+```
+
+Let us look again at the table of possible outcomes that can arise if we use p-values to decide if a result is statistically significant or not. In this chapter, our focus will be on the top right hand corner - the False Positive. 
+
+  
+```{r confusionMat, echo=FALSE, message=FALSE, warnings=FALSE,results='asis'}
+options(kableExtra.html.bsTable = T)
+mymat<-matrix(NA,nrow=2,ncol=3)
+
+mymat[,1]<-c("Reject Null hypothesis","Do Not Reject Null Hypothesis")
+
+mymat[,2]<-c("True Positive","False Negative \n (Type II error)")
+mymat[,3]<-c("False Positive \n (Type I error)","True Negative")
+
+mymat<-as.data.frame(mymat)
+names(mymat)<-c("","Intervention effective","Intervention ineffective")
+
+knitr::kable(mymat,escape = F, align = "c", booktabs = T, caption = 'Outcomes of hypothesis test') %>%
+  kable_styling(c("striped", "bordered"), latex_options = "striped", full_width = F) %>%
+  column_spec(1:1, bold = T) %>%
+  column_spec(1:3,width = "9em") %>%
+  add_header_above(c(" ","Ground truth" = 2))
+```
+
+
+
+### Type I error ($\alpha$)
+
+**A false positive occurs when the null hypothesis is rejected but a true effect is not actually present.** The "false positive" is also referred to as a Type I error, but this can be hard to remember. One useful mnemonic is to think of the sequence of events in the fable of the boy who cried wolf. This boy lived in a remote village and he used to have fun running out to the farmers in the fields and shouting "Wolf! Wolf!" and watching them all run inside. The farmers were making an (understandable) Type I error, of concluding there was a wolf when in fact there was none.  One day, however, a wolf turned up. The boy ran into the fields shouting "Wolf! Wolf!" but nobody took any notice of him, because they were used to his tricks. Sadly, everyone got eaten because they had made a Type II error, assuming there was no wolf when there really was one.  
+
+The type I error rate is controlled by setting the "significance criterion" at 5% ($\alpha=0.05$), or sometimes more conservatively 1% ($\alpha=0.01$). With $\alpha=0.05$, on average 1 in 20 "statistically significant" results will be false positives; when it is .01, then 1 in 100 will be false positives. The .05 cutoff is essentially arbitrary, but very widely adopted in the medical and social sciences literature, though debate continues as to whether a different convention should be adopted (@benjamin2018, @lakens2018).  
+
+### Reasons for false positives  
+
+There is one obvious reason why researchers get false positive results: chance. It follows from the definition given above, that if you adopt an alpha level of .05, you will wrongly conclude that your intervention is effective in 1 in 20 studies.  This is why we should never put strong confidence in, or introduce major policy changes on the basis of, a single study. The probability of getting a false positive once is .05, but if you replicate your finding, then it is far more likely that it is reliable - the probability of two false positives in a row is .05 * .05 = 0025, or 1 in 400.  
+
+Unfortunately, though, false positives and non-replicable results are far more common in the literature than they should be if our scientific method was working properly. One reason, which will be covered in Chapter 19, is publication bias. Quite simply, there is a huge bias in favour of publishing papers reporting "significant" results, with null results getting quietly forgotten.  
+
+A related reason is a selective focus on positive findings _within_ a study. Consider a study where the researcher measures children's skills on five different measures, comprehension, expression, mathematics reading, and motor skills, but only one of them, comprehension, shows a statistically significant improvement (p < .05) after intervention that involves general "learning stimulation". It may seem reasonable to delete the other measures from the write-up, because they are uninteresting. Alternatively, the researcher may argue that there is a good reason why the intervention worked for this specific measure. Unfortunately, this would be badly misleading, because the statistical test needed for a study with five outcome measures is different from the one needed for a single measure. Failure to understand this point is widespread - insofar as it is recognised as a problem, it is thought of as a relatively minor issue.  Let's look at this example in more detail to illustrate why it is so serious. 
+
+We assume in the example above that the researcher would have been equally likely to single out the "significant" measure, regardless of which one it was, and tell a good story about why the intervention was specifically effective with that task. If that is so, then interpreting a p-value for each individual measure is inappropriate, because the implicit hypothesis that is being tested is "do _any_ of these measures improve after intervention?". The probability of a false positive for any one measure is 1 in 20, but the probability that _at least_ one measure gives a false positive result is higher.  We can work it out as follows:
+
+- With $/alpha$ set to. 05, what is the probability that any one measure gives a _nonsignificant_ result? = .95.
+- What is the probability that *all five measures* give a _nonsignificant_ result? We multiply all the probabilities together, .95 * .95 * .95 * .95 * .95 = .77.
+- So it follows that the probability that _at least one_ measure gives a p-value < .05 is 1-.77 = .23.
+
+In other words, with five measures to consider, the probability that at least one of them will give us p < .05 is not 1 in 20 but 1 in 4. The more measures there are, the worse it gets.  We will discuss solutions to this issue below (see Multiple hypothesis testing).  
+
+Psychologists have developed a term to talk about the increase in false positives that arises when people pick out results on the basis that they have a p-value of .05, regardless of the context - *p-hacking*. And another word, *HARKing*, or "hypothesising after the results are known" (@kerr1998) is used to describe the tendency to rewrite not just the Discussion but also the Introduction of a paper to fit the result that has been obtained. Sadly, researchers are not just unaware that these behaviours can dramatically increase the rate of false positives in the literature - they are often encouraged by senior figures to adopt exactly these practices (@bem2004).  Perhaps the most common error is to regard a p-value as a kind of inherent property of a result that reflects its importance regardless of context. In fact, context is absolutely key: a single p-value below .05 has a very different meaning in a study where you only had one outcome measure than in a study where you planned to test several measures. 
+
+A related point is that you should never generate and test a hypothesis using the same data. After you have run your study, you may be enthusiastic about doing further research with a specific focus on the comprehension outcome measure. That's fine, and in a new study with specific predictions about comprehension you could adopt $\alpha$ of .05 without any corrections. Problems arise when you subtly change your hypothesis in the course of the study from "Do any of these N measures show interesting results?" to "Does comprehension improve after intervention?", and apply statistics as if the other measures had not been considered.  
+
+Selection of one measure from among many is just one form of p-hacking. Another common practice has been referred to as the "garden of forking paths": the practice of trying many different analyses, including making subgroups, changing how variables are categorised, excluding certain participants post hoc, or applying different statistical tests, in the quest for something significant. This has all the problems noted above in the case of selecting from multiple measures, except it is even harder to make adjustments to the analysis to take it into account because it is often unclear exactly how many different analyses could potentially have been run. With enough analyses it is almost always possible to find something that achieves the magic cutoff of p < .05. 
+
+This animation https://figshare.com/articles/figure/The_Garden_of_Forking_Paths/2100379 tracks how the probability of a "significant" p-value below .05 increases as one does increasingly refined analyses of hypothetical data investigating a link between handedness and ADHD - with data split according to age, type of handedness test, gender, and whether the child's home is rural or urban. For each binary split, the number of potential contrasts doubles, so at the end of the path there are 16 potential tests that could have been run, and the probability of at _at least one_ "significant" result in one combination of conditions is .56.  
+
+There are several ways we can defend ourselves against a proliferation of false positives that results if we are too flexible in data analysis:  
+
+- Pre-registration of the study protocol, giving sufficient detail of measures and planned analyses to prevent flexible analysis - or at least make it clear when researchers have departed from the protocol. We cover pre-registration in more detail in chapter 20.
+
+- Using statistical methods to correct for multiple testing. Specific methods are covered below. Note, however, that this is only effective if we correct for all the possible analyses that were considered. 
+
+- "Multiverse analysis": explicitly conducting all possible analyses to test how particular analytic decisions affected results.  This is beyond the scope of this book, as it is more commonly adopted in non-intervention research context (@steegen2016) when analysis of associations between variables is done with pre-existing data sets.
+
+
+## Adjusting statistics for multiple hypothesis testing  
+
+As noted above, even when we have a well-designed and adequately powered study, if we collect multiple outcome variables or if we are applying multiple tests to the same data, then we increase our chance of finding a false positive. Returning to the idea that we have a type I error rate for a single test at 5%, then suppose we apply $k$ tests to our data. We increase our false positive rate dramatically for the set of tests, officially known as the family-wise error rate (FWER). The new significance level is given by $1-(1-\alpha)^{k}$ (i.e. the probability of finding at least one false positive). 
+
+```{r familywise,echo=F, fig.cap="Plot of relationship between familywse error rate and number of statistical tests"}
+k <- seq(1:100)
+FWE <- (1-(1-0.05)^k)
+fwe_dat<-data.frame(FWE=FWE,k=k)
+ggplot(data=fwe_dat,aes(k,FWE,type="l"))+geom_line(size=1.2,colour="blue")+theme_bw()+geom_segment(aes(x=10,y=0,xend=10,yend=0.4),linetype="dashed",size=1.2)+geom_segment(aes(x=0,y=0.4,xend=10,yend=0.4),linetype="dashed",size=1.2)+xlab("Number of tests, k")+ylab("Familywise Error (FWE)")
+
+```
+
+Figure \@ref(fig:familywise) shows the relationship between the familywise error rate and the number of tests administered to the data. Note that the left-most point of the blue line corresponds to the case when we have just one statistical test, and the probability of a false positive is .05. The dotted line shows the case where we performed 10 tests (k=10), increasing our chance of obtaining a false positive to approximately 40%.  Clearly, the more tests applied, the greater the increase in the chance of at least one false positive result. Although it may seem implausible that anyone would conduct 100 tests, the number of implicit tests can rapidly increase if sequential analytic decisions multiply, as shown in the Garden of Forking Paths example.
+
+
+There are many different ways to adjust for the multiple testing in practice. We shall discuss some of the most commonly applied.
+
+### Bonferroni Correction
+The Bonferroni correction is both the simplest and most popular adjustment for multiple testing. The test is described as "protecting the type I error rate", i.e. if you want to make a false positive only 1 in 20 studies, the Bonferroni correction specifies a new $\alpha$ level that is adjusted for the number of tests. The Bonferroni correction is very easy to apply: you just divide the $\alpha$ by the number of tests conducted. 
+
+For example, say we had some data and wanted to run multiple t-tests between two groups on 10 outcomes which all measure an effect of interest. The Bonferroni correction would adjust the $\alpha$ level to be 0.05/10 = 0.005, which would indicate that the true false positive rate would be $1-(1-\alpha_{adjusted})^{n} = 1-(1-0.005)^{10} = 0.049$ which approximates our original $\alpha$. Thus we have successfully controlled our type I error rate at approximately 5%.
+
+It is not uncommon for researchers to report results both with and without Bonferroni correction - using phrases such as "the difference was significant but did not survive Bonferroni correction". This indicates misunderstanding of the statistics. The Bonferroni correction is not some kind of optional extra in an analysis that is just there to satisfy pernickity statisticians. If it is needed - as will be the case when multiple tests are conducted in the absence of clear a priori predictions -  then the raw uncorrected p-values are not meaningful, and should not be reported. 
+
+Bonferroni is widely used due to its simplicity but it has the consequence that it can be overly conservative. We say that a test is overly conservative if we over-correct in some cases, increasing  type II errors and reducing statistical power. This is often the case when we have some dependency between the outcomes measures.
+
+### False Discovery rate (FDR)
+The false discovery rate differs from the Bonferroni as the correction controls the expected proportion of false positives rather than all false positives.
+
+$FDR = \frac{False\ positive}{False\ positive\ +\ True\ positive}$
+
+We will present two common techniques for FDR procedure, Benjamini-Hochberg (BH), and Benjamini-Yekutieli (BY). The BH procedure can be summarized into four steps:
+
+1. Sort a set of p-values from a set of multiple comparisons into ascending order.
+2. For each p-value, assign a rank. For example, the lowest p-value would be 1 and the second lowest would be 2, and so on.
+3. Next we need to calculate a BH critical value for each p-value. We use the formula, $(i/n)\alpha$, where $i$ is a particular p-value's rank; and $n$ is the number of tests.
+4. Original p-values are now compared against the BH critical values (3), finding the largest p-value that is smaller than the critical value.
+
+We can illustrate this procedure by looking at an example. We revisit the set of t-tests from our Bonferroni correction, where we concluded that only those tests with p < .005 would be regarded as significant. The FDR approach is preferred because we know that the Bonferroni correction is overly conservative, as some of the outcome measures are moderately correlated with each other. 
+
+```{r BYexample, echo=F,message=F,warning=F,results="asis"}
+options(kableExtra.html.bsTable = T)
+P_val_tab<-data.frame(Variable=paste0("X",1:10),Rank=1:10,alpha=rep(0.05,10),p.value=c(0.002,0.004,0.008,0.012,0.023,0.041,0.054,0.091,0.12,0.2))
+P_val_tab$BH<-(P_val_tab$Rank/10)*P_val_tab$alpha
+P_val_tab$BY<-1:10
+
+for(i in 1:10)
+{
+P_val_tab$BY[i]<-round((P_val_tab$Rank[i]/10)*(P_val_tab$alpha[i]/sum(1/seq(1:P_val_tab$Rank[i]))),3)
+}
+P_val_tab %>%
+  mutate(BH = cell_spec(BH, color = "black", 
+                    background = c(rep("#00FF00",4),rep("#FFFFFF",6))),
+         Bonf. = cell_spec(p.value, color = "black", 
+                    background = c(rep("#3399FF",2),rep("#FFFFFF",8))),
+         BY = cell_spec(BY, color = "black", 
+                    background = c(rep("#FF0000",3),rep("#FFFFFF",7)))) %>%
+knitr::kable(escape = F,align = "c", booktabs = T,caption = "Corrected p-values using several different methods (Bonferroni, BH, BY)") %>%
+  kable_styling(c("striped","condensed"), latex_options = "striped", full_width = F)
+  
+```
+
+Table \@ref(tab:BYexample) shows the p values obtained from 10 t-tests on data obtained from the same subjects but different outcome measures. If we ignore the fact that we are performing 10 tests, we might conclude that the first six variables(x1-x6) are statistically significant, but this would be misleading. Using the BH procedure, we find that only X1-X4 are statistically significant under a more robust FWER (green coloured cells). Had we chosen the more conservative Bonferroni correction, we would only find X1 and X2 remain statistically siginficant ($\alpha_{Bonf}=0.05/10=0.005$, blue coloured cells).
+
+The second method that controls the False discovery rate is the Benjamini-Yekutieli (BY), which is a more conservative correction but allows for dependence between the tests (i.e. the tests are correlated; therefore, the p-values will also be correlated). The adjustment resembles the BH procedure with an additional constraint,
+
+$(i/n)(\frac{\alpha}{\sum_{i=1}^{k} 1/i})$
+
+Table \@ref(tab:BYexample) shows the p values that remain statistically significant under the Benjamini-Yekutieli adjustment (coloured in red). In our example, the BY is more conservative than the BH but is less conservative than the Bonferroni.
+
+<!---Note from DB. I am having difficulty understanding under what circumstances you would prefer BY to BH. And it seems I am not alone: https://stats.stackexchange.com/questions/63441/what-are-the-practical-differences-between-the-benjamini-hochberg-1995-and-t.  I wonder if we might *just* mention BY to keep this simple; it does seem that BY specifically addresses correlated outcome measures, which is of particular interest I think as this is a common thing in language intervention research.-->
+
+### Permutation methods  
+
+In conventional applications of Null Hypothesis Significance Testing, we work out the cutoff point to select a particular p-value from knowledge of the normal distribution. Resampling techniques offer a new perspective on correcting for multiple testing, in which we estimate the distribution of the null hypothesis from our observed data. The basic idea is that if we have participants from groups 1 and 2, we could shuffle them randomly and this gives us a way to estimate the distribution of scores under the null hypothesis. One benefit of this approach is that the statistical significance is estimated from the data, rather than from an abstract normal distribution. The permutation approach also has the added benefit that properties of the data, such as non-normality of the distribution, are carried through in the permuted data sets. The general procedure is as follows:
+
+1. Using the original data set, we compute the means for the two groups (I = intervention and C = control), and a test statistic and corresponding p-value are calculated. 
+2. Next, we pool the two groups and permute (resample) the data to give two new groups of the same size as I and C, but with different allocation to the two groups, to represent a different permutation of I and C. For instance, if we just had 3 in group I, and 3 in group C, the 6 people could be divided into 2 groups in 20 ways:
+
+```{r permutations,echo=F,include=T}
+z <- 1:6
+mycomb<-combinations(6,3,z,repeats.allowed=F) 
+#all permutations, but order within a group does not matter, so we need to crunch down, e.g. 123 456 is same as 123 465
+I <- vector()
+C <- vector()
+for (i in 1:nrow(mycomb)){
+  I <- c(I,paste0(mycomb[i,],collapse=""))
+  cbit <- paste0(z[-mycomb[i,1:3]],collapse="")
+  C <- c(C,cbit)
+}
+
+allcombs <- data.frame(cbind(I,C))
+colnames(allcombs)<- c('Group I','Group C')
+
+allcombs[2:19,] #Needs formatting - maybe just show top of table? Explain first row is actual allocation
+
+```
+
+In this example, for each of these 19 new ways of forming groups, we wpuld calculate means, and the test statistic and associated p-value.  The idea is then to see how commonly we would find a p-value at least as small as the one obtained with the true allocation to groups.  In practice, with anything other than tiny sample sizes, the number of potential permutations of the data into two groups is enormous, and it could take days to run the tests.  Thus, rather than taking all permutations, a random sample of the possible groupings is considered (typically more than 1,000). Each time the test statistic and p-value are recorded. We then end up with a distribution of p-values - one from each permutation. 
+4. We then count the proportion of permutations that give a p-value smaller than the true p-value from the true allocation to groups. This is the empirical probability of obtaining a p-value that low when group allocation is made at random. 
+
+
+```{r permutationstest,echo=F,message=F,warning=F,fig.width=5,fig.cap="Permutation distributions for individual tests"}
+
+set.seed(123)
+
+#generate some t-test data on 10 variables
+
+mysig <- matrix(0.2,4,4)
+diag(mysig) <- 1
+
+permdata<-mvrnorm(100,rep(0,4),mysig)
+permdata<-as.data.frame(permdata)
+permdata$group<-factor(rep(c(1,2),50))
+permdata[permdata$group=="2",1:4] <-permdata[permdata$group=="2",1:4]+1
+permdata$ID<-1:100
+
+actual_pval <- vector(mode="numeric",4)
+  for (j in 1:4) 
+{
+    t <- t.test(permdata[permdata$group=="1",j],permdata[permdata$group=="2",j], alternative="two.sided")
+    actual_pval[j] <- t$p.value
+  }
+
+myp<-data.frame(pvalue=actual_pval,x=1:4)
+
+#-------------------------------------------------------------#
+
+niter <- 1000
+my_p <- data.frame(matrix(NA,nrow=niter,ncol=4))
+
+for (i in 1:niter) {
+  for (j in 1:4) {
+    
+    perm.g1s <- permdata %>% dplyr::select(paste0("V",j),group) %>% filter(group==1) %>% sample_n(50, replace=T)
+    perm.g2s <- permdata %>% dplyr::select(paste0("V",j),group) %>% filter(group==2) %>% sample_n(50, replace=T)
+    
+        perm.test <- data.frame(g1=perm.g1s[,1],g2=perm.g2s[,1])
+        t <- t.test(perm.test$g1, perm.test$g2, alternative="two.sided")
+        my_p[i,j] <- t$p.value
+  }
+}
+
+q <- apply(my_p, MARGIN = 2, quantile, probs = c(0.05, 0.5, 0.95))
+q <- as.data.frame(t(q))
+names(q) <- c("low","median","up")
+q$Variable <- 1:4
+
+ggplot(data=q,aes(median,Variable)) + geom_errorbarh(aes(xmin=low, xmax=up),size=1,alpha=0.25) +
+scale_x_log10() + ylab("Variable") + xlab("p-value") + scale_y_continuous(breaks=NULL)+
+geom_point(data=myp, aes(y=x,x=pvalue), size=4,shape=4)+theme_bw()
+
+```
+
+Suppose we have two groups of individuals and have measured language performance using three different instruments. We choose to use the Student's two independent samples t-test sequentially to test for differences between the two groups of individuals on each of the three measures. We have chosen not to use a correction that adjusts the p-values, instead we decide that a permutation approach will be more robust. Figure \@ref(fig:permutationstest) shows the result of our analysis using the permutation corrected t-tests. The cross points are the actual p-values of the t-tests on the original data. The 95% confidence intervals are constructed from the permuted distributions.  
+<!---Comment from DB - I like this example, but it will need more basic explanation I think -->
+
