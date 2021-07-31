@@ -1,0 +1,110 @@
+# (PART) Experimental Studies {-}
+
+# Putting it all together: the randomised controlled trial
+
+The randomised controlled trial (RCT) is regarded by many as the gold standard method for evaluating interventions. In the next chapter we will discuss some of the limitations of this approach that can make it less than ideal for evaluating SLT interventions. But in this chapter we'll look at the ingredients of a RCT that make it such a well-regarded method, and introduce the basic statistics that are used to analyse the results.
+
+A RCT is effective simply because it is designed to reduce all of the systematic biases that were covered in previous chapters. The inclusion of a control group ensures that we can distinguish genuine differences in outcome caused by the intervention from other reasons for change over time (Chapter 5). Randomisation of participants to intervention and control groups avoids bias caused either by participants' self-selection of intervention group, or experimenters' determining who gets what treatment.  In addition, as noted in Chapter 7, where feasible, both participants and experimenters may be kept unaware of who is in which treatment group, giving a double-blind RCT.
+ <!--- We haven't actually discussed participants being blind to status! Need to add this either to previous chapter, or introduce it here-->
+
+RCTs have become such a bedrock of medical research that standards for reporting them have been developed. In Chapter 8 we saw the CONSORT flowchart, which is a useful way of documenting the flow of participant through a trial. CONSORT stands for Consolidated Standards of Reporting Trials, which are endorsed by many medical journals. Indeed, if you plan to publish an intervention study in one of those journals, you are likely to be required to show you have followed the guidelines. The relevant information is available on the 'Enhancing the QUAlity and Transparency Of health Research' [EQUATOR](http://www.equator-network.org) network website. The EQUATOR network site covers not only RCTs but also the full spectrum guidelines of most types of clinical research designs. 
+
+For someone starting out planning a trial, it is worth reading the CONSORT Explanation and Elaboration document [@moher2010], which gives the rationale behind different aspects of the CONSORT guidelines. This may seem rather daunting to beginners, as it mentions more complex trial designs as well as a standard RCT comparing intervention and control groups and assumes a degree of statistical expertise (see below). It is nevertheless worth studying, as adherence to CONSORT guidelines is seen as a marker of study quality, and it is much easier to conform to their recommendations if a study is planned with the guidelines in mind, rather than if the guidelines are only consulted after the study is done.
+
+## Statistical analysis of a RCT
+
+Statisticians often complain that researchers will come along with a collection of data and ask for advice as to how to analyse it. Sir Ronald Fisher (one of the most famous statisticians of all time) commented:
+
+> “To consult the statistician after an experiment is finished is often merely to ask him to conduct a post mortem examination. He can perhaps say what the experiment died of.”
+
+-Sir Ronald Fisher, Presidential Address to the First Indian Statistical Congress, 1938.
+
+His point was that very often the statistician would have advised doing something different in the first place, had they been consulted at the outset. Once the data are collected, it may be too late to rescue the study from a fatal flaw.  
+
+Many of those who train as SLTs or other allied health professions get rather limited statistical training. In some cases, SLTs may have access to expert advice from statisticians, but we suspect that is rarely the case. We have, therefore, a dilemma: many of those who have to administer interventions have not been given the statistical training that is needed to evaluate their effectiveness.
+
+We do not propose to turn readers of this book into expert statisticians, but we hope to instil a basic understanding of some key principles that will make it easier to read and interpret the research literature, and to have fruitful discussions with a statistician if you are planning a study. 
+
+Another complaint of statisticians is that researchers will ask "How should I analyse my data?" without appreciating that there is no one right answer: it depends crucially on what hypothesis is being tested. In the case of an intervention trial, the hypothesis will usually be "did the intervention make a difference to the outcome?"  There is, in this case, a clear null hypothesis – that the intervention was ineffective, and the outcome of the intervention group would have been just the same if it had not been done.  The null hypothesis testing approach answers just that question: it tells you how likely your data are if the the null hypothesis was true. To do that, you compare the distribution of outcome scores in the intervention group and the control group, as explained in Chapter 10. And as emphasised earlier, we don't just look at the difference in means between two groups, we consider whether that difference is greater than you'd expect given the variation _within_ the two groups. This is exactly what the term 'analysis of variance' refers to.
+
+## Steps to take before data analysis  
+
+- Ggeneral sanity check on dataset - are values within expected range?
+- Checking assumptions  
+- Plotting data to get sense of likely range of results
+
+## Sample dataset with illustrative analysis
+
+Figure \@ref(fig:pirates10) shows results from two groups from a fictitious study that compares the impact of vocabulary training on children's word knowledge in a sample of 4-year-olds. A case like this, where two groups receive intervention or control condition in the same period is referred to as a two arm parallel group design - a very common deisgn in RCTs.  Allocation to intervention was randomised, and thirty children received individualised intervention over a period of three months, while the remainder received an equivalent amount of time with the therapist having 'business as usual', but without a focus on vocabulary. The primary outcome measure was raw score on the British Picture Vocabulary Scale. This had also been administered at baseline, but we will focus first just on the outcome results. 
+
+Table 10.1
+
+Table 10.1 shows the mean and standard deviation for each group. The mean is the average, obtained by just summing all scores and dividing by the number of cases. The standard deviation gives an indication of the spread of scores around the mean. As discussed in Chapter 10, it is a key statistic for measuring an intervention effect. Figure \@ref(fig:pirates10) illustrates why this is the case. Here we see results from three studies. In each of them the group means are the same, but the standard deviations are very different. Study X shows an impressive group effect with little overlap between the groups; study Z shows a distinctly unimpressive group effect where there is substantial overlap, and study Y – which corresponds to Table 10.1 is intermediate. Very often with research results, we have something resembling the scenario shown in study Y: one mean is higher than the other, but there is overlap between the groups.  Statistical analysis gives us a way of quantifying how much confidence we can place in the group difference: in particular, how likely is it that there is no real impact of intervention and the observed results just reflect the play of chance.
+
+```{r pirates10,echo=TRUE,message=F,warning=F,fig.cap='Pirate plot for simulated for different SDs'}
+library(tidyverse)
+library(yarrr) # for pirate plots (see below)
+set.seed(1981)
+mySDs<-c(0.25,1,3) #various standard deviations (SD)
+myES<-0.5 #effect size for difference between groups (you can try changing this)
+myN<-30
+ 
+#Simulate data for two groups each with different SDs
+myvectorA<-c(rnorm(n = myN, mean = 0, sd = mySDs[1]),rnorm(n = myN, mean = myES, sd = mySDs[1]))
+myvectorB<-c(rnorm(n = myN, mean = 0, sd = mySDs[2]),rnorm(n = myN, mean = myES, sd = mySDs[2]))
+myvectorC<-c(rnorm(n = myN, mean = 0, sd = mySDs[3]),rnorm(n = myN, mean = myES, sd = mySDs[3])) 
+    
+#Combine the data into a single dataframe (like a spreadsheet within R).
+mydf <- data.frame(X=myvectorA,Y=myvectorB,Z=myvectorC, Group=rep(c('A','B'),each=myN)) #NA indicates missing data
+    
+# Change the data into long format, see 
+mydf_long<-gather(mydf,key='Study',value='Score',-Group)
+    
+pirateplot(Score~Group+Study,theme=1,cex.lab=1.5,data=mydf_long, point.o=1, xlab="", ylab="Score")
+    
+```
+### Simple t-test on outcome data  
+The simplest way of measuring the intervention effect is to just compare outcome measures on a t-test. We can use a one-tailed test with confidence, given that we anticipate vocabulary outcomes will be better after intervention.  One-tailed tests are often treated with suspicion, because they can be used by researchers engaged in p-hacking (see chapter 11), but where we predict a directional effect, they are entirely appropriate and give greater power than a two-tailed test: see http://daniellakens.blogspot.com/2016/03/one-sided-tests-efficient-and-underused.html. When reporting the result of a t-test, always report all the statistics: the value of t, the degrees of freedom, the means and SDs, the mean difference, and the confidence interval around the mean difference, as well as the p-value. This not only helps readers understand the magnitude and reliability of the effect of interest: it also means that the study can readily be incorporated in a meta-analysis. 
+
+<--START CUSTOM CHUNK-->
+#T-tests, analysis of variance, and linear regression  
+Mathematically, the t-test is equivalent to two other methods: Analysis of Variance and linear regression. When we have just two groups, all of these methods achieve the same thing: they divide up the variance in the data into variance associated with group identity, and other (residual) variance, and provide a statistic that reflects the ratio between these two sources of variance. See this blogpost for more details: http://deevybee.blogspot.com/2017/11/anova-t-tests-and-regression-different.html
+ 
+
+<--START CUSTOM CHUNK-->
+
+### T-test on difference scores  
+The t-test on outcomes is easy to do, but it misses an opportunity to control for one unwanted source of variation, namely individual differences in the initial level of vocabulary. For this reason, researchers often prefer to take difference scores: the difference between outcome and baseline measures, and apply a t-test to these. While this had some advantages over reliance on raw outcome measures, it also has disadvantages, because the amount of change that is possible from baseline to outcome is not the same for everyone. A child with a very low score at baseline has more "room for improvement" than one who has a high score. For this reason, it is preferable to use a method of statistical adjustment for baseline scores, analysis of covariance. 
+
+### Analysis of covariance on outcome scores  
+Rather than taking difference scores, it is preferable to analyse differences in outcome measures after making a statistical adjustment that takes into account the initial baseline scores. In practice, this method usually gives results that are very similar to those you would obtain from an analysis of difference scores, but the precision, and hence the statistical power is greater. 
+
+### Linear mixed models (LMM) approach  
+Increasingly, reports of RCTs are using more sophisticated and flexible methods of analysis that can, for instance, cope with datasets that have missing data, or where distributions of scores are non-normal. 
+
+An advantage of the LMM approach is that it can be extended in many ways to give appropriate estimates of intervention effects in more complex trial designs - some of which are covered in chapters 14-16. Disadvantages of this approach are that it is easy to make serious mistakes in specifying the model for analysis if you lack statistical expertise, and the output is harder for non-specialists to understand.  If you have a simple design, such as that illustrated in this chapter, we would recommend that you start with a basic analysis of covariance to get a sense of the size of the intervention effect; results from a LMM should give greater precision of estimates, but effect sizes should be in the same basic ballpark range.  
+<!--- Paul's help needed here-->
+
+## Yet more bias: problems that can arise at the analysis stage
+
+### Dangers of too many outcome measures
+ 
+In chapter 11, we noted that the rate of false positive results in a study can be increased by p-hacking, where many outcome measures are included but only the "significant" ones are reported. This problem has been recognised in the context of clinical trials for many years, which is why clinical trials are usually registered for a primary outcome measure of interest: indeed, many journals will not accept a trial for publication unless it has been registered on a site such as ClinicalTrials.gov. Secondary outcome measures are also specified but reporting of analyses relating to these outcomes should make it clear that they are much more exploratory. In principle, this should limit the amount of data dredging for an effect that is loosely related to the hypothesis of interest (typically, 'is the intervention effective?'). In practice, researchers do frequently engage in "outcome switching", which is not detected unless readers bother to check against the original trial registration (@goldacre2019).
+
+Beyond clinical intervention research, trial registration has not yet become standard for behavioural interventions, and so it is important to be aware of potential for a high rate of false positives when multiple outcomes are included. This does not mean that only a single outcome can be included:  It might be the case that the researcher requires multiple outcomes to determine the effectiveness of an intervention, for example, a quantity of interest might not be able to be measured directly, so several proxy measures are recorded to inform a composite outcome measure. In this case, a more complex multivariate analysis is needed, but this in turn may require a substantially greater sample size. 
+
+Finally, note that using many outcomes in a multiple testing framework can be suboptimal for discovering effects, if an overly conservative method of correction for multiple comparisons is used. This would mean that it is much harder to find an effect of interest, hyielding a high rate of type II errors - see Chapter 9. 
+ 
+### Dangers of post-hoc subgroups and covariates
+
+A related issue concerns post hoc analyses conducted after seeing the data. As noted in chapter 10, this practice can be highly misleading to both the researcher and the intended audience, unless these are reported correctly as exploratory analyses. If we look at the data and observe interesting patterns, then form subgroups of individuals based on these observations, we raise the likelihood that we will pursue chance findings rather than a true phenomenon. It can happen that the researcher is initially disappointed by a null result, but then notices that their hypothesis might be supported if a covariate is used to adjust the analysis or if a subgroup of particular individuals is analysed instead. This pattern of data exploration is, in principle, justified provided that the complete analysis time line is presented and 'badged' as exploratory. However, more commonly such analyses are presented as if they were part of the original plan, with results that favour an intervention effect being cherry-picked,  without documenting the other analyses that were conducted. This is another example of p-hacking.
+
+A related practice is the use of covariates to adjust analyses to achieve statistical significance. This can occur when a planned analysis proposes to fit, say a regression model, but the effects of interest do not reach statistical significance. It can be tempting to then try re-running the analysis including new covariates to see if the data can be "nudged" into significance. Many researchers do this without realising how far this practice opens the floodgates to false positive findings. In effect, it changes a process of hypothesis testing to an exploratory process, and with each additional covariate, we increase our chance of finding a false positive result. When reading reports of trials, it is worth looking out for analyses including covariates. If they are reported, you need to ask whether the results are also reported without the covariate effect, whether the covariate analysis was planned in the trial registration, and whether there might be good reason to anticipate in advance that that the covariate might affect the response to intervention. 
+
+## Class exercise  
+Find an intervention study of interest and check whether the protocol was deposited in a repository before the study began. If so, check the analysis against the preregistration (cf. @goldcare2019). 
+Note which analysis method was used to estimate the intervention effect.  
+Did the researchers provide enough information to give an idea of the effect size, or merely report p-values? Did the analysis method take into account baseline scores in an appropriate way? 
+
+
+

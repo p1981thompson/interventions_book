@@ -1,0 +1,156 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
+# Drawbacks of the RCT  
+
+It can be frustrating to be told that the RCT is the "gold standard" method for evaluating interventions, only to find it is impossible to implement in many settings. Consider, for instance, the case of electropalatography, a biofeedback intervention for speech sound disorders. Leniston and Ebbels (2021) note a number of barriers to evaluating its effectiveness through a standard RCT. The method requires expensive specialist equipment that is only available to a few speech-and-language therapists, and an individual artificial palate needs to be made for each client. The therapy is given over a series of sessions that can extend over several months, and require a highly trained therapist. Thus it is simply not feasible to recruit hundreds, let alone thousands of cases for a RCT. Masking of intervention condition is also not possible; both child and therapist know who is receiving intervention. Furthermore, children who would be eligible for this intervention are likely to be very varied, both in terms of their diagnosis and associated conditions, and in terms of the specific speech sounds that they have difficulty producing. In the next chapter, we describe alternative within-subject approaches to evaluation that can be used in this situation. Here, we elaborate further on the problems that are likely to limit application of RCTs to evaluation of interventions used by speech-and-language therapists.
+
+
+## Inefficiency: need for unfeasibly large samples
+
+Historically, experimental psychology studies using relatively small samples have been the norm for decades, regardless of effect size of interest. The vast majority of these studies have the potential to be underpowered and can potentially report false positive results. The change to using larger well powered studies has been somewhat slower than medical drug trial literature as the requirements for study design have been much more flexible as less regulated. Increasingly, we see studies with smaller effect sizes appearing in the literature but study size has remained relatively low. 
+
+In clinical RCTs, the required sample sizes can be into the thousands of individuals as the effect sizes and statistical analyses require this to give a statistical power of around 80% or more. These types of trials are usually well funded and have a multidisciplinary team of researchers to facilitate the trial (including expert clinicians, research nurses, statisticians, data managers, field interviewers|qualitative researchers,expert groups, and data entry clerks). When designing an RCT in education or psychology, the resource constraints, whether regarding time, available researcher assistants, or financial, can determine whether the trial is even feasible. 
+
+Effect sizes of interventions are frequently over-estimated in the planning stages of an RCT due to optimism for the new intervention that the researcher has developed, or using information to judge an intervention that itself has inherent bias, for example, small pilot studies or relying on reported effect sizes from a literature that is populated with underpowered studies or suffers from publication bias, i.e. omission of null results.
+
+Even when the research intervention has been well-planned and the effect size estimate is reasonably accurate, (for example, has used simulation or the smallest effect size of interest), the estimates can be pragmatically limiting. For example, if a study's population of interest is a rare condition or a particularly difficult to recruit sample. Other populations of interest may be highly variable and study designs needed to deal with this might also require additional individuals or larger numbers of observations. 
+
+
+
+## Heterogeneity and personalised intervention
+
+An RCT by design will assess the 'average' effect of the intervention observed in a study sample. Generally, the traditional RCT is not able to provide information on the effectiveness regarding specific individuals. If the RCT has been randomised correctly, then the identification of individuals 'on treatment' or 'control' is not possible without breaking the blinding. Hence, we can only discuss results in terms of average difference or effect size at the group level. Figure \@ref(fig:interventionhet) shows a hypothetical longitudinal parallel-group study. Average linear regression lines of intervention and controls group line is shown as solid black and dotted lines respectively. We can see that all individuals are plotted as separate coloured lines (red for control and blue for intervention). However, we highlight the average effect that is usually reported in black lines and can clearly see the variation in both groups around those averages. In some cases in the intervention group, the intervention did appear to make a difference, however, because we do not know what their response would have been if they were in the control group, then we have no ideal reference to judge the personalised effect.   
+
+```{r interventionhet, echo=FALSE,message=FALSE,warning=FALSE,fig.cap="shows a hypothetical longitudinal parallel-group study. Average linear regression lines of intervention and controls group line is shown as solid black and dotted lines respectively."}
+library(ggplot2)
+library(forcats)
+ 
+data(ChickWeight)
+ChickWeight2 <- subset(ChickWeight, Diet == 1|Diet == 2)
+ChickWeight2$Intervention <- ChickWeight2$Diet
+#levels(ChickWeight2$Intervention)=c("Control","Intervention")
+ChickWeight2<-ChickWeight2 %>% mutate(Intervention = fct_recode(Intervention, Control = "1", Intervention = "2"))
+
+ChickWeight2$Outcome <-ChickWeight2$weight
+
+reg1 <- lm(Outcome ~ Time, data = subset(ChickWeight2, Intervention == 'Control'))
+reg2 <- lm(Outcome ~ Time, data = subset(ChickWeight2, Intervention == 'Intervention'))
+
+predicted_df1 <- data.frame(Outcome = predict(reg1, subset(ChickWeight2, Intervention == 'Control')), Time=subset(ChickWeight2, Intervention == 'Control')$Time, Chick=subset(ChickWeight2, Intervention == 'Control')$Chick)
+predicted_df2 <- data.frame(Outcome = predict(reg2, subset(ChickWeight2, Intervention == 'Intervention')), Time=subset(ChickWeight2, Intervention == 'Intervention')$Time,Chick=subset(ChickWeight2, Intervention == 'Intervention')$Chick)
+
+ggplot(data=ChickWeight2,aes(x = Time, y = Outcome, group = Chick)) + geom_line(aes(colour=Intervention),alpha=0.5) +
+    geom_point(aes(colour=Intervention),alpha=0.5) + theme_bw() + geom_line(data = predicted_df1, aes(x=Time, y=Outcome),linetype='dashed') + geom_line(data = predicted_df2, aes(x=Time, y=Outcome))
+
+
+```
+
+
+## Transfer to real life: efficacy and effectiveness
+
+When designing a randomised controlled trial, it is important to consider the generalisation of the intervention's performance from the idealised setting of an RCT to how this would perform in a more pragmatic setting. In trials, conditions are usually highly controlled to ensure randomisation and experimental conditions are consistent for each participant. In practice, there is often little control over these conditions, for example, school-based interventions may not strictly adhere to the intervention timetable as they may prioritise other activities or fit the intervention around them. 
+
+In the clinical RCT setting, the potential mismatch between 'ideal' and 'real-world' (or 'in-practice') settings has been specifically addressed by designing trials as either Explanatory trials (Efficacy) or Pragmatic trials (Effectiveness). Typically in a clinical drug trial, the explanatory trial would be an earlier phase trial that tests for internal validity and the pragmatic trial would come later, using much larger samples of individuals and testing the external validity [@Patsopoulos_2011]. Singal and colleagues have summarised the notable differences between these trials [@Singal_2014]. Table 11.1, reproduced from [@Singal_2014], presents the key differences as summary bullet points.
+ 
+ 
+```{r diffeff,echo=FALSE,message=FALSE,warning=FALSE,results='asis'}
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(flextable)
+options(kableExtra.html.bsTable = T)
+
+dt <- matrix(c('Question',	'Does the intervention work under ideal circumstances?',	'Does the intervention work in real-world practice?',
+'Setting',	'Resource-intensive (ideal) setting',	'Real-world everyday clinical setting',
+'Study population',	'Highly selected, homogenous population (Several exclusion criteria)', 'Heterogeneous population (Few to no exclusion criteria)',
+'Providers',	'Highly experienced and trained', 'Representative usual providers',
+'Intervention',	'Strictly enforced and standardized. No concurrent interventions',	'Applied with flexibility. Concurrent interventions and cross-over permitted'),ncol=3,byrow=TRUE)
+
+dt <- as.data.frame(dt)
+colnames(dt) <- c(' ','Efficacy study',	'Effectiveness study')
+
+mytab1 <- flextable(dt)
+mytab1 <- theme_box(mytab1)
+mytab1 <- align( mytab1, align = "left", part = "all" )
+mytab1 <- autofit(mytab1)
+mytab1 <- bold(mytab1, j = " ")
+mytab1 <- bold(mytab1, part = "header")
+mytab1 <- set_caption(mytab1, "Table 11.1: Definitions of efficacy (explanatory trial) and effectiveness (pragmatic trial) in trial designs")
+mytab1
+
+# knitr::kable(dt,escape = F, align = "c", booktabs = T, caption = 'Differences between efficacy and effectiveness studies') %>%
+#   kable_styling(c("striped", "bordered"), latex_options = "striped", full_width = F)
+
+``` 
+ 
+Explanatory trials (Efficacy) are the most familiar trial design that is typically referred to in RCT literature. They are designed to assess specific interventions in an idealised setting where most elements are carefully controlled and monitored. Randomisation is used to ensure balance between control and intervention groups. In addition, inclusion and exclusion criteria are strictly adhered to prevent unnecessary confounding. 
+
+Pragmatic trials (Effectiveness) are designed to assess interventions in a naturalistic setting which will be a far less controlled environment. In this type of trial, the intervention may differ slightly depending on the setting and patient requirement. This differs from an explanatory trial which will typically compare against a placebo condition. The pragmatic trial will also collect a range of measures that are more patient-focused rather than a biological or behavioural marker.
+
+Table 11.2 is reproduced from @Porzsolt_2015, who describe the 13 steps to assessing efficacy and effectiveness.
+ 
+ 
+```{r step13,echo=FALSE,message=FALSE,warning=FALSE}
+library(tidyverse)
+library(knitr)
+#library(kableExtra)
+library(flextable)
+options(kableExtra.html.bsTable = T)
+
+dt13 <- matrix(c(
+'(1)',	'Phrase the primary and secondary study questions according to the principles of evidence-based medicine','',
+'(2)',	'Distinguish between primary and secondary outcomes of the study','',
+'(3)',	'Define inclusion criteria','',
+'(4)',	'Define exclusion criteria', 'Define any important risk factors related to any of the primary outcomes',
+'(5)',	'Define treatment options',	'Identify the most frequently used treatments from existing database',
+'(6)',	'Define appropriate study design according to primary study questions (superiority or equivalence or noninferiority study and set the limits for each study type)',	'Any pragmatic trial is a descriptive trial. There is only one common design for descriptive trials. Mention 95% CI',
+'(7)',	'Define the hypothesis (expected difference of experimental and control), mention α-/β-error, calculate the needed number of patients to confirm the hypothesis', 'Any of the selected individual treatments is considered the best possible treatment (in the individual situation for the individual patient)',
+'(8)',	'Ask eligible patients to sign informed consent for randomization, evaluation, and publication of data', 'Ask eligible patients to sign informed consent for evaluation and publication of data',
+'(9)',	'Allocate the patients randomly to the treatment options of the trial',	'Allocate patients to treatment options according to individual preferences and results of shared decision making',
+'(10)', 'Guarantee follow-up long enough to detect outcomes and most of the adverse effects','',
+'(11)', 'Compare the results of the randomized groups',	'Compare only results of groups with identical baseline risks (ie, stratified according to high, intermediate, and low risk). Include results of the “any other treatment” group for specificity control',
+'(12)', 'Apply the intent-to-treat (ITT) principle according to step (9)', 'Application of the ITT principle is not necessary as the risk groups were stratified',
+'(13)', 'Confirm statistical significance only if clinical effect is relevant (save statistical energy)',''),ncol=3,byrow=TRUE)
+
+dt13 <- as.data.frame(dt13)
+colnames(dt13) <- c('Step',	'Explanatory trial (conclusions derived from experimental studies completed under ideal conditions)',	'Pragmatic trial (conclusions derived from observations of real-world health care)')
+ft <- set_caption(myft, "Table 11.2: Thirteen steps to assess efficacy (explanatory trial) and effectiveness (pragmatic trial)")
+myft
+
+
+
+```
+
+
+myft <- flextable(dt13)
+myft <- theme_box(myft)
+myft <- myft %>% merge_at(i = 1, j = 2:3)
+myft <- myft %>% merge_at(i = 2, j = 2:3)
+myft <- myft %>% merge_at(i = 3, j = 2:3)
+myft <- myft %>% merge_at(i = 10, j = 2:3)
+myft <- myft %>% merge_at(i = 13, j = 2:3)
+myft <- align( myft, align = "center", part = "all" )
+myft <- bold(myft, j = "Step")
+myft <- bold(myft, part = "header")
+myft <- autofit(myft)
+my
+ 
+
+### Dangers of too many outcome measures
+ 
+Clinical intervention RCTs are usually registered for a single outcome measure of interest to limit the amount of data dredging for an effect that is loosely related to the hypothesis of interest (typically, 'is the intervention effective?'). Secondary outcome measures are also specified but reporting of analyses relating to these outcomes is often much more exploratory. This idea of fishing or data dredging is important in hypothesis testing (as we have seen in Chapter 10, multiple hypothesis testing) using more than one outcome measure, as the chance of finding a statistically significant results increases with the number of statistical tests that are performed. As we have previously seen, there are a number of corrections that can be applied to adjust the type I error rate or the family-wise error rate (Chapter 10). 
+
+Beyond clinical intervention research, behavioural and psychological intervention research is currently more flexible in the amount of outcomes that are recorded at testing and the amount that are actually appear documented in the final dissemination of results. This flexibility is often referred to as P-hacking [@Munafo_2017]. Preregistration of hypotheses and analyses prior to seeing the data help to alleviate the problem of questionable research practices, such as P-hacking or HARKing (hypothesising after results known). 
+
+In addition, too many outcome measures can substantially complicate the statistical analyses required to evaluate the research question of interest. It might be the case that the researcher requires multiple outcomes to determine the effectiveness of an intervention, for example, a quantity of interest might not be able to be measured directly, so several proxy measures are recorded to inform a composite outcome measure. In this case, a more complex multivariate analysis is needed, but this in turn may require a substantially greater sample size. 
+
+Finally, we may find that using many outcomes in a multiple testing framework using corrections can be suboptimal for discovering effects as many corrections can be conservative (i.e. the corrected significance level can be much harder to find an effect of interest, and actually increase the type II errors). 
+ 
+### Dangers of post-hoc subgroups and covariates
+
+A related issue posed by using 'too many outcomes', posthoc analyses conducted after seeing the data can be highly misleading to both the researcher and the intended audience unless reported correctly as exploratory analyses (also referred to as hypothesis generating). If we look at the data and observe interesting patterns, then subset those individuals based on these observations, we may find that we pursue chance findings rather than a true phenomenon. This is most commonly found when analysing some data with a particular analysis in mind, the researcher may get a result that are against their original hypothesis; however, they do observe that their hypothesis might be supported if a covariate is used to adjust the analysis or if a subgroup of particular individuals is analysed instead. This pattern of data exploration is, in principle, justified provided that the complete analysis time line is presented and 'badged' as exploratory. When this process cherry picks the analyses and results that favour their hypothesis without documenting all analyses conducted, this is another example of P-hacking.
+
+A related concept is the use of covariates to adjust analyses to significance. If a planned analysis proposes to fit, say a regression model, and the effects of interest do not reach statistical significance. It can be tempting to subsequently add in new covariates within the data, but this is again problematic as this addition of extra variables changes the parameter estimates of the existing variables. It can be the case that the effect of the covariate is purely coincidence leadind from randomness in the data. This is difficult to determine and within a replication of the study, we might discover this to be a false positive result. The reason being that we have altered a process of hypothesis testing to an exploratory process an with each new inclusion, we increase our chance of finding a false positive result. WE will disucss the concept of multiple testing later.
