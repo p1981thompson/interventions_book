@@ -107,7 +107,7 @@ ftable
 
 
 ```
-
+<!---the next sections possibly could go elsewhere - they apply to all designs, not just RCT--->
 
 ## Yet more bias: problems that can arise at the analysis stage
 
@@ -119,7 +119,7 @@ Beyond clinical intervention research, trial registration has not yet become sta
 Finally, note that using many outcomes in a multiple testing framework can be suboptimal for discovering effects, if an overly conservative method of correction for multiple comparisons is used. This would mean that it is much harder to find an effect of interest, yielding a high rate of type II errors - see Chapter 9. 
  
  
-<!---the next sections possibly could go elsewhere - they apply to all designs, not just RCT--->
+
 
 ### Dangers of post-hoc subgroups and covariates
 

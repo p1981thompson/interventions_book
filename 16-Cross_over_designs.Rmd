@@ -1,0 +1,121 @@
+#	Cross-over designs
+```{r packages15, message=F,warning=F,echo=FALSE}
+list_of_packages<-c("tidyverse","kableExtra","knitr","ggpubr")
+new.packages <- list_of_packages[!(list_of_packages %in% installed.packages()[,"Package"])]
+if(length(new.packages))install.packages(new.packages,dependencies = TRUE)
+
+library(tidyverse)
+library(kableExtra)
+library(knitr)
+library(ggpubr)
+
+```
+
+## Cross-over designs
+
+The standard two-arm RCT treats the intervention effect as a _between-subjects_ factor: i.e., the intervention and control groups include different people. An alternative approach, which can give greater statistical power, treats intervention as a _within-subjects_ factor, by comparing the same people in different phases of a study, during which they do or do not receive intervention. 
+
+The crossover design is a special case of the RCT where both control and intervention groups receive both conditions but in reverse orders to each other.  Here we focus on group studies: in the next chapter we look at the special case where a within-subjects approach is applied to a single person 
+
+
+```{r crossovertable,echo=F,message=F,warning=F}
+options(kableExtra.html.bsTable = T)
+#reference: "An introduction to randomized controlled clinical trials" by J.N.S. Matthews.
+
+alloc.mat<-as.data.frame(matrix(c("A","B","B","A"),2,2))
+colnames(alloc.mat)<-c("Period 1", "Period 2")
+rownames(alloc.mat)<-c("Group 1", "Group 2")
+
+
+
+knitr::kable(alloc.mat,escape = F, align = "c", booktabs = T, caption = 'Treatment Allocation Matrix') %>%
+  kable_styling(c("striped", "bordered"), latex_options = "striped", full_width = F) %>%
+  column_spec(1, bold = T) 
+```
+ 
+
+Possible outcomes of a cross-over study are shown in Figure x. The pattern seen in panel 1 is unlikely for an intervention that is intended to produce long-lasting effects – in SLT practice, it would not be expected that skills would decline after an effective intervention had been withdrawn. 
+
+### Traditional cross-over design
+
+The benefit of the crossover design is that a potentially more accurate evaluation of intervention comparison is achieved, as we compare individuals to themselves rather than controls who are different individuals. A secondary benefit is that crossover designs typically require fewer individuals, as a separate control group is not necessary. In effect, with a cross-over design, we can use two sources of information about the efficacy of intervention: comparing individuals across the two phases (_within subjects_) and comparing the two groups in each phase (_between subjects_)
+
+A crossover design is split into three phases, an initial phase where two groups are randomized (exactly the same as a parallel group design) to intervention and control. Once the first phase has elapsed, the individuals enter a washout phase (phase 2); this is important to allow any intervention effect to be removed before the groups are switched and phase 3 is started. By the end of the study, both groups have received intervention. The assessment of the intervention looks at the differences between phases 1 and 3 by group. We hope to see no group difference but a significant phase difference.
+
+The suitability of a cross-over design, and the anticipated results, depend crucially on the nature of the intervention.  A key question is whether or not the intervention is intended to have long-term effects that persist beyond the intervention phase. For most behavioural interventions administered by speech-and-language therapists, and indeed for educational interventions, the goal is to bring about long-term change. Exceptions would be communication aids such as auditory feedback masking, which decreases stuttering while the masker is switched on, but does not produce long-term change (@block2014). In this regard, most speech-and-language therapy interventions are unlike pharmaceutical trials, which often focus on the ability of specific drugs to provide symptomatic relief.
+
+Interventions intended to have long-term effects are not well-suited for a traditional crossover design, because the magnitude of the effect size will be diluted in phase 3. 
+<!--- best way to analyse?-->
+
+```{r crossoverplot, echo=F, message=F, warning=F, fig.width=8,fig.height=4, fig.cap="Plot showing a crossover design RCT"}
+#simulate some data based on a known structure
+set.seed(123)
+dat <- data.frame(x = runif(100, 1, 3.5), x2 = rnorm(100,0,0.25))
+dat$intervention <- as.integer(dat$x >= 2.5)
+dat$rev_intervention <- as.factor(as.integer(dat$x < 2.5))
+dat$y <- 3 + 0.0001 * dat$x + 0.02 * dat$x2 + 4 * (dat$x >= 2.5) + rnorm(100,0,0.5)
+
+for(i in 1:100)
+{
+if(dat$x[i]>2&dat$x[i]<2.5){dat$intervention[i]=2}
+}
+dat$intervention<-as.factor(dat$intervention)
+newdat1<-dat[dat$intervention==0,]
+newdat2<-dat[dat$intervention==1,]
+newdat3<-dat[dat$intervention==2,]
+
+mod1 <- lm(y~x,newdat1)
+mod2 <- lm(y~x,newdat2)
+ #plots for lmer 
+ 
+ ggplot(dat[!dat$intervention==2,], aes(x = x, y = y)) + 
+   theme_bw()+ theme(legend.position = "top",strip.text=element_text(size=12),axis.text=element_text(size=12),axis.title=element_text(size=12,face="bold"))+ annotate("text",x=2.25,y=8,label="Washout")+xlab("")+ylab("") +
+   annotate("text",x=1.5,y=8,label="Period 1") +
+   annotate("text",x=3,y=8,label="Period 2")+
+   annotate("rect",xmin=2,xmax=2.5,ymin=-Inf,ymax=Inf, alpha=0.1, fill="black")+
+   geom_segment(aes(x=1,y=6,xend = 2, yend = 6),col="red",size=1) +
+   geom_segment(aes(x=2.5,y=4,xend = 3.5, yend = 4),col="red",size=1)+
+geom_segment(aes(x=2,y=6,xend = 2.5, yend = 4),col="red",linetype="dashed",size=1) +
+   geom_segment(aes(x=2,y=4,xend = 2.5, yend = 6),col="blue",linetype="dashed",size=1)+
+   geom_segment(aes(x=1,y=4,xend = 2, yend = 4),col="blue",size=1) +
+   geom_segment(aes(x=2.5,y=6,xend = 3.5, yend = 6),col="blue",size=1)+ylim(3,8)+
+   geom_segment(aes(x=2.6,y=4,xend = 2.6, yend = 6),col="red",size=1,linetype="dotted")+ylim(3,8)+
+   annotate("text",x=2.75,y=5,label="effect\nsize",color="red") +
+   annotate("text",x=1.5,y=6.2,label="Group 1",color="red") +
+   annotate("text",x=1.5,y=4.2,label="Group 2",color="blue")+theme(axis.text = element_blank(),axis.ticks = element_blank())
+
+#ggarrange(cross2,cross1,ncol=2,nrow=1)
+
+```
+
+
+### Delayed crossover design (Wait list controls)
+
+The delayed crossover design or wait list control design is another type of _within subject_ design. The control group also receive the intervention, but after a pre-specified wait period. This design may encourage participation by clients and those referring them, as all participants have access to a potentially beneficial intervention and serve as their own controls. There is, however, some debate around usefulness of wait-list designs in the psychological and behavioural interventions literature [@Elliott_2002; @cunningham2013; @furukawa2014]. In particular, @cunningham2013 presented results that showed this design can potentially, artificially inflate intervention effect estimates. When a participant knows that they have to wait, psychologically this can induce different behaviour, described as a state of "resentful demoralisation", which can lead to poorer outcome - a kind of "nocebo" effect. Having said that, Cunningham et al noted that negative reactions to being on a wait list are likely to depend on the specific context. Studies showing "nocebo" effects have tended to focus on clinical psychology interventions, where distressed patients have been actively seeking help and may become disconsolate or irritated at having to wait.  
+
+<!---We definitely need to cover this, as it is not uncommon esp in educational contexts. 
+But thinking about this, I'm not sure how it differs from regular crossover apart from making it easier to recruit. And I guess it is possible to make it adaptive so the waitlist people only get intervention if analysis at end of phase 1 shows it is promising. 
+Also wonder about the analysis: I googled and someone said this, 
+"Have three timepoints for everyone, t0 at baseline, t1 when the control group switches to treatment, and t2 after about double that time. At t1 you have a between subject treatment comparison of treatment versus control adjusted for the t0 baseline covariate. You also have a within subject comparison within the control-treatment group. The right linear mixed model can combine those estimates under certain assumptions. And stronger assumptions can be made of course if blinding occurs and neither group knows who is on control or treatment to time t1." --> 
+
+```{r waitlist_plot, echo=F, message=F, warning=F, fig.width=8,fig.height=4, fig.cap="Plot showing a wait list design RCT"}
+
+
+
+  ggplot(dat[!dat$intervention==2,], aes(x = x, y = y)) + 
+   theme_bw()+ theme(legend.position = "top",strip.text=element_text(size=12),axis.text=element_text(size=12),axis.title=element_text(size=12,face="bold"))+ xlab("")+ylab("") +
+   annotate("text",x=1.5,y=8,label="Period 1") +
+   annotate("text",x=3,y=8,label="Period 2")+
+   annotate("rect",xmin=2,xmax=2.5,ymin=-Inf,ymax=Inf, alpha=0.1, fill="black")+
+   geom_segment(aes(x=1,y=6,xend = 2, yend = 6),col="red",size=1) +
+   geom_segment(aes(x=2,y=6,xend = 2.5, yend = 6),col="red",linetype="dashed",size=1) +
+   geom_segment(aes(x=2,y=4,xend = 2.5, yend = 6),col="blue",linetype="dashed",size=1)+
+   geom_segment(aes(x=1,y=4,xend = 2, yend = 4),col="blue",size=1) +
+   geom_segment(aes(x=2.5,y=6,xend = 3.5, yend = 6),col="green",size=1)+ylim(3,8)+
+   geom_segment(aes(x=1.8,y=4,xend = 1.8, yend = 6),col="black",size=1,linetype="dotted")+ylim(3,8)+
+   annotate("text",x=1.65,y=5,label="effect\nsize",color="black") +
+   annotate("text",x=1.3,y=6,label="Intervention\ngroup",color="red") +
+   annotate("text",x=1.3,y=4,label="Control\ngroup",color="blue")+theme(axis.text = element_blank(),axis.ticks = element_blank())+annotate("text",x=3,y=5.5,label="Both groups are\non intervention",color="green")
+
+```
+ 

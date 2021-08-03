@@ -1,0 +1,95 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
+# Cluster Randomised Control Trials
+
+```{r packages16, echo=F, message=F, warning=F}
+list_of_packages<-c("tidyverse","diagram","ggpubr","ggalluvial","DiagrammeR","DiagrammeRsvg","rsvg", "knitr", "kableExtra")
+new.packages <- list_of_packages[!(list_of_packages %in% installed.packages()[,"Package"])]
+if(length(new.packages))install.packages(new.packages,dependencies = TRUE)
+
+library(tidyverse)
+library(ggpubr)
+library(ggalluvial)
+library(diagram)
+
+library(DiagrammeR)
+library(DiagrammeRsvg)
+library(magrittr)
+library(rsvg)
+
+library(kableExtra)
+library(knitr)
+library(citr)
+```
+
+## What is a cluster RCT? 
+
+In some situations, allocation of intervention can be problematic due to pragmatic constraints; for example, schools can find spliting students within each class into an intervention and control groups to be very disruptive; or perhaps therapists may find it difficult to assign individuals to intervention following a preset scheme as the intervention may be very obviously different compared to control, so randomisation can be compromised; this is less of a problem in many medical clinical trials, where placebos can be packaged to appear identical to a drug. A potential solution is to use cluster trials, where the allocation to intervention is performed at the group level. We can designate clusters that would naturally occur together, for example, school classes, patients under the care of a particular medical practice or a specific therapist, or perhaps by geographic location (county, district or NHS trust).
+
+```{r, cluster_diag,echo=FALSE,warning=F,message=F}
+library(ggplot2)
+library(ggimage)
+library(maptools)
+
+# create a df
+
+set.seed(1)
+
+data(wrld_simpl)
+world <- fortify(wrld_simpl)
+worldUk <- subset(world, id=="GBR")
+
+d <- data.frame(x = seq(-3,0,0.2),
+                y = rnorm(length(seq(-3,0,0.2)),52.5,0.5),
+                image = 'stickman.png')
+
+d$x2<-d$x+12
+worldUk$long2<-worldUk$long+12
+d$cluster<-as.factor(rep(1:4,each=4))
+
+polys<-data.frame(id=rep(1:4,each=4),x=c(2,-2,-2,2,-3,-7,-7,-3,9,5,5,9,14,10,10,14),y=c(43,43,48,48,43,43,48,48,43,43,48,48,43,43,48,48))
+
+d2 <- data.frame(x = c(-6.5,-5.5,-4.5,-3.5,-1.5,-0.5,0.5,1.5,-6.5,-5.5,-4.5,-3.5,-1.5,-0.5,0.5,1.5),
+                y = c(44,44,44,44,44,44,44,44,47,47,47,47,47,47,47,47),
+                image = 'stickman.png')
+
+d2$x2<-d2$x+12
+d2$cluster<-as.factor(rep(1:4,each=4))
+
+df<-data.frame(x2=c(-4,-2,8,10.5),x1=c(-1.5,-1.5,9.5,9.5),y1=c(51,51,51,51),y2=c(48.5,48.5,48.5,48.5))
+
+# plot2
+ggplot() + geom_path(aes(long, lat, group=group), data=worldUk, color="grey", fill=NA) + geom_path(aes(long2, lat, group=group), data=worldUk, color="grey", fill=NA)+coord_equal() + geom_image(data=d,aes(x=x,y=y,image=image), size=.012,color="blue") + geom_image(data=d,aes(x=x2,y=y,image=image,colour=cluster), size=.012) + xlim(-10,15) + ylim(42,61) + geom_polygon(data=polys,aes(x=x,y=y,group=id),colour="black",fill='white') + geom_image(data=d2,aes(x=x,y=y,image=image), size=.012,color="blue") + geom_image(data=d2,aes(x=x2,y=y,image=image,colour=cluster), size=.012) + annotate(geom="text",x=-5.5, y=49, label="Control")+ annotate(geom="text",x=0.5, y=49, label="Treatment")+ annotate(geom="text",x=6.5, y=49, label="Control")+ annotate(geom="text",x=12.5, y=49, label="Treatment")+geom_segment(aes(x = x1, y = y1, xend = x2, yend = y2),colour="red",arrow = arrow(length = unit(0.03, "npc")), data = df)+ annotate(geom="text",x=8.4, y=61, label="CLUSTER RCT") + annotate(geom="text",x=-3.7, y=61, label="INDIVIDUAL RCT")+ theme_nothing()+ theme(legend.position = "none")
+```
+
+
+
+## Advantages and disadvantages of cluster design
+
+The cluster design is primarily used when it is problematic to randomise treatments at the individual level. The clustered approach, while solving one issue, introduces a second as a consequence. The individual units are now dependent rather than independent, as those receiving a particular intervention arm can exert an influence on each other.
+
+### Advantages
+
+The first advantages of this approach are logistical. It avoids the practical difficulties of  randomising to intervention within established natural clusters, i.e. splitting classes in schools to different intervention arms. This makes it easier for those administering the intervention to keep track of who receives which intervention. In addition, if it is necessary to train those administering the intervention, clustering means that fewer individuals need to be trained overall, as those working in each cluster would require training in just one method. 
+
+Another important consideration is that clustering avoids 'contamination' effects. Contamination in the context of controlled trials means that individuals in one arm of the trial, say the control arm, have been exposed to the another arm of the trial, say intervention. For example, suppose in the example from the last chapter, within the same classroom we had some children who received a phonics intervention, some who received computerised intervention, and others who just had "business as usual". The children as well as the teachers might feel this is unfair, and indeed they might demand that the control children take part in the other activities. Even if there is no sense of unfairness, a teacher or therapist who is administering two interventions may find it hard to keep them separate. 
+
+In pharmaceutical trials, we can control contamination by masking the randomisation and using placebos that are physically indisinguishable from the drug. In reality, some community or group level interventions can be difficult to randomise within groups or communities to different trial arms. A second source of contamination can be stem from the practitioner administering the intervention. For example, image that we have recruited several SLPs to administer an intervention at their practice.  Therefore, the clustered approach minimises the risk of contamination as intervention clusters are less likely to have direct exposure to each other.  
+- Essential if the intervention can only be delivered at the group level, i.e. resource constraints in a school does not permit splitting classes as there are not enough teachers.
+
+
+### Disadvantages
+
+The principal disadvantage of a clustered trial is that it is far less efficient than a regular trial, because the unit of analysis is the cluster rather than the individual. Accordingly, much larger samples are needed to attain adequate power.  
+
+It may not be obvious why clustering should require this different approach, and indeed, the literature does contain trials which have been analysed as if they were regular trials, even though the data are clearly clustered. The problem is that clustering introduces confounds. For instance, if we have classrooms as clusters, then all the children in one class are taught by the same teacher. They are also likely to be more similar within a cluster than between clusters on variables such as social background.  This reduces variability within a cluster. Previously, we have regarded reduced variability as a good thing, as it helps pick out an intervention effect from a background of noise. But in this case, it is a bad thing, because it is confounded with the intervention effect, and may make it seem larger than it is. For instance, if we just had a study where all the children in school A had intervention 1, and all of those in school B had intervention 2, then if we find children in school A did better than those in school B, this is hard to interpret. It could just be that teaching is better in school A, regardless of the intervention. 
+
+Statisticians have developed sophisticated methods of analysis for dealing with the dependency among individuals within the same cluster (@campbell2014). It is worth taking advice from a statistician if you are contemplating doing such a trial. 
+
+
+
+
+
