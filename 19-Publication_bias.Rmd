@@ -48,10 +48,9 @@ Citation bias is often unintentional, but is a consequence of the way humans thi
 In chapters 20 and 21, we discuss two approaches to counteracting biases: preregistration offers a solution to publication bias, and systematic review offers a (partial) solution to citation bias.  
 
 ### Class exercise  
-[Publication game!?]
+1. As a group exercise, you may like to try a game of Statcheck, the materials and rules for which are available here: https://sachaepskamp.github.io/StatcheckTheGame/. This should induce a sufficiently cynical approach towards the current publication system.  
 
-
-Find a published report of an intervention that interests you. Take a look at the introduction, and list the references that are cited as background. Next, go online and search for articles on this topic that were published 2 or more years before the target paper. Do you find many articles that are relevant but which were not cited? If so, did they give positive or negative results? 
+2. Find a published report of an intervention that interests you. Take a look at the introduction, and list the references that are cited as background. Next, go online and search for articles on this topic that were published 2 or more years before the target paper. Do you find many articles that are relevant but which were not cited? If so, did they give positive or negative results? 
 N.B. There are various ways you can conduct a literature search. Google Scholar is often preferred because it is free and includes a wide range of source materials, including books. Scopus and Web of Science are other commercial options that your institution may subscribe to. Both of these are more selective in coverage, which can be a positive if you want some quality control over your search (e.g. restricted to peer-reviewed journals), but a negative if you want to be comprehensive. If you compare these different ways of searching the literature, you will find they can give very different results. 
 
 
