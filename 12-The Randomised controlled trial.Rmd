@@ -4,7 +4,19 @@
 
 The randomised controlled trial (RCT) is regarded by many as the gold standard method for evaluating interventions. In the next chapter we will discuss some of the limitations of this approach that can make it less than ideal for evaluating speech and language therapy interventions. But in this chapter we'll look at the ingredients of a RCT that make it such a well-regarded method, and introduce the basic statistics that are used to analyse the results.
 
-A RCT is effective simply because it is designed to reduce all of the systematic biases that were covered in previous chapters. The inclusion of a control group ensures that we can distinguish genuine differences in outcome caused by the intervention from other reasons for change over time (Chapter 5). Randomisation of participants to intervention and control groups avoids bias caused either by participants' self-selection of intervention group, or experimenters' determining who gets what treatment.  In addition, as noted in Chapter 7, where feasible, both participants and experimenters may be kept unaware of who is in which treatment group, giving a double-blind RCT.
+A RCT is effective simply because it is designed to reduce all of the systematic biases that were covered in previous chapters.
+
+```{r rctchart, echo=F, include=T}
+Biases <- c('Spontaneous improvement','Practice effects','Regression to the mean','Noisy data (1)','Noisy data (2)','Selection bias', 'Placebo effects', 'Experimenter bias (1)','Experimenter bias (2)','Biased drop-outs')
+Remedies <- c('Control group','Control group','Control group','Strict selection criteria for participants','Low measurement error in outcomes','Random assignment to interventino','Participant unaware of assignment','Experimenter unaware of assignment','Strictly specified protocol','Intention-to-treat analysis')
+mydf<-data.frame(cbind(Biases,Remedies))
+ftable<-flextable(mydf)
+ftable <- set_caption(ftable, "How the RCT design deals with threats to study validity")
+ftable <- autofit(ftable)
+ftable
+```
+
+The inclusion of a control group ensures that we can distinguish genuine differences in outcome caused by the intervention from other reasons for change over time (Chapter 5). Randomisation of participants to intervention and control groups avoids bias caused either by participants' self-selection of intervention group, or experimenters' determining who gets what treatment.  In addition, as noted in Chapter 7, where feasible, both participants and experimenters may be kept unaware of who is in which treatment group, giving a double-blind RCT.
  <!--- We haven't actually discussed participants being blind to status! Need to add this either to previous chapter, or introduce it here-->
 
 RCTs have become such a bedrock of medical research that standards for reporting them have been developed. In Chapter 8 we saw the CONSORT flowchart, which is a useful way of documenting the flow of participant through a trial. CONSORT stands for Consolidated Standards of Reporting Trials, which are endorsed by many medical journals. Indeed, if you plan to publish an intervention study in one of those journals, you are likely to be required to show you have followed the guidelines. The relevant information is available on the 'Enhancing the QUAlity and Transparency Of health Research' [EQUATOR](http://www.equator-network.org) network website. The EQUATOR network site covers not only RCTs but also the full spectrum guidelines of most types of clinical research designs. 
